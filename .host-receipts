@@ -18,3 +18,8 @@ applied = 32994e4 recorded=2026-08-10 via=verify
 applied = 514aaa2 recorded=2026-08-10 via=verify
 applied = RENAME-repro-waiver recorded=2026-08-10 via=verify
 applied = RETIRE-hermetic-exempt recorded=2026-08-10 via=verify
+applied = e4ed590 recorded=2026-11-07 via=verify
+applied = REFS-a-number-resolves recorded=2026-11-07 via=verify
+applied = GATE-refs-in-verify recorded=2026-11-07 via=verify
+applied = LEXICON-declaration-is-a-report recorded=2026-11-07 via=verify
+applied = PIN-two-surfaces-two-claims recorded=2026-11-07 via=verify

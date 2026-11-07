@@ -113,6 +113,59 @@ the name.
 - `tools/host-lifecycle` allocates these numbers and checks the names for you.
   Use it (see below) instead of numbering by hand.
 
+### A number that names something resolves to it
+
+Numbers being identity has a second half: a reader has to be able to follow one.
+Write references so they resolve, and let the tool do the resolving.
+
+- **A register reference is `plan/NNNN` or `call/NNNN`,** optionally with a task
+  anchor (`plan/0003#gather-data`). `host-lifecycle resolve <ref> [--markdown|--url]`
+  turns it into the path, a markdown link, or the forge URL. Use the markdown form
+  in an authored document so the published site renders it as a link rather than as
+  text that merely looks like one.
+- **A bare `#N` is not a reference.** It renders as nothing in the site, and read
+  outside the forge it does not say whose tracker it means. Write `owner/repo#N`, or
+  `component#N` for a component this project records, and put it inside a link. The
+  resolver refuses a bare number rather than guessing: in a host repository most
+  bare numbers name a component's issues while the origin remote is the host, so a
+  guess is confidently wrong.
+- **A register number in a software repository belongs to its governing host.** The
+  software repository holds no `plan/` or `call/` room, so the reference is reported
+  as unresolved here and is never counted against it.
+- **`host-lifecycle refs --check <dir>` sweeps the authored markdown** and reports
+  what a reader cannot follow. The split follows the audit's: a register reference
+  pointing at nothing is a dead pointer and gates (exit 1); an issue number written
+  outside a link is legibility debt and advises (exit 3). A document the walk lists
+  and cannot read gates too, because a verdict over a corpus with a hole in it is a
+  claim the run cannot make.
+- **The record layer is excluded, and the exclusion is disclosed.** `MEMORY.md` is
+  excluded by construction whether or not you have written an exclusion list, and
+  `.host-lintignore` names your own records alongside it. This is the append-only
+  rule in its concrete form: a checker that pressed you to rewrite a record would
+  have broken the thing it was auditing. Every verdict says how many documents it
+  withheld, so the exclusion never reads as coverage.
+- **Expect a wall on the day you turn it on,** and do not let it gate. A project of
+  any age carries hundreds of bare numbers written before this rule existed; that is
+  why the issue half advises rather than blocks. Remediate live documents as you
+  touch them and leave the records alone. There is no fix flag, and the refusal says
+  so: only the author knows which tracker a bare number meant.
+- **The gate runs it, over the project's record.** `host-lifecycle refs --gate .` is
+  a clause of the `verify` phase's `recheck`, so a dead pointer or a document that
+  cannot be read re-opens the verify receipt and stops a component release at its
+  first step. It reads **tracked** documents only: a gate judges what the project
+  recorded, and reddening over an uncommitted note would assert something no clone
+  can re-derive and block a release over a file the release does not ship. The gate
+  never returns the advisory code and never prints the per-file census; it discloses
+  the debt as a count. `refs --check` keeps the whole working tree, drafts included,
+  and is where you ask for the census, because that is a question about references
+  rather than a question about whether you are done.
+- **Do not repair the asymmetry between the two clauses.** In the same `recheck`, a
+  prose trope blocks and a bare issue number does not, and that looks like an
+  inconsistency until you have the reason: a prose trope is your own text and is
+  always rewordable, while only the author knows which tracker a bare number meant.
+  Adding the reference clause's tolerance to the prose clause would disarm the gate
+  a whole upgrade entry exists to install.
+
 ## Decisions: `call/`
 
 When you make a choice that someone later will ask "why?", record it as a
@@ -175,6 +228,30 @@ modalities; replace them with your project's own.
 Build at least one persona by discussion with the human before planning the work
 it serves. `cast/applying-personas.md` gives the cited process for doing this.
 Follow it.
+
+### Name the means, not only the outcome
+
+Text that tells somebody what to do next (an error, a remedy line, a gate's
+verdict) is a thing to **test**, not a thing to review. Put the message in front
+of a model materially weaker than the one writing it, give it the run's output and
+its exit code, and ask for one next action. What comes back is what the message
+actually says, as distinct from what its author believes it says.
+
+The finding that survived every round of this: **an instruction that names an
+outcome without naming the means leaves the means to be invented, and a small
+model invents confidently.** "Install one (for example A or B)" produced a package
+manager that does not distribute A and a command that does not exist. A remedy
+offering the tail of a pipeline produced the tail of a pipeline, and then a local
+path that the run being remedied never creates.
+
+So: name a URL, because a URL cannot be invented. Quote the whole command, because
+a fragment gets completed by guessing. Neither message changed in substance, and
+every repeat that had failed then answered correctly.
+
+Two constraints on the probe itself. Change **one** thing between rounds, or a
+result cannot be attributed to a cause. And record what the probe did not reach: a
+branch that needs a controlling terminal the probe cannot open is unmeasured, not
+passing.
 
 ## The verification ladder
 
@@ -254,6 +331,20 @@ lanes:
    gains it on the next bump; the project that finds it does not edit that shared source
    itself. A legitimate tell-shaped token stays in the per-project `LEXICON`. The host's
    own maintainer validates universality and releases the graduation.
+
+   **A declaration is a report, not a settlement.** Declaring a token records that the
+   shared grammar over-fired on this corpus, so the entry is provisional and it is owed
+   upstream. Legitimacy is local by definition, which makes the same declaration reached
+   independently in two projects evidence about the rule rather than about either
+   project: a confirmed over-fire, fixed in the grammar, after which both declarations
+   retire. Narrow a term on a **measured** collision and add one the same way, never on a
+   reading of the word, since a list adopted wholesale is how an over-firing term arrives
+   in the first place. Check a rule against the source it cites before trusting either.
+   **Text that ships to another repository cannot be declared clear.** A spine carried by
+   copy-at-version lands in projects that never receive the declaring file, so a `LEXICON`
+   entry covering inherited text is unsound where it is written. Reword that text, or the
+   shared rule is the thing that is wrong. This template therefore carries no `LEXICON`
+   at all: what it publishes has to stand on its own writing.
 
    **Growth never inverts the disposition order, and it looks forward.** Reword a
    positional or ordinal reference into content by default, since a content name is
@@ -429,6 +520,21 @@ Two rules govern the tools:
   built result (binary + worktree-sourced skills) from that worktree, rather than
   referencing its own source as a foreign submodule. Reference is for the consumer;
   the producer of a tool embeds it.
+
+  Almost every project references the host-* tools and releases none of its
+  own, and for such a project this release-side complement of the carve-out is
+  a no-op, so a first read stops here. The rule binds only where two facts
+  about your own repository both hold: your repository releases a host-* tool
+  of its own, and it carries host-template as a submodule whose pins include
+  that tool. If the first is false, as it is for a project that only consumes
+  the tools, the rule does not apply and you change nothing, with no template
+  pin to look for. Where both hold, the producer carries that tool's pin twice,
+  once in its own Where room and again inside the vendored template, so a
+  release is unfinished until every carried-template pin surface for that tool
+  is bumped to the released commit, and `host-lifecycle software --check`
+  HAZARDs any carried-template pin left behind.
+  The producer re-pins the carried template when it releases the tool, just as
+  it embeds the tool when it develops it.
 - **Instruct, don't patch.** Drive the tools through this manual and their own
   interfaces. Do not edit a tool's source to make it fit. If a tool needs a
   change, raise it upstream.
@@ -488,6 +594,57 @@ core (`verify`, `skippable = false`) refuses a skip outright. Operating a phase
 ad-hoc (hand-scaffolding rooms, hand-renaming files, hand-rolling the site or a
 release) leaves no receipt, and so is a defect by construction.
 
+### The fresh clone is bootstrapped, and its completeness is gated
+
+A clone is not a set-up project. The pins can be perfect, every receipt in place
+and `software --check` green, while this machine has no commit hooks installed,
+no re-deriver on PATH and no skill links: the recorded state and the local setup
+are different facts. Two capabilities close that, and a third records it.
+
+**`host-lifecycle bootstrap <dir>` runs the fresh-clone sequence** instead of
+describing it: submodules, materialize, skill links, the gating artifact, the
+commit hooks, the declared PATH re-deriver, then the completeness gate. Every
+step is derived from `.host-software` and every step is read against the live
+tree immediately before it runs, so a step whose precondition already holds is
+skipped and a re-run after a hand-fix picks up where the tree now stands. Know
+what it does on your machine before you run it on a recipe you did not write: it
+runs `git submodule update --init`, clones and checks out worktrees, writes
+symlinks under `.claude/skills/`, `cargo install`s the re-deriver, and copies the
+commit gate into the host repository **and every materialized worktree**. It does
+**not** build the gating artifact: that build belongs in its recorded toolchain,
+and an orchestrator that shelled it into whatever compiler is on the machine
+would install a binary nobody attested. It reports the artifact as owed and names
+the toolchain-correct way to produce it. Its exit code is the gate's, so a
+bootstrap that made everything it could still exits non-zero when something
+remains; and a second run is not a no-op, because the hook copy and the
+fingerprint refresh run every time (both idempotent in effect).
+
+**`host-lifecycle software --verify-setup <dir>` is the completeness gate.** It
+reads the recipe and the live tree and hazards on every required local artifact
+that is absent, naming the command that installs it. Read its clean line
+precisely: it means *every artifact the recipe requires OF THIS HOST is present*,
+where required is role-aware twice over. An artifact is required locally only
+when something local consumes it (today, the component that declares `hooks`
+supplies the gate binary) and only when this host is the one the recipe expects
+to build it. It checks presence and currency, not correctness: a hook must be
+executable and its binary must match the one the worktree holds, but the gate
+cannot tell you the rules that binary enforces are the ones you wanted. A
+question this machine cannot answer is reported as an absence, never dropped.
+
+**The materialize receipt is ungated provenance.** `software --materialize`
+appends `[receipt "materialize" "<component>"]` to `.host-lifecycle-receipts` for
+each component it realized, recording the event: what was realized, the pin by
+reference, the toolchain image reference, and when. It is *not* a phase receipt:
+the lifecycle manifest does not declare that phase, so `software --check` neither
+re-verifies it nor hazards on its absence, and a materialize whose receipt could
+not be written still succeeds. Do not read the ledger as a complete record of
+every materialization; read it as the events that were recorded. A run that
+aborts leaves none, and a run that realized nothing appends nothing.
+
+The local environment fingerprint (`.host-envhash`, read by `host-lifecycle env
+--check`) is tooling, not doctrine: it is gitignored, machine-local, advisory,
+and it never gates. Nothing in the spine depends on it.
+
 ### Never adopt a software repository in place
 
 A host is a *separate meta-repo*; the software it governs lives beneath it as the
@@ -506,6 +663,32 @@ create or choose an empty host repository (e.g. `agentic-<name>`), `adopt` it
 there, then add the software as the Where room with a `[software "<name>"]`
 stanza in the host's `.host-software` (the repo's URL, a pinned SHA, the worktree
 set) and `software --materialize`. The classify refusal prints these exact steps.
+
+### Onboarding a project: init, adopt, and the two shims
+
+Starting a project is one engine with two purpose-named faces. `host-lifecycle init
+<name>` creates a fresh `agentic-<name>` in a new folder. `host-lifecycle adopt`
+brings a folder under the methodology by one of three routes: a software repository
+is refused in place (above), an empty `agentic-<name>` folder is adopted in place,
+and any other folder is arbitrary, so the tool elicits a name, creates the host at
+`../agentic-<name>`, and leaves the source folder untouched. `host-init` and
+`host-adopt` are the same binary under those two names, the human-facing commands over
+the `init` and `adopt` verbs.
+
+Three invariants hold across the onboarding surface. The **source is read-only** on
+the arbitrary-folder route: the new host lands elsewhere, and the source, even a home
+directory, is never written. A **present, non-empty target refuses** rather than
+overwrite, unless forced. The **name is the one field elicited**, because it carries
+operator intent a folder cannot supply: the verb accepts it by flag or the `HOST_NAME`
+environment variable, else prompts on a controlling terminal, else exits with a
+distinct code and a machine-parseable line naming the missing field, so a scripted or
+agent caller re-invokes with the name supplied. Never invent the name.
+
+The scaffold-and-stamp primitive is `host-lifecycle scaffold <dir> <revision>`, the
+adopt phase's command, which `adopt` and `init` build on. A spawned MCP surface
+(`host-lifecycle mcp`) exposes `init` and `adopt` as tools over stdio, eliciting the
+name through the client when it declares the capability and falling back to the verb's
+backstop otherwise; the MCP tools are an enhancement, never mandatory.
 
 ## Audited plans and append-only memory
 
@@ -644,6 +827,17 @@ once?" A coordinator fans a frontier out to parallel workers **only when they ar
 resource-isolated** (separate worktrees), since `depends` orders work, it does not
 lock a shared resource.
 
+**Group a long sequence with a band, never an ordinal.** To divide a build
+sequence into named groups, mark a `### ` heading with a single `- band` bullet:
+it is a **band**, a content-named divider over the tasks that follow, not a task
+node. A band carries no receipt or edge and does not reset the linear default, so
+task-to-task chaining runs straight across it, and ordering stays in the `depends`
+edges rather than in a band's name or position. Give a band a content name and its
+own `{#anchor}`, so it reads as a referenceable divider in the book. Never name a
+group by ordinal position (a work-unit noun ahead of an ordinal); that is the
+position-naming the milestone-naming rule forbids, and the naming gate blocks it
+in both its numeric and its spelled forms.
+
 **Every task emits a receipt, and the gate is mandatory.** `host-lifecycle tasks
 --record` writes a receipt into `.host-task-receipts` (it reads the task's own
 `verify`/`inputs`, so you never re-type them), a tool-written ledger you never
@@ -738,23 +932,28 @@ vendored sources, and build under `--network none` (the egress half). The gate i
 specific and enforceable: a component recording a `deps-bundle` MUST build offline, its staged
 bundle sha MUST match the recorded one, and `software --check` HAZARDs a `deps-bundle` pin that
 has drifted from the producer's committed `deps-bundle.lock`. A component that genuinely cannot
-vendor offline, such as one with a network-fetching `build.rs` or a non-Rust toolchain, may
-carry `hermetic-exempt = call/NNNN` citing a software-scoped case decision, the same escape
-shape as `repro-exempt`; the exemption is never available where offline vendoring is feasible.
+vendor offline, such as one with a network-fetching `build.rs` or a non-Rust toolchain,
+records the case in `repro-waiver = call/NNNN`, whose value names a software-scoped
+decision. Hermeticity is a facet of reproducibility rather than a second property with its
+own key, so one waiver carries both cases: a migrated build that does not reproduce byte
+for byte yet, and a component that cannot vendor offline. Where offline vendoring is
+feasible, the waiver does not apply.
 
 **Multi-platform builds.** A component whose *one* source pin ships on several platforms
 records one `[build "<name>" "<platform>"]` subsection per platform under its
 `[software "<name>"]` stanza, each carrying its own `build`/`toolchain`/`artifact`/`deploy`
-(and optional `repro-exempt`) plus an `attest-host` naming the OS (`linux`, `windows`,
+(and optional `repro-waiver`) plus an `attest-host` naming the OS (`linux`, `windows`,
 `macos`) that reproduces it. `--check` and `--verify-build` iterate the builds and attest
 each only on its `attest-host`. A build whose host is not the current one is skipped, and
 the run does not fail (a Linux runner cannot reproduce the Windows artifact, and is not asked to).
 The flat single-build fields remain the form for a single-platform component.
 
-**Escape clause (migrated software only).** Pre-existing software brought under the
-methodology may not be reproducible yet. It may carry `repro-exempt = call/NNNN` citing a
+**The waiver (migrated software only).** Pre-existing software brought under the
+methodology may not be reproducible yet. It may carry `repro-waiver = call/NNNN` naming a
 recorded **case decision**, a software-scoped `call/` decision documenting why it is not
-yet reproducible and the interim provenance. `--verify-build` then warns and skips the
+yet reproducible and the interim provenance. The key is named for what it records, the
+citation, rather than for the state it excuses; the retired spelling `repro-exempt` still
+parses and reports itself, and is removed at a later revision. `--verify-build` then warns and skips the
 rebuild comparison; `--check` still requires the citation to resolve. The exemption is
 meant to be retired as the component converges on reproducibility, and is **never**
 available to greenfield software.

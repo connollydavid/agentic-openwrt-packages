@@ -23,7 +23,7 @@ the stanza carries a waiver). It does not govern versioning or cadence.
 The fork follows semantic versioning on its tags, with the release process the
 v1.0.x line already established:
 
-- A **minor** bump (`vX.Y.<anything>` → `vX.<Y+1>.0`) carries a user-visible
+- A **minor** bump (from the `vX.Y` patch line to `vX.<Y+1>.0`) carries a user-visible
   feature; a **patch** bump carries a fix. The first minor bump is `v1.1.0`, cut for
   the DNS lease manager feature in `plan/0001`.
 - The **tag is the release**, per the spine rule: a version bump MUST be accompanied
@@ -41,8 +41,8 @@ v1.0.x line already established:
   before the tag, not after; the v1.1.0 bump has a citable decision behind it.
 - Good: the release receipt ledger (currently a stale `skip` for this component)
   gains a real `done` entry once `plan/0001` ships.
-- Neutral: the OpenWrt feed package bump is a separate milestone; the fork release is
-  its prerequisite, not its mechanism.
+- Neutral: the OpenWrt feed package bump is a separate milestone, and the fork
+  release is merely its prerequisite.
 - Follow-up: `call/0006` still governs reproducibility; when the build becomes
   deterministic, that waiver is retired and this decision's release-mechanics half
   stays in force.

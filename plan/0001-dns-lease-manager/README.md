@@ -23,8 +23,8 @@ nonblocking, TTL-aware DNS Locator-Hint Cache. The client resolves `-r hostname:
 to candidate IPs, leases them for an effective TTL, refreshes before expiry, and
 re-points the tunnel when the resolved IP changes. It treats DNS as an untrusted,
 mutable locator-hint source (the tunnel test the candidates via the data plane), not
-as a trust anchor. This is the first minor version bump (`v1.0.6` → `v1.1.0`); every
-release so far has been a patch.
+as a trust anchor. This is the first minor version bump; every release before it
+was a patch (`v1.0.6` was the last).
 
 The OpenWrt feed package is out of scope here; the fork release is a prerequisite
 for a later package bump.

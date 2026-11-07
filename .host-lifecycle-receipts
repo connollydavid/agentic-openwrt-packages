@@ -88,3 +88,27 @@
     authorization = plan/0001
     tool = host-lifecycle@0.50.0
     recorded = 2026-08-10
+
+[receipt "materialize" "host-lint"]
+    disposition = done
+    evidence = 2 item(s) realized for host-lint at pin 966259fb2001 (reference)
+    tool = host-lifecycle@0.64.0
+    recorded = 2026-11-07
+
+[receipt "materialize" "udpspeeder-simd"]
+    disposition = done
+    evidence = 2 item(s) realized for udpspeeder-simd at pin 4370bac (reference)
+    tool = host-lifecycle@0.64.0
+    recorded = 2026-11-07
+
+[receipt "materialize" "packages"]
+    disposition = done
+    evidence = 8 item(s) realized for packages at pin 1d40ad929ad4 (reference)
+    tool = host-lifecycle@0.64.0
+    recorded = 2026-11-07
+
+[receipt "materialize" "openwrt"]
+    disposition = done
+    evidence = 2 item(s) realized for openwrt at pin 62e7565f0e1e (reference)
+    tool = host-lifecycle@0.64.0
+    recorded = 2026-11-07

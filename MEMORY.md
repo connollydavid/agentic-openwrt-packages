@@ -1073,3 +1073,35 @@ The PR head is 82e211de, pinned in `.host-software`. BKPepe's CHANGES_REQUESTED
 (the sizes request that the commit message's table answers) is still the
 standing review state; efahl's "looks good to me" arrived as a comment rather
 than an approving review, so the gate does not flip on it.
+
+## 2026-11-07 — template upgrade to the two-pin-surface revision; exec-bit audit over-fire recorded
+
+The host upgraded from baseline 46a1fd2 through every pending ledger entry
+(e4ed590, REFS-a-number-resolves, GATE-refs-in-verify,
+LEXICON-declaration-is-a-report, PIN-two-surfaces-two-claims); `host-lifecycle
+upgrade .` reads up to date at 14 applied. The spine was re-applied to
+CLAUDE.md and STRUCTURE.md (the project-specific tail and the two priority
+rules kept); UPGRADING.md's one dead register pointer (the template's own
+call/0018, cited in a title) is boxed in backticks per the reference entry's
+known-limitation remedy. A fresh checkout bootstrap now runs: submodules,
+software materialization (14 items), skill links, hooks on the host and all
+four worktrees, and `software --verify-setup .` clean.
+
+The declared toolchain is host-lifecycle v0.50.0 pinned in `.env` (installed
+by tools/install-tools.sh); the ~/.cargo/bin 0.64.0 on this machine is ahead
+of the adopted ledger and its inventory check (a `.host-inventory` remedy)
+is not owed by this revision yet.
+
+The exec-bit audit over-fired on the two foreign OpenWrt pins (514 findings,
+all the `$(INSTALL_BIN)` install idiom; sources never executed in place).
+Disposition recorded in call/0010: reported upstream as host-lifecycle issue
+45 with the fresh-checkout context; interim, the audit's own staged-chmod
+remedy is applied on this machine (local index state only, resets on every
+`--materialize`, so a fresh setup re-derives it from the gate's own printed
+remedies). The audit also caught one real defect: bench/dns-live-test.sh in
+udpspeeder-simd documented its own `./` invocation while recorded 100644;
+fixed by commit bce0f3c, pushed, `.host-software` re-pinned same session.
+
+The operator declined to set a goal this session; the open frontier remains
+plan/0000's #upstream-cross-cxx task, blocked on the flashprog PR review
+(CHANGES_REQUESTED standing, head 82e211de).
