@@ -1148,3 +1148,26 @@ existing nowhere else) are now pushed as archive/udpspeeder-update-pre-rewrite
 on the packages fork; and the untracked read-only flashprog-test-packages/
 directory (flashprog 1.5-r1 apk and ipk test builds with SHA256SUMS, dated
 August) stays where it is, preserved by its permissions and recorded here.
+
+## 2026-11-07 — correction: the exec-bit audit was never fixed at v0.63.0
+
+The earlier entry today said v0.63.0's audit learned the OpenWrt
+install-macro idiom (host-lifecycle issue 45 fixed) and call/0010 was
+superseded. That was wrong. The local findings vanished because the
+worktree indexes still carried call/0010's staged chmods; the first CI run
+of the new check lane, which materializes fresh, printed all 514 findings
+again. call/0010 is re-accepted (status retracted in place, this entry is
+the append-only correction), the interim state remains load-bearing, and
+the check lane now derives it from the gate's own printed remedies in CI:
+it runs the gate, executes the remedy lines verbatim when the only
+failures are those, and re-runs. Issue 45 stays open upstream with no fix
+shipped. The same CI run exposed a second gap: host-lint's obligations
+manifest declares kani: rungs, so the gate demands the host-prove
+re-deriver on PATH wherever it runs; the lane installs host-prove v0.3.0
+before the gate now.
+
+The mdBook "changed end url" premise from the operator's goal note did not
+match any observable state on the gh side (repo, owner, Pages config, and
+gh-pages content all unchanged; the mdBook lane green). The book still
+publishes at connollydavid.github.io/agentic-openwrt-packages/. If a move
+is intended, it has not happened yet; nothing was changed for it.

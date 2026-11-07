@@ -1,7 +1,10 @@
 # The exec-bit audit over-fires on the OpenWrt install idiom
 
-- Status: superseded by call/0011
+- Status: accepted
 - Scope: packages, openwrt
+- Note: superseded by call/0011 on 2026-11-07 and retracted the same day; see
+  the MEMORY.md correction. The apparent fix at v0.63.0 was this host's own
+  staged index state, not a change in the audit.
 - Date: 2026-11-07
 
 ## Context and Problem Statement

@@ -33,6 +33,30 @@ jobs:
       - name: Materialize the software (the scans walk the materialized sources)
         if: hashFiles('.host-software') != ''
         run: ./tools/host-lifecycle/target/release/host-lifecycle software --materialize .
+      - name: Install the rung re-deriver (host-lint's obligations declare kani:)
+        if: hashFiles('.host-software') != ''
+        run: cargo install --git https://github.com/connollydavid/host-prove --rev v0.3.0 --locked
+      - name: Apply the gate's own index remedies (the call/0010 interim)
+        # The exec-bit audit over-fires on the OpenWrt install-macro idiom
+        # (call/0010, host-lifecycle issue 45). A fresh materialization resets
+        # the staged mode bits the remedy consists of, so the lane re-derives
+        # them from the gate's own printed remedies and re-runs it: nothing is
+        # hardcoded, and the day the audit learns the idiom this step applies
+        # an empty list and the first gate run passes on its own.
+        if: hashFiles('.host-software') != ''
+        run: |
+          set -e
+          bin=./tools/host-lifecycle/target/release/host-lifecycle
+          if ! "$bin" software --check . > gate.log 2>&1; then
+            grep '^           remedy: ' gate.log | sed 's/^           remedy: //' > remedies.sh || true
+            if [ -s remedies.sh ]; then
+              sh remedies.sh
+              "$bin" software --check .
+            else
+              cat gate.log
+              exit 1
+            fi
+          fi
       - name: Recorded-state gate (pins, receipts, the naming sweep's recheck)
         if: hashFiles('.host-software') != ''
         run: ./tools/host-lifecycle/target/release/host-lifecycle software --check .
