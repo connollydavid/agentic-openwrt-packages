@@ -272,3 +272,27 @@
     recorded = 2026-11-07
     revision = 62e7565f0e1e88e5fc8d038f09cb38ffd583bbed
     conclusion = success
+
+[receipt "ci" "host/check"]
+    disposition = done
+    evidence = https://github.com/connollydavid/agentic-openwrt-packages/actions/runs/42415087238
+    tool = host-lifecycle@0.63.0
+    recorded = 2026-11-07
+    revision = 4b60b3d75c3f997b777ca4a09835e10979911608
+    conclusion = success
+
+[receipt "ci" "host/prose"]
+    disposition = done
+    evidence = https://github.com/connollydavid/agentic-openwrt-packages/actions/runs/42415087112
+    tool = host-lifecycle@0.63.0
+    recorded = 2026-11-07
+    revision = 4b60b3d75c3f997b777ca4a09835e10979911608
+    conclusion = success
+
+[receipt "ci" "host/mdbook"]
+    disposition = done
+    evidence = https://github.com/connollydavid/agentic-openwrt-packages/actions/runs/42415087151
+    tool = host-lifecycle@0.63.0
+    recorded = 2026-11-07
+    revision = 4b60b3d75c3f997b777ca4a09835e10979911608
+    conclusion = success

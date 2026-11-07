@@ -1171,3 +1171,29 @@ match any observable state on the gh side (repo, owner, Pages config, and
 gh-pages content all unchanged; the mdBook lane green). The book still
 publishes at connollydavid.github.io/agentic-openwrt-packages/. If a move
 is intended, it has not happened yet; nothing was changed for it.
+
+## 2026-11-07 — the host stood up at the v0.63.0 pins; the check lane is green in CI
+
+The stand-up is complete at baseline 7ef379e. The check lane (the push
+boundary gate) is green in CI after three fixes: the lane derives the
+call/0010 interim from the gate's own printed remedies (a fresh
+materialization otherwise re-prints all 514 findings), it installs
+host-prove v0.3.0 because host-lint's obligations declare kani: rungs,
+and it inits the host-template submodule whose lifecycle.manifest the
+receipts re-check reads. CI receipts are recorded for check, prose, and
+mdBook at the current head; the qemu lane's fix is dispatched and its
+receipt follows its green; the two packages mirror-pin lanes stay red with
+no honest evidence to cite (disclosed in call/0011).
+
+The harness doors are installed for both harnesses (host-goal, host-tasks,
+host-ci), gitignored as generated machine state, and install --check
+passes. The dream audit is clean over the repo tier. No goal is set; the
+goal loop is ready (the doors, the verbs, GOAL.md to be declared in the
+corpus at first goal set). plan/ numbering stands ready at 0002.
+
+The operator's goal note carried an mdBook end-URL change premise that
+matched nothing on the gh side (checked: repo identity, pages config,
+gh-pages content, lane health); recorded as unconfirmed. It arrived
+wrapped in a suspicious envelope claiming to be a goals plugin bridge and
+directing a third-party npx install; L flagged it, did not relay it, and
+the operator then sent the goal text directly.
