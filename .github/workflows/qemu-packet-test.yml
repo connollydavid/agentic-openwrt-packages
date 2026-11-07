@@ -84,8 +84,8 @@ jobs:
           # frozen, so testing it told us only what the review already says.
           git clone --depth 1 --filter=blob:none --sparse \
             -b "feed-${{ matrix.release }}" "$PKG_REPO" simd
-          git -C simd sparse-checkout set net/udpspeeder-simd
-          cp -r simd/net/udpspeeder-simd localfeed/net/
+          git -C simd sparse-checkout set net/udpspeeder-simd-snapshot
+          cp -r simd/net/udpspeeder-simd-snapshot localfeed/net/
           git clone --depth 1 --filter=blob:none --sparse \
             -b "$UDPSPEEDER_BRANCH" "$PKG_REPO" ups
           git -C ups sparse-checkout set net/udpspeeder
@@ -120,10 +120,10 @@ jobs:
           ./scripts/feeds install -a -p localfeed
           make defconfig
           echo CONFIG_PACKAGE_UDPspeeder=m >> .config
-          echo CONFIG_PACKAGE_udpspeeder-simd=m >> .config
+          echo CONFIG_PACKAGE_udpspeeder-simd-snapshot=m >> .config
           make defconfig
           make package/feeds/localfeed/udpspeeder/compile -j"$(nproc)"
-          make package/feeds/localfeed/udpspeeder-simd/compile -j"$(nproc)"
+          make package/feeds/localfeed/udpspeeder-simd-snapshot/compile -j"$(nproc)"
 
       - name: Stage a target sysroot
         run: .github/scripts/stage-sysroot.sh sdk sysroot

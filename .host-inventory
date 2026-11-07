@@ -1,0 +1,5 @@
+# .host-inventory — reasoned exclusions from the derived-source inventory
+# (a source file of a materialized component that no task's `- inputs:` covers).
+# One `<path> <reason>` per line.
+software/host-lint/main/src/lib.rs host-lint is a consumed gate, referenced rather than developed here; its sources build the binary the hooks install, and no milestone task takes them as inputs
+software/host-lint/main/src/main.rs host-lint is a consumed gate, referenced rather than developed here; its sources build the binary the hooks install, and no milestone task takes them as inputs

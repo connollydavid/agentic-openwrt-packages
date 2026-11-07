@@ -1,6 +1,6 @@
 # The exec-bit audit over-fires on the OpenWrt install idiom
 
-- Status: accepted
+- Status: superseded by call/0011
 - Scope: packages, openwrt
 - Date: 2026-11-07
 

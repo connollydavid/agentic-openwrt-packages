@@ -1,4 +1,5 @@
 template = "https://github.com/connollydavid/host-template"
 revision = "565410a860abab47b4782342374a1b9b2f08ddcb"
 adopted  = "2026-07-02"
-baseline = "46a1fd2"
+baseline = "7ef379e"
+active-corpus = .host-corpus

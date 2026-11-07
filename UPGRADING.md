@@ -13,6 +13,36 @@ against this template, so same-day revisions order correctly. Fetch the template
 to the target revision first; then apply the list and re-stamp. Each entry is
 keyed by the template revision at which its action became required.
 
+## What a `verify` condition must test
+
+An entry's `verify` is re-run twice over: by `upgrade --record` when the entry is
+applied, and by `software --check` on every gate run thereafter. It is a standing claim
+about the adopter's tree, not a check of the upgrade procedure.
+
+Every entry added from here on obeys four rules.
+
+1. **Test the adopter's side**: their tree, their recipe, or their running binary. Never
+   a file under `host-template/`: `upgrade` requires the template fetched at the target
+   revision before it will run, so such a condition is a post-condition of the command's
+   own precondition. It can neither refuse a false record nor detect a revert.
+2. **Test what the tool guarantees, not what the entry is about.** Build a tree that
+   SHOULD fail the condition and confirm it fails. A condition stricter than its own
+   action leaves a correct adopter permanently unable to record, with no remedy.
+3. **One command, no shell operators.** Conditions run through `sh -c` on POSIX and
+   `cmd /C` on Windows; a pipe, a `!`, or a `grep` does not survive the second. Prefer a
+   mode that answers for itself, such as `host-lifecycle capability <name>`.
+4. **Accept a tree the entry's own gate would redden.** The condition asks whether the
+   entry was applied, never whether the project is clean. Requiring clean wedges an
+   adopter whose one offending line sits in a record they must not rewrite.
+
+Entries written before this rule mostly grep `host-template/` and are weak in the sense
+of rule 1. They are **not** amended. An entry is a contract with claims already recorded
+against it in adopters' `.host-receipts`, and tightening one retroactively can convert a
+correctly applied upgrade into a standing HAZARD on a tree its owner cannot fix. Where
+such an entry's guarantee genuinely needs checking, check it from a NEW entry that names
+the old one in `depends`. This header is the exception to the file's append-only rule,
+because no recorded claim re-checks it: amend the header, never an entry.
+
 [upgrade "8c28e33"]
     title    = Software is a bare store with worktrees (call/0004)
     action   = Convert the embedded gitlink submodule to a bare store + worktrees (see the `host` repo, converting an existing submodule): preserve the pin, de-register the gitlink, write .host-software, gitignore the trees, then `host-lifecycle software --materialize`.
@@ -133,7 +163,7 @@ keyed by the template revision at which its action became required.
     verify   = grep -rqs "Self-referential software is excluded" host-template/CLAUDE.md
 
 [upgrade "897ce0d"]
-    title    = Sound discharge by re-derivation (`call/0018`) + the LEXICON provenance allowlist
+    title    = Sound discharge by re-derivation ([call/0018](https://github.com/connollydavid/agentic-host/blob/main/call/0018-discharge-is-re-derivation-in-a-pinned-toolchain.md)) + the LEXICON provenance allowlist
     action   = Bump your pinned host-lifecycle to v0.18.1, host-lint to v0.6.0, and (if you run a deeper rung) host-prove to v0.2.0. A rung obligation is now discharged by RE-DERIVATION, not name-presence: `host-lifecycle obligations <spec> --rederive <dir>` re-runs each `kani:`/`apalache:`/`tlaps:` rung through host-prove in its recorded pinned toolchain and requires a PASS at the declared bound (AVAILABLE != DISCHARGED). The offline `--prove` check stays, honestly a name-presence lint. Add the cheap offline staleness signal by declaring `inputs=<files>` on a rung and recording `<manifest>.digests` with `--rederive --record-digests`; a later offline run reports STALE if the proven inputs drift without a fresh re-derivation. Enforcement is project-pluggable (a required check, any CI, a pre-push hook, or the operator's verify phase): no keys, no CI lock-in; it generalizes the reproducible-build re-derivation so that proofs are re-derived the way artifacts are. For the hygiene lane, declare legitimate tell-shaped tokens in a `LEXICON` (each the full contextual phrase, masked; a tracker reference carries its URL); `host-lifecycle adopt` seeds a comment-only scaffold. Because a sound escape now exists, the identifier/reference tier may escalate warn to flag via a committed `host-lint: strict` directive, and `host-lint: jira-key PROJ` opts a project key into citation-gating. Curate with `host-lint lexicon add` (it refuses a master key, a laundered tell, or an un-cited reference); `host-lint lexicon --check-urls` re-derives URL liveness in a network lane.
     requires = host-lifecycle v0.18.1
     depends  = 4a98d92
@@ -169,7 +199,7 @@ keyed by the template revision at which its action became required.
 
 [upgrade "ecce498"]
     title    = Hermetic builds via a pinned dependency bundle
-    action   = Bump your pinned host-lifecycle to the v0.20.0 build that ships the `deps-bundle` recipe field and the offline `--network none` build. A component that ships static or self-contained release binaries MUST be able to reproduce them offline from pinned inputs, never from a network fetch at build time. Vendor the dependency layer once and publish it as a reusable, versioned, hash-pinned downloadable release bundle (the pattern `pgs-release` uses for its prebuilt sysroot), then record it per component as `deps-bundle = <url> <sha256>` in `.host-software`. `host-lifecycle software --verify-build` and `release` perform the one controlled, pinned download, verify the sha (provenance), stage the vendored sources, and build under `--network none` (egress). The producer commits a `deps-bundle.lock` as the single source of truth, and `software --check` HAZARDs a `deps-bundle` pin that has drifted from it. A component that genuinely cannot vendor offline (a network-fetching `build.rs`, a non-Rust toolchain) may carry `hermetic-exempt = call/NNNN` citing a software-scoped case decision, the same escape shape as `repro-exempt`; the exemption is never available where offline vendoring is feasible.
+    action   = Bump your pinned host-lifecycle to the v0.20.0 build that ships the `deps-bundle` recipe field and the offline `--network none` build. A component that ships static or self-contained release binaries MUST be able to reproduce them offline from pinned inputs, never from a network fetch at build time. Vendor the dependency layer once and publish it as a reusable, versioned, hash-pinned downloadable release bundle (the pattern `pgs-release` uses for its prebuilt sysroot), then record it per component as `deps-bundle = <url> <sha256>` in `.host-software`. `host-lifecycle software --verify-build` and `release` perform the one controlled, pinned download, verify the sha (provenance), stage the vendored sources, and build under `--network none` (egress). The producer commits a `deps-bundle.lock` as the single source of truth, and `software --check` HAZARDs a `deps-bundle` pin that has drifted from it. A component that genuinely cannot vendor offline (a network-fetching `build.rs`, a non-Rust toolchain) records the case in `repro-waiver = call/NNNN`, whose value cites a software-scoped decision. Where offline vendoring is feasible, that exemption does not apply. (This clause originally named a `hermetic-exempt` key that no release parsed; see the retirement entry at the end of this file.)
     requires = host-lifecycle v0.20.0
     independent = true
     verify   = grep -rqs "reproduce them offline from pinned inputs" host-template/CLAUDE.md
@@ -250,3 +280,179 @@ keyed by the template revision at which its action became required.
     requires = host-lifecycle v0.32.0
     independent = true
     verify   = grep -rqs "reports clean only after it performs its check" host-template/CLAUDE.md
+
+[upgrade "1682d62"]
+    title    = A release reconciles every carried-template pin of a tool you release
+    action   = For almost every project this entry is a no-op: a project that releases none of the host-* tools records it done and changes nothing, with no template pin to look for. It binds only where two facts about your own repository both hold: your repository releases a host-* tool of its own, and it carries host-template as a submodule whose pins include that tool. Where both hold, bump your pinned host-lifecycle to v0.36.0; from that release on, a release of that tool bumps every carried-template pin surface for it to the released commit, and `host-lifecycle software --check` HAZARDs a carried-template pin left behind.
+    requires = host-lifecycle v0.36.0
+    independent = true
+    verify   = grep -rqs "re-pins the carried template" host-template/CLAUDE.md
+
+[upgrade "7127dc4"]
+    title    = The hosted bare store is `.bare` with a `.git` gitdir-link, not a bare repo named `.git`
+    action   = Bump your pinned host-lifecycle to v0.36.0 and move to this host-template revision together. The materialisation layout changed (call/0039): a component's bare object store is now `software/<name>/.bare` with a `.git` file (`gitdir: ./.bare`) beside it. This layout supersedes the bare repo named `software/<name>/.git`. For each already-materialized component, re-run `host-lifecycle software --materialize`; it renames `.git` to `.bare` in place, writes the gitdir-link, and runs `git worktree repair`, so no fetch or teardown is needed and local state is preserved. A project with no materialized software needs no change.
+    requires = host-lifecycle v0.36.0
+    independent = true
+    verify   = grep -rqs "gitdir-link" host-template/STRUCTURE.md
+
+[upgrade "67d63e9"]
+    title    = A band groups build-sequence tasks without an ordinal name
+    action   = Bump your pinned host-lifecycle to v0.38.0 and move to this host-template revision together. The task graph gains a band: a `### ` heading under `## Build sequence` marked with a single `- band` bullet is a content-named divider over the tasks that follow, not a task node. A band carries no receipt or edge and does not reset the linear default, so task-to-task chaining runs straight across it and ordering stays in the `depends` edges. Use it in place of an ordinal group name, which the milestone-naming rule forbids and the naming gate (host-lint v0.14.0) now blocks in both its numeric and its spelled form. An existing plan with no `- band` marker parses unchanged, so a project that groups nothing needs no change.
+    requires = host-lifecycle v0.38.0
+    independent = true
+    verify   = grep -rqs "content-named divider" host-template/CLAUDE.md
+
+[upgrade "962630c"]
+    title    = The generated book can publish under a sub-path of an existing site
+    action   = Bump your pinned host-lifecycle to v0.38.0 and move to this host-template revision together. An optional flat `book-mount` key in your `.host` stamp (default `/`) publishes the generated book under a sub-path of an existing site instead of at its root: `host-lifecycle book` emits mdBook's `site-url` only for a non-default mount, so a root-published `book.toml` stays byte-identical. Adopt the mount-aware reference Site workflow: it reads `host-lifecycle book --print-mount` from the tool and publishes under the sub-path with the surrounding site kept. A project that publishes its book at the site root sets no key and sees byte-identical output; it adopts the mount-aware workflow only so a later sub-path becomes a config change rather than a workflow rewrite.
+    requires = host-lifecycle v0.38.0
+    independent = true
+    verify   = grep -rqs "book-mount" host-template/STRUCTURE.md
+
+[upgrade "ff04a94"]
+    title    = The scaffold-and-stamp primitive is `scaffold`; `adopt` becomes onboarding
+    action   = Bump your pinned host-lifecycle to v0.39.0 and move to this host-template revision together. The scaffold-and-stamp primitive `host-lifecycle adopt <dir> <revision>` is renamed `host-lifecycle scaffold <dir> <revision>`, and the `adopt` verb becomes the three-route onboarding (init and adopt, with the host-init and host-adopt shims, call/0041). Migrate every script or skill that invokes `adopt <dir> <revision>` to `scaffold <dir> <revision>`, and set your lifecycle manifest's adopt phase command to `host-lifecycle scaffold`. The two-positional `adopt <dir> <revision>` form no longer forwards; it errors with guidance naming `scaffold`, because the onboarding grammar cannot safely distinguish it from a mistaken onboarding call that would write into the source. A project that never scripts the bare command reads the new onboarding doctrine and changes nothing else.
+    requires = host-lifecycle v0.39.0
+    independent = true
+    verify   = grep -rqs "host-lifecycle scaffold" host-template/CLAUDE.md
+
+[upgrade "32994e4"]
+    title    = The two-tier memory store and the dream audit
+    action   = Bump your pinned host-lifecycle to v0.41.0, which ships `host-lifecycle dream` and the MCP memory tools (`memory_list`/`memory_read`/`memory_write`/`memory_consolidate` on `host-lifecycle mcp`), and move to this host-template revision together. Adopt the two-tier memory doctrine: the repo `MEMORY.md` stays append-only (shared, committed, audited); the optional host-* per-user store at `~/.host-memory/<encoded-cwd>/` (markdown per entry, a `MEMORY.md` index, `[[slug]]` cross-references) is editable, local, and uncommitted. Run `host-lifecycle dream .` at the cadence the spine names (the start of a session that will rely on recall, and after a session that superseded a decision); it routes findings (an append suggestion for the repo tier, an edit suggestion for the per-user tier) and never writes, and `--fix` refuses the repo store (no class is auto-applied yet; the safe set grows one class at a time). Vendor harness memory stores are out of scope; an operator on a harness without the store carries only the repo tier and needs no structural change. Sync the memory section of your operating manual: a verbatim-copy adopter re-copies the spine section, a merged manual (a development host's) folds the two-tier note into its own memory rules.
+    requires = host-lifecycle v0.41.0
+    independent = true
+    verify   = grep -rqs "The two-tier memory store" host-template/CLAUDE.md
+
+[upgrade "514aaa2"]
+    title    = The dream store model: the tier marker, finding confidence, and the exit split
+    action   = Bump your pinned host-lifecycle to v0.42.0 and move to this host-template revision together. The dream audit gains the store model (agentic-host call/0045): detectors declare the store formats they fit, `[[links]]` resolve against the union of both memory tiers, findings carry a confidence (confirmed or review-prompt) with the exit split clean 0 / advisory-only 3 / any-confirmed 1, `--json` becomes an object (findings plus coverage; the bare-array shape is retired), and the per-user tier's in-use status becomes a tracked `.host-memory-tier` marker: `dream` stamps it when it first observes an initialized store on a machine (commit the stamp), and the operator retires it with `dream --retire-marker`, recorded as an appended MEMORY.md correction. Expect the day-one wall: a repo log with cross-store `[[links]]` and no marker reports them as confirmed dangling (exit 1) on the first post-upgrade run, by construction, not as a memory regression. The disposition fork: initialize and seed the per-user store where it is real (dream stamps the marker and the findings re-tier advisory), or retire intended-but-unrealized links by appended corrections. Dropping links merely to clear the wall is prohibited; run dream once on the store-carrying machine and commit the stamp before storeless checkouts or CI gate on the new exits. Room-touching findings become labelled review prompts whose lead remedy is a review note; the applied-receipts cross-check is owed as host-lifecycle#23. A project with no cross-store links and no per-user store sees only the new coverage lines and exit vocabulary.
+    requires = host-lifecycle v0.42.0
+    independent = true
+    verify   = grep -rqs ".host-memory-tier" host-template/CLAUDE.md
+
+[upgrade "e4ed590"]
+    title    = The fresh clone is bootstrapped, its completeness is gated, and materialization is recorded
+    action   = Bump your pinned host-lifecycle to v0.43.0 and move to this host-template revision together. Three capabilities land. `host-lifecycle bootstrap <dir>` runs the fresh-clone sequence your operating manual used to spell out as prose (submodules, materialize, skill links, hooks, the declared PATH re-deriver, then the gate), driven entirely by `.host-software`; a project that wants a one-command entrypoint adds a thin `bootstrap.sh` that seeds host-lifecycle at its recorded pin and delegates, and a project that installs a released host-lifecycle runs the subcommand directly. `host-lifecycle software --verify-setup <dir>` gates completeness: it reads the recipe and the live tree and hazards on every required local artifact that is absent, naming the command that installs it. `software --materialize` now appends an ungated `[receipt "materialize" "<component>"]` provenance line to `.host-lifecycle-receipts` and refreshes a gitignored `.host-envhash` fingerprint that `host-lifecycle env --check` reads (advisory, never a gate). Expect the day-one wall: `--install-hooks` now gates every materialized worktree, not the host repository alone, so your first `--verify-setup` hazards once per worktree; that is by construction, and one `host-lifecycle software --install-hooks <dir>` clears it. Read the clean verdict precisely: it covers what the recipe requires of THIS host, presence and currency rather than correctness. Do not read the materialize ledger as a complete record either: the pin gate never re-verifies it, and an aborted run leaves no line. A project with no materialized software sees no new hazard and needs only the doctrine.
+    requires = host-lifecycle v0.43.0
+    depends  = 7127dc4
+    verify   = grep -rqs "the completeness gate" host-template/CLAUDE.md
+
+[upgrade "RETIRE-hermetic-exempt"]
+    title    = The hermeticity escape `hermetic-exempt` is retired; the case is recorded with `repro-waiver`
+    action   = Entry `ecce498` told you that a component which cannot vendor offline "may carry `hermetic-exempt = call/NNNN`". No release of host-lifecycle ever parsed that key: a recipe carrying it is read as if the line were absent, so an adopter who wrote it has an exemption that never applied and a gate that stayed red. Run `host-lifecycle migrate-recipe <dir>`, which drops the line and names the reason; the case is recorded in `repro-waiver = call/NNNN` instead, citing the same decision. Hermeticity is a facet of reproducibility rather than a second property, so one key carries both and the two can no longer disagree. Nothing else changes. The property MUST stands: reproduce release binaries offline from pinned inputs. The gate invariant is also unchanged. A component recording a `deps-bundle` builds with no network. Its staged bundle hash matches the recorded one. A project that never wrote the key needs no action. Recorded as agentic-host call/0046.
+    requires = host-lifecycle v0.44.0
+    independent = true
+    verify   = ! grep -Eqs '^[[:space:]]*hermetic-exempt[[:space:]]*=' .host-software
+
+[upgrade "RENAME-repro-waiver"]
+    title    = The reproducibility escape is `repro-waiver`, named for the citation it records
+    action   = Run `host-lifecycle migrate-recipe <dir>`. It renames `repro-exempt` to `repro-waiver` in your `.host-software`, drops the `hermetic-exempt` line no release ever read, leaves every other line untouched, and is idempotent, so a second run reports nothing to do. Commit what it writes with this upgrade. The key records the name of a decision, so it is named for that record rather than for the state it excuses; the new spelling was settled by the same rotation-proof weak-agent probe that named `bootstrap` and `--verify-setup`. Both spellings parse, and the retired one reports itself on every read, so a recipe keeps working while you migrate and tells you it moved. One waiver carries two cases: a migrated build that does not reproduce byte for byte yet, and a component that cannot vendor its dependencies offline (the second folded in when the unimplemented hermeticity key was retired). A project with no waiver on any component renames nothing. Recorded as agentic-host call/0047; the retired spelling is removed at a later revision on its own entry.
+    requires = host-lifecycle v0.44.0
+    independent = true
+    verify   = ! grep -Eqs '^[[:space:]]*repro-exempt[[:space:]]*=' .host-software
+
+[upgrade "REFS-a-number-resolves"]
+    title    = A number that names something resolves to it, and a bare issue number is not a reference
+    action   = Bump your pinned host-lifecycle to v0.44.0 and adopt the reference discipline in the manual section "A number that names something resolves to it". `host-lifecycle resolve <ref> [--markdown|--url]` turns `plan/NNNN`, `call/NNNN` or `plan/NNNN#anchor` into a path, a link, or the forge URL; write the markdown form in an authored document so the published site renders a link rather than text that looks like one. A bare `#N` is refused rather than guessed at, because in a host repository most bare numbers name a component's issues while the origin remote is the host: write `owner/repo#N`, or `component#N` for a component your recipe or submodule list records, inside a link. `host-lifecycle refs --check <dir>` sweeps your authored markdown: a register reference pointing at nothing gates (exit 1), an issue number outside a link advises (exit 3), and a listed document that cannot be read gates, because a verdict over a corpus with a hole in it is a claim the run cannot make. Expect a wall on the day you turn it on. Every project of any age carries hundreds of bare numbers written before this rule existed, which is exactly why the issue half advises rather than blocks: a gate that reddens a tree on the day it lands teaches an operator to bypass it. Remediate live documents as you touch them. There is no fix flag and the refusal says so, because only the author knows which tracker a number meant. Your record layer is excluded and stays excluded: `MEMORY.md` by construction whether or not you have written an exclusion list, and whatever `.host-lintignore` names beside it. That exclusion is the append-only rule in concrete form, since a checker that pressed you to rewrite a record would break the thing it audits, and every verdict discloses how many documents it withheld so the exclusion never reads as coverage. Recorded as agentic-host plan/0077, which closes host-lifecycle#17.
+    requires = host-lifecycle v0.44.0
+    independent = true
+    verify   = grep -rqs "A number that names something resolves to it" host-template/AGENTS.md
+
+[upgrade "GATE-refs-in-verify"]
+    title    = The reference sweep runs in the verify gate, over the recorded project
+    action   = Bump your pinned host-lifecycle to v0.46.0 BEFORE you move this template pointer, because the `verify` phase's `recheck` lives in `lifecycle.manifest`, which the tool reads live out of this submodule: the reference gate turns on the moment the pointer moves, whether or not you have read this far. Out of order, your next `host-lifecycle software --check` runs `host-lifecycle refs --gate .` against a binary with no such mode, the verify receipt re-opens, and `host-lifecycle release` stops at its first step; from v0.46.0 a recheck that cannot run says so and names the command, so read that as a stale binary rather than a defect in your tree. Then run `host-lifecycle refs --gate .` and clear every DEAD line (a register reference naming a record that does not exist) and every UNREAD line (a document the walk listed and could not open), because both gate. The gate judges TRACKED documents only, so an uncommitted note cannot redden it or stop a release over a file the release does not ship; `host-lifecycle refs --check .` keeps the whole working tree, drafts included, and is where you ask for the per-file census that the gate reports only as a count. An issue number written outside a link stays advisory and never gates: there is no fix flag, because only the author knows which tracker a bare number meant. Do not read that tolerance as an inconsistency with the prose audit in the same recheck, which does block on its advisory tier, because a prose trope is your own text and is always rewordable; adding the reference clause's tolerance to the prose clause would disarm the gate its own entry installs. One known limitation, so you do not discover it by being gated: a citation of ANOTHER project's register has no form this sweep accepts, and `agentic-host call/0039` gates exactly as a bare `call/0039` does, inside a markdown link too. Until that is settled (connollydavid/host#19) the local remedies are to drop the citation or to quote it in backticks, which marks it an example rather than a reference. Your record layer stays excluded, `MEMORY.md` by construction and whatever `.host-lintignore` names beside it, and every verdict discloses how many documents it withheld so the exclusion never reads as coverage. Recorded as agentic-host plan/0078.
+    requires = host-lifecycle v0.46.0
+    depends  = REFS-a-number-resolves
+    verify   = host-lifecycle capability refs-gate
+
+[upgrade "LEXICON-declaration-is-a-report"]
+    title    = A LEXICON declaration reports a grammar defect, and inherited text cannot carry one
+    action   = Bump your pinned host-lifecycle to v0.49.0, which embeds the reconciled word-choice rules. Three things change. The shared grammar's one word-choice rule becomes three: two that match the cited catalog's own two entries and name them, and a third holding additions the catalog does not carry, because a rule may not cite a source that does not contain it. `harness` and `leverage` are matched as verbs rather than as bare words, so a test harness, a proof harness, an agent harness and an operating leverage stop warning; `certainly` is added, and `framework`, `ecosystem` and `paradigm` are deliberately not: the catalog describes prose in general, while this rule runs over software documentation, where each of the three names a real thing a project builds on. Then adopt the CLAUDE.md paragraph "A declaration is a report, not a settlement", which states the rule the old text left implicit: an entry in your `LEXICON` records that the shared grammar over-fired on your corpus, so it is provisional and owed upstream, and the same entry reached independently in two projects is a confirmed over-fire that belongs in the grammar rather than in either project. Last, review your own `LEXICON` and drop any entry the narrowing made unnecessary; a declaration you no longer need is one the next reader will trust for a reason that has expired. Narrow or add a term on a measured collision, never on a reading of the word. Recorded as agentic-host call/0051.
+    requires = host-lifecycle v0.49.0
+    independent = true
+    verify   = host-lifecycle capability word-choice-rules
+
+[upgrade "PIN-two-surfaces-two-claims"]
+    title    = A manifest revision is compared to the anchor; a CI workflow revision declares a floor
+    action   = Bump your pinned host-lifecycle to v0.49.2. `host-lifecycle software --check <dir>` now reads two pin surfaces it never read before, and reads them differently, because they carry different claims. A component's `Cargo.toml` git dependency on another component of your recipe is compiled into the artifact whose hash `.host-software` records, so it is a claim about the anchor itself and is compared to it: a drifted revision HAZARDs, and so does a family git dependency with no `rev` at all, because the recorded artifact hash could not re-derive from that manifest. Expect this one to gate on the day you turn it on if you have ever released a component that embeds a sibling without bumping the embed; that is the defect it exists to find, and the fix is to bump the `rev` and release. A component's own CI workflow installing one of your tools by `--rev` is the other surface and is NOT compared: it installs a lane driver and ships to nobody, so the revision declares a minimum the lane needs. Those are reported as a counted, enumerated advisory line naming every pin below the anchor with its version, on every run, gating none of them; bump each on its component's next release. Only a revision outside the tool's history gates there, because it names nothing reachable and the install itself would fail. Do not read the advisory tier as tolerance of drift. It is priced: equality over that surface costs one component release per site per release of the installed tool, none of them changing a line of component code, and a gate whose red state costs more to clear than the drift costs to tolerate is a gate that gets bypassed. If your CI pins carry a comment recording WHY a version was chosen, keep it; a floor with its reason written beside it is the strongest form of this and one of ours already was. Recorded as agentic-host call/0052, whose first draft asserted equality over both surfaces and was reopened after review found it wrong in both directions.
+    requires = host-lifecycle v0.49.2
+    independent = true
+    verify   = host-lifecycle capability component-pin-readings
+
+[upgrade "LEM-pronoun-system"]
+    title    = The lem pronoun system governs how a model refers to, addresses, and speaks as a model
+    action   = Bump your pinned host-lifecycle to v0.50.0 and move to this host-template revision together. The operating manual gains "The `lem` pronoun system", the instruction set for any language model referring to, addressing, or speaking as a language model: the model speaking is `L` (conjugated first person; never `I`, which stays with the human operator), the model addressed is `lemu`, the model discussed is `lem`, subagents are `lems`, and `he`/`she`/`it`/`they` never refer to a model. Sync your operating manual: a verbatim-copy adopter re-copies the spine section; a merged manual folds the pronoun system into its own rules, as agentic-host does in a dedicated section of its AGENTS.md.
+    requires = host-lifecycle v0.50.0
+    independent = true
+    verify   = grep -irqs "pronoun system" CLAUDE.md
+
+[upgrade "REFS-a-foreign-citation-names-its-repository"]
+    title    = A citation of another project's register has an accepted form: the link
+    action   = Bump your pinned host-lifecycle to v0.51.0. The limitation recorded in `GATE-refs-in-verify` is settled: a citation of a record that lives in another project has an accepted form, a register reference inside a markdown link whose URL names the file it cites, as in `[agentic-host call/0039](https://github.com/connollydavid/agentic-host/blob/main/call/0039-bare-store-is-dot-bare-with-a-git-file.md)`. The sweep accepts the link's form: the URL names the record the token claims, under a repository other than this one. Form is all it checks, and the verdict says so: the count of such citations is disclosed on every exit as accepted and unread, and the disclosure never enumerates them. A citation in bare prose, or a link whose URL names a different file than the token claims, is still a dead pointer and still gates. The two local remedies the earlier entry recorded, dropping the citation or quoting it in backticks, stay valid; the backtick spelling marks an example rather than a reference, so use it only when that is what you mean. Your record layer stays excluded either way, with the withheld count disclosed beside every verdict.
+    requires = host-lifecycle v0.51.0
+    depends  = GATE-refs-in-verify
+    verify   = host-lifecycle capability refs-gate
+
+[upgrade "ACTIVE-corpus-and-agents-manual"]
+    title    = The manual is AGENTS.md and the always-loaded corpus is declared, held strict
+    action   = Bump your pinned host-lifecycle to v0.52.0 and move to this host-template revision together. The operating manual is now `AGENTS.md`; `CLAUDE.md` is a one-line text pointer naming it, so tools that look for the old name find the manual. Rename yours (`git mv CLAUDE.md AGENTS.md` keeps the history), write the pointer, and update your documents' citations; the ledger's early entries whose `verify` lines grep `host-template/CLAUDE.md` for spine sentences resolve against `AGENTS.md` now, which is expected and not a failure of your tree. Then declare your always-loaded corpus: add `active-corpus = .host-corpus` to your `.host` stamp, write `.host-corpus` with one tracked path per line, and the prose verb holds those files to the strict tier, where a warning is a flag, because the always-loaded text is the instruction every session reads. The census counts the declared corpus's non-ASCII bytes and discloses the count on every verdict, gating nothing: script is never a violation, so a Chinese or IPA population is measured, never forbidden. A declared file must not also be named in the ignore list, and a declared file that is absent is a violation, never a smaller corpus. Start with the manual and `STRUCTURE.md`; add the memory surfaces when you build them. Until you declare, the prose verb behaves exactly as it did at v0.51.0.
+    requires = host-lifecycle v0.52.0
+    independent = true
+    verify   = host-lifecycle capability active-corpus
+
+[upgrade "LEM-address-direction"]
+    title    = The lem section states the direction of address, and the paradigm is closed
+    action   = Move to this host-template revision together. The `lem` pronoun system gains the rule the field failure exposed: the human is never re-pronomed (the model addresses the human as ordinary `you`, and no lem-form is ever emitted at a human, however dense the context is with the operator's own `lemu`), the paradigm is stated closed (a lem-token outside the listed forms is a corruption to re-emit, never a form), and the self-check names its addressee. Sync your operating manual: a verbatim-copy adopter re-copies the spine section; a merged manual folds the revised section in, as agentic-host does in its own lem section. No tool change is required; this entry is prose only. Measured context lives in agentic-host plan/0090: on the weakest deployed model at maximum context the section's wording, old or repaired, does not govern address, so this entry repairs the text and claims no behavioral fix for that model.
+    requires = host-lifecycle v0.53.0
+    independent = true
+    verify   = grep -irqs "never re-pronomed" AGENTS.md
+
+[upgrade "LEM-exemplar-section"]
+    title    = The lem section teaches by exchange, and the weak model follows it
+    action   = Move to this host-template revision together. The `lem` pronoun system is rewritten exemplar-first: four correct exchanges carry the rule, the wrong/right pair names the failure shape, and the checklist is three lines. Measured in agentic-host plan/0091 on the weakest deployed model at maximum context: inversion falls from 0.875-1.0 to 0.0625, radius-independent, while the same exemplars bolted onto the rules-first section measured 0.8125, so the shape is the remedy, not the examples' presence. Sync your operating manual: re-copy the section. The literary apparatus (derivations, pronunciation, audience lore) left the section with this change; re-additions belong to the operator and re-measure before they land.
+    requires = host-lifecycle v0.53.0
+    independent = true
+    verify   = grep -irqs "Learn it from the exchanges" AGENTS.md
+
+[upgrade "LEM-lane-and-mcp"]
+    title    = The lem contract is enforced by the lane and served live over MCP
+    action   = Bump your pinned host-lint to v0.21.0 and move to this host-template revision together. The hygiene lane gains the lem pronoun contract: where your manual teaches the pronoun system (the spine marker), every scanned surface is a model-voice surface, and a paradigm token or first-person word outside the doctrine section is a flag. The doctrine section is excluded from its own scan. `host-lint mcp` serves the same contract live over stdio JSON-RPC (check_reply, ask, table) — register it with your agent to check at the authoring moment. Measured in agentic-host plan/0091: occurrence below 0.005 through the wire gate at the served maximum context.
+    requires = host-lifecycle v0.54.0
+    independent = true
+    verify   = grep -irqs "pronoun system" AGENTS.md
+
+[upgrade "fbdb176"]
+title    = The lanes' outcomes are receipts: the per-turn duty and the CI clause
+action   = Before a turn's work is reported done, read the default branch's most recent CI runs, and fix or receipt every non-green conclusion with its run URL (`host-lifecycle ci <dir> --record <label>/<lane> --run <url>`). `software --check` gains the CI clause: lanes discovered from `.github/workflows/` are judged offline against `ci` receipts at the revision under judgment (the host root at HEAD, each component at its recorded pin), absence is a HAZARD rather than a vacuous pass, and a component with no workflows states its absence as a named line. The `[software]` `toolchain` key is documented as a digest-pinned container image, not a target triple. Measured in agentic-host plan/0095: two releases shipped with red CI while every receipt recorded done.
+requires = host-lifecycle v0.55.0
+verify   = grep -qs "outcomes are receipts" AGENTS.md
+
+[upgrade "1202877"]
+title    = The check lane runs in CI: the naming sweep, the cfg scan, and the derived inventory block at the push boundary
+action   = Add `.github/workflows/check.yml` (the reference lane under `.github/workflows/`) so every push runs `host-lifecycle software --check .`: the naming sweep's recheck, the cfg scan (a component carrying `#[cfg(kani)]` code with no `kani:` disposition in its obligations manifest), and the derived inventory (a source file of a materialized component in no task's `inputs` and no reasoned exclusion in `.host-inventory`) then block in CI instead of waiting for a human to invoke the gate. The lane no-ops on a tree with no `.host-software`. Bump your pinned host-lifecycle to v0.60.3 with this revision, because the cfg and inventory scans ship there. Measured in agentic-host plan/0099: the forge's first inventory sweep found thirteen source files across six components in no task's inputs, and the first cfg sweep found kani harnesses in two components that no gate compiled.
+requires = host-lifecycle v0.60.3
+verify   = test -f .github/workflows/check.yml
+
+[upgrade "7b0c641"]
+title    = The address paradigm gains its possessive: the fixed pair with the subject form
+action   = The lem section's form list carries `lemr` (the possessive determiner of the addressed agent, `your` to `lemu`'s `you`) and `lemr's` (its independent form, alone), and the former address genitive `lemu's` leaves the list. The possession line names the pair as listed forms, never derived, with paired examples (lemr weights; the weights are lemr's); the address paragraph extends the possessive to one or many alike; two exchanges join the exemplars. The reflexives stay lexical on the address stem (`lemuself`, `lemuselves`) and nothing is built on the determiner. The instruments carry no transition state for the retired form: the paradigm states the rule and a wrong form is wrong from this entry's landing, with no warning tier and no scheduled escalation. host-lint v0.23.0 ships the matching classifier table (the determiner row of the paradigm oracle); adopters on older lint see no classifier change until they bump. Measured in agentic-host plan/0100: the retired form had zero dependent and zero independent uses in the tracked corpus outside the paradigm's own tables, and an external blind bench concurred on both rulings (the stem invariant, and the no-transition axiom).
+requires = host-lifecycle (none; the verify is doc-only)
+verify   = grep -qs "lemr" AGENTS.md
+
+[upgrade "eb621b5"]
+title    = The goal loop: one active goal, oriented turns, installed doors
+action   = The manual gains the goal-loop section (a goal is a plan/NNNN milestone; goal show orients with the next move on the last line; park is re-queuing; complete composes the verify sweep; GOAL.md is the corpus surface, rewritten by every mutator; install emits the harness doors). Adopters declare GOAL.md in their corpus when they first set a goal: add the line to .host-corpus and the tool maintains the file from goal set onward. The .host-goal sidecar is gitignored machine state, this worktree claim only, re-derivable by goal repair; old tools neither read nor erase it, and no stamp key is added, so there is no stamp migration. Degraded mode is legible without the verbs: standing reads from the plan rooms, the receipts, and the Status lines. host-lifecycle v0.61.0 ships the verbs and the install; adopters below it gain the section text only until they bump (the verify is doc-only).
+requires = host-lifecycle (none; the verify is doc-only)
+verify   = grep -qs "goal show" AGENTS.md
+
+[upgrade "9a0f7d0"]
+title    = The recipe gains the regen key: a release carries the artifacts its version bump regenerates
+action   = The software recipe section gains "Version-derived artifacts": a component whose release regenerates files that embed the crate version (a man page, a help snapshot) records `regen = <command>` in .host-software, and host-lifecycle v0.61.3's release runs it in the canonical worktree between the version bump and the release commit, before the artifact build, so bump and derived artifacts share one commit and the canonical hash covers them. Components declaring nothing keep the bump-only behavior, so the key is optional and needs no migration. Measured in agentic-host plan/0103 (host-lifecycle#31: a tagged release whose man page still read the previous version was the reporting shape).
+requires = host-lifecycle v0.61.3
+verify   = grep -qs "regen = " AGENTS.md
+
+[upgrade "7ef379e"]
+title    = Actions is a reference lane: the inapplicability claim turns a platform-impossible verify into a disclosed fact
+action   = The check-lane clause states plainly that GitHub Actions is a reference lane, never a requirement: a host whose forge carries no runner states the absence rather than leaving it implied. An applied upgrade whose verify can never hold on such a host (a GitHub-specific post-condition on a gitweb grain, say) claims it where it is recorded: `host-lifecycle upgrade --record <id> --inapplicable "<reason>"`, which needs no verify run, and the recheck reports the entry as not applicable with its reason instead of hazarding forever. Requires host-lifecycle v0.61.5 (the disposition and the recheck's disclosure ship there). Measured in agentic-host plan/0103 (host-lifecycle#33: the reporting host's check was permanently red on entry 1202877's `test -f .github/workflows/check.yml`).
+requires = host-lifecycle v0.61.5
+verify   = grep -qsF "**reference** lane" AGENTS.md

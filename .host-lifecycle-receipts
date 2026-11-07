@@ -112,3 +112,163 @@
     evidence = 2 item(s) realized for openwrt at pin 62e7565f0e1e (reference)
     tool = host-lifecycle@0.64.0
     recorded = 2026-11-07
+
+[receipt "ci" "host/prose"]
+    disposition = done
+    evidence = https://github.com/connollydavid/agentic-openwrt-packages/actions/runs/42410097963
+    tool = host-lifecycle@0.63.0
+    recorded = 2026-11-07
+    revision = d7c1d6d049a9b490c57f8512ad45cdd2e5bcc359
+    conclusion = success
+
+[receipt "ci" "host/mdbook"]
+    disposition = done
+    evidence = https://github.com/connollydavid/agentic-openwrt-packages/actions/runs/42410097951
+    tool = host-lifecycle@0.63.0
+    recorded = 2026-11-07
+    revision = d7c1d6d049a9b490c57f8512ad45cdd2e5bcc359
+    conclusion = success
+
+[receipt "ci" "host/udpspeeder-simd-sdk"]
+    disposition = done
+    evidence = https://github.com/connollydavid/agentic-openwrt-packages/actions/runs/39251343030
+    tool = host-lifecycle@0.63.0
+    recorded = 2026-11-07
+    revision = d7c1d6d049a9b490c57f8512ad45cdd2e5bcc359
+    conclusion = success
+
+[receipt "ci" "host/reproducible-build"]
+    disposition = done
+    evidence = https://github.com/connollydavid/agentic-openwrt-packages/actions/runs/39245421361
+    tool = host-lifecycle@0.63.0
+    recorded = 2026-11-07
+    revision = d7c1d6d049a9b490c57f8512ad45cdd2e5bcc359
+    conclusion = success
+
+[receipt "ci" "software/host-lint/main/ci"]
+    disposition = done
+    evidence = https://github.com/connollydavid/host-lint/actions/runs/40886448815
+    tool = host-lifecycle@0.63.0
+    recorded = 2026-11-07
+    revision = db4a0d2026596ac21c3e089bf11d3738fb2d3b78
+    conclusion = success
+
+[receipt "ci" "software/udpspeeder-simd/main/ci"]
+    disposition = done
+    evidence = https://github.com/connollydavid/UDPspeeder-simd/actions/runs/42409418779
+    tool = host-lifecycle@0.63.0
+    recorded = 2026-11-07
+    revision = bce0f3c90b50475c5c4d2a6e7062daaf9627e0b1
+    conclusion = success
+
+[receipt "ci" "software/openwrt/main/issue-labeller"]
+    disposition = done
+    evidence = https://github.com/openwrt/openwrt/actions/runs/28680908608
+    tool = host-lifecycle@0.63.0
+    recorded = 2026-11-07
+    revision = 62e7565f0e1e88e5fc8d038f09cb38ffd583bbed
+    conclusion = success
+
+[receipt "ci" "software/openwrt/main/llm-review"]
+    disposition = done
+    evidence = https://github.com/openwrt/openwrt/actions/runs/28670406568
+    tool = host-lifecycle@0.63.0
+    recorded = 2026-11-07
+    revision = 62e7565f0e1e88e5fc8d038f09cb38ffd583bbed
+    conclusion = success
+
+[receipt "ci" "software/openwrt/main/tools"]
+    disposition = done
+    evidence = https://github.com/openwrt/openwrt/actions/runs/28598388837
+    tool = host-lifecycle@0.63.0
+    recorded = 2026-11-07
+    revision = 62e7565f0e1e88e5fc8d038f09cb38ffd583bbed
+    conclusion = success
+
+[receipt "ci" "software/openwrt/main/push-containers"]
+    disposition = done
+    evidence = https://github.com/openwrt/openwrt/actions/runs/28598389240
+    tool = host-lifecycle@0.63.0
+    recorded = 2026-11-07
+    revision = 62e7565f0e1e88e5fc8d038f09cb38ffd583bbed
+    conclusion = success
+
+[receipt "ci" "software/openwrt/main/coverity"]
+    disposition = done
+    evidence = https://github.com/openwrt/openwrt/actions/runs/42329777713
+    tool = host-lifecycle@0.63.0
+    recorded = 2026-11-07
+    revision = 62e7565f0e1e88e5fc8d038f09cb38ffd583bbed
+    conclusion = success
+
+[receipt "ci" "software/openwrt/main/formal"]
+    disposition = done
+    evidence = https://github.com/openwrt/openwrt/actions/runs/29709335126
+    tool = host-lifecycle@0.63.0
+    recorded = 2026-11-07
+    revision = 62e7565f0e1e88e5fc8d038f09cb38ffd583bbed
+    conclusion = success
+
+[receipt "ci" "software/openwrt/main/github-release"]
+    disposition = done
+    evidence = https://github.com/openwrt/openwrt/actions/runs/39082253493
+    tool = host-lifecycle@0.63.0
+    recorded = 2026-11-07
+    revision = 62e7565f0e1e88e5fc8d038f09cb38ffd583bbed
+    conclusion = success
+
+[receipt "ci" "software/openwrt/main/labeler"]
+    disposition = done
+    evidence = https://github.com/openwrt/openwrt/actions/runs/29641075784
+    tool = host-lifecycle@0.63.0
+    recorded = 2026-11-07
+    revision = 62e7565f0e1e88e5fc8d038f09cb38ffd583bbed
+    conclusion = success
+
+[receipt "ci" "software/openwrt/main/toolchain"]
+    disposition = done
+    evidence = https://github.com/openwrt/openwrt/actions/runs/41549678450
+    tool = host-lifecycle@0.63.0
+    recorded = 2026-11-07
+    revision = 62e7565f0e1e88e5fc8d038f09cb38ffd583bbed
+    conclusion = success
+
+[receipt "ci" "software/openwrt/main/build-pr-profile"]
+    disposition = done
+    evidence = https://github.com/openwrt/openwrt/actions/runs/42387317277
+    tool = host-lifecycle@0.63.0
+    recorded = 2026-11-07
+    revision = 62e7565f0e1e88e5fc8d038f09cb38ffd583bbed
+    conclusion = success
+
+[receipt "ci" "software/openwrt/main/kernel"]
+    disposition = done
+    evidence = https://github.com/openwrt/openwrt/actions/runs/42413165341
+    tool = host-lifecycle@0.63.0
+    recorded = 2026-11-07
+    revision = 62e7565f0e1e88e5fc8d038f09cb38ffd583bbed
+    conclusion = success
+
+[receipt "ci" "software/openwrt/main/label-kernel"]
+    disposition = done
+    evidence = https://github.com/openwrt/openwrt/actions/runs/42410125273
+    tool = host-lifecycle@0.63.0
+    recorded = 2026-11-07
+    revision = 62e7565f0e1e88e5fc8d038f09cb38ffd583bbed
+    conclusion = success
+
+[receipt "ci" "software/openwrt/main/label-target"]
+    disposition = done
+    evidence = https://github.com/openwrt/openwrt/actions/runs/42410125207
+    tool = host-lifecycle@0.63.0
+    recorded = 2026-11-07
+    revision = 62e7565f0e1e88e5fc8d038f09cb38ffd583bbed
+    conclusion = success
+
+[receipt "ci" "software/openwrt/main/packages"]
+    disposition = done
+    evidence = https://github.com/openwrt/openwrt/actions/runs/42412812210
+    tool = host-lifecycle@0.63.0
+    recorded = 2026-11-07
+    revision = 62e7565f0e1e88e5fc8d038f09cb38ffd583bbed
+    conclusion = success

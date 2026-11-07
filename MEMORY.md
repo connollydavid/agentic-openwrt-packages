@@ -1105,3 +1105,46 @@ fixed by commit bce0f3c, pushed, `.host-software` re-pinned same session.
 The operator declined to set a goal this session; the open frontier remains
 plan/0000's #upstream-cross-cxx task, blocked on the flashprog PR review
 (CHANGES_REQUESTED standing, head 82e211de).
+
+## 2026-11-07 — the v0.63.0 span: AGENTS.md, the lem system, CI receipts; the old checkout cross-checked
+
+The template's full span landed (baseline now 7ef379e, 26 entries absorbed).
+The manual is AGENTS.md (CLAUDE.md is a pointer, history kept by git mv); the
+corpus is declared (.host-corpus: AGENTS.md, STRUCTURE.md) and held to the
+strict prose tier; the spine carries the lem pronoun system, which governs how
+the model voices itself in this repo from here on. Toolchain: host-lifecycle
+v0.63.0 and host-lint v0.24.1 (pin db4a0d20, artifact hash re-derived),
+both in .env and .host-software; the tools/host-lifecycle, tools/allium and
+tools/specula submodule pointers moved to the template's pins.
+
+call/0010 is superseded by call/0011: v0.63.0's audit learned the OpenWrt
+install-macro idiom (the issue-45 fix), so the 514 staged chmods are gone with
+the finding that needed them. The v0.50.0 completeness-gate deadlock (one
+skill link name demanded by both the software worktree and the tools
+submodule) is also gone at v0.63.0; bootstrap completes again.
+
+CI lanes are receipts now (call/0011 records the evidence policy: green at
+the judged revision where it exists; otherwise the lane's most recent run,
+read and recorded, green or not). The qemu packet lane's standing failure is
+fixed in the same push: the feed branches renamed net/udpspeeder-simd to
+net/udpspeeder-simd-snapshot and the lane still sparse-checked-out the old
+name; the checkout, feed symbol, and make target now use the snapshot names
+and the installed binary keeps the udpspeeder-simd name. Still red, disclosed:
+the packages mirror pin's multi-arch-test-build and stale-bot lanes (the
+fork's forge never registered them; no run URL exists to cite), upstream
+OpenWrt's kernel/label-kernel/label-target/packages lanes (receipted at their
+latest runs, not green on upstream's own repo), and this push's own check and
+qemu runs, whose receipts follow once they land. The ci judge needs an absence
+disposition for consumed mirror pins; that proposal is owed upstream in
+call/0010's issue's shape.
+
+The previous checkout at ~/old-agentic-openwrt-packages was cross-checked per
+the operator's request. Nothing unpushed anywhere: the host repo, all four
+component stores, and every submodule were at pushed states (the apparent
+local-only commits were stale remote-tracking refs and tag-reachable release
+commits). Two preservation items: the pre-rewrite originals of the
+udpspeeder-update work (three commits on a local backup-before-rewrite branch,
+existing nowhere else) are now pushed as archive/udpspeeder-update-pre-rewrite
+on the packages fork; and the untracked read-only flashprog-test-packages/
+directory (flashprog 1.5-r1 apk and ipk test builds with SHA256SUMS, dated
+August) stays where it is, preserved by its permissions and recorded here.

@@ -1,0 +1,38 @@
+# Reference workflow: run `host-lifecycle software --check` on every push. The
+# naming sweep's recheck lives inside this gate (the remap dictionary judged
+# against the tracked documents), so a tell-shaped token written into a `call/`
+# decision or a results record blocks in CI at the same boundary the prose lane
+# guards, instead of surfacing when a human next invokes the gate (host#24).
+# The gate reads recorded state — pins, receipts, the materialized sources —
+# and its cfg and inventory scans walk what the pins materialize, so the lane
+# also catches gated code no lane compiles and source files no task declares.
+#
+# Every step is gated on a `.host-software` existing: the bare template no-ops
+# (success) on itself and runs fully once a project records a component. The
+# tool builds from the tools/host-lifecycle submodule this template ships, so
+# the verdict comes from the spine revision the project carries.
+
+name: Check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - name: Fetch the host-lifecycle tool
+        if: hashFiles('.host-software') != ''
+        run: git submodule update --init tools/host-lifecycle
+      - name: Build the tool
+        if: hashFiles('.host-software') != ''
+        run: cargo build --release --manifest-path tools/host-lifecycle/Cargo.toml
+      - name: Materialize the software (the scans walk the materialized sources)
+        if: hashFiles('.host-software') != ''
+        run: ./tools/host-lifecycle/target/release/host-lifecycle software --materialize .
+      - name: Recorded-state gate (pins, receipts, the naming sweep's recheck)
+        if: hashFiles('.host-software') != ''
+        run: ./tools/host-lifecycle/target/release/host-lifecycle software --check .

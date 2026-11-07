@@ -7,10 +7,10 @@
 # host does not claim to reproduce host-lint, only to pin and install it.
 [software "host-lint"]
     url      = https://github.com/connollydavid/host-lint.git
-    pin      = 966259fb2001d0a4f6bdf3ae608ddd1c36c309d0
+    pin      = db4a0d2026596ac21c3e089bf11d3738fb2d3b78
     branch   = main
     hooks    = pre-commit
-    artifact = target/release/host-lint 5ea6e94d17e7a860c9809728eee988f23caffe45e2d958628835fd44271ec645
+    artifact = target/release/host-lint 7e8e10866b6188f82d2b8f50bd16650c45a1ca32be79d9330eee787fda937bc8
     repro-waiver = call/0002
 
 # The software under development. Migrated (pre-existing), recorded as a source pin

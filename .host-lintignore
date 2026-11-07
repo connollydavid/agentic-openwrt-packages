@@ -3,4 +3,11 @@
 # MEMORY.md is the agent's own append-only working memory: it is excepted from both
 # the naming audit and the prose audit (the spine's one record-layer exception),
 # never rewritten, so it is excluded here rather than cleaned.
+#
+# UPGRADING.md — the template's ledger, carried here as a copy-at-version record.
+# Its entries are the template's published record layer: written once and read by
+# adopters at revisions their authors cannot see, so an entry is never reworded here
+# (the same reason MEMORY.md is excluded by construction). The entries carry
+# cross-project register citations by nature, which resolve nowhere in this repo.
 MEMORY.md
+UPGRADING.md
