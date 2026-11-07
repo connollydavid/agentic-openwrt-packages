@@ -26,7 +26,11 @@ jobs:
       - uses: actions/checkout@v5
       - name: Fetch the host-lifecycle tool
         if: hashFiles('.host-software') != ''
-        run: git submodule update --init tools/host-lifecycle
+        run: |
+          git submodule update --init tools/host-lifecycle
+          # The gate re-checks the phase receipts against lifecycle.manifest,
+          # which the adopted template submodule carries.
+          git submodule update --init host-template
       - name: Build the tool
         if: hashFiles('.host-software') != ''
         run: cargo build --release --manifest-path tools/host-lifecycle/Cargo.toml
