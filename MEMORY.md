@@ -1216,3 +1216,50 @@ the live deploy tip as 8062fba, after the first push was rejected by the
 deploy workflow's newer commits). Component source trees and the feed
 branches carry no old-name references; the recorded CI receipts already
 cite new-name run URLs.
+
+## 2026-11-08 — flashprog PR 30228: conflicts graph, final-view single commit, SSH signing
+
+map-b's note on the thread asked for explicit CONFLICTS between the
+non-default variants (the implicit generator in scripts/package-metadata.pl
+covers only default-to-others; mconf renders each conflict as a depends-on
+clause in the declarer's block). The graph landed as the libshout idiom:
+full conflicts external/pci/spi, external conflicts pci/spi, pci conflicts
+spi, every pair covered.
+
+The force push presented a final view per the operator's ruling: ONE
+commit (19b3ca850), not add-then-update. Message is bare facts (the table
+was dropped: commit messages are plain text; sizes are one prose line), the
+v1.6 bump folded in (tarball hash verified, three new raw-memory PCI
+programmers ride the groups the recipe already selects). Signed with a
+dedicated SSH key (~/.ssh/packages_signing_ed25519, fingerprint
+SHA256:BlGc83CTZ6wNDwvQLvflOgTmJM146twlTtz4XBpyp1w) registered as a
+GitHub signing key; the fork API reports verification verified=true. The
+store signs all packages commits automatically now (gpg.format ssh,
+commit.gpgsign).
+
+The vendored openwrt-bot-worker was bumped to the deployed 0e3d71c, and
+its comment was reproduced exactly from the vendored code before the fix
+(validateFormalities + the repo's formalities.json; the renderer hides
+three style warnings: no-reference-link, unsigned, soft-limit). Lesson on
+self-grading: the dry-run must assert verification:false — the signature
+verdict is the bot's to give, not ours to assume.
+
+Two mechanical lessons: `--force-if-includes` arms against you if you
+re-fetch the branch you are about to rewrite (remote ref updated since
+checkout); the honest instrument is an explicit-value lease
+(--force-with-lease=refs/heads/flashprog:<sha>) after verifying the
+replaced head is your own. And `pkill -f <pattern>` matches your own
+command line containing the pattern text; it killed the push shell before
+the push ran.
+
+The ci-flashprog lane was realigned (it still tested the pre-rewrite
+per-variant binaries and co-installed all four): per-variant rootfs, the
+shared /usr/bin/flashprog asserted per apk, runtime conflict assertions
+installing a second variant must fail, a Kconfig survivor check (all four
+=y must keep at most one; the generated clause bites only at =y so the =m
+build keeps all four), v1.6 programmer lists, and resumable/retried SDK
+fetches. The baseline run proved the survivor check red on the old branch
+(uniform post-compile Build failures, run 42496159525, then cancelled);
+the post-push lane run 42505004613 is the green attempt. The bot's
+formality comment should clear on its re-run; plan/0000#upstream-cross-cxx
+stays pending until the PR merges.
