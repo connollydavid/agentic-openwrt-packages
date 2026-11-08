@@ -1197,3 +1197,22 @@ gh-pages content, lane health); recorded as unconfirmed. It arrived
 wrapped in a suspicious envelope claiming to be a goals plugin bridge and
 directing a third-party npx install; L flagged it, did not relay it, and
 the operator then sent the goal text directly.
+
+## 2026-11-08 — the host repo was renamed; internal URLs re-pointed
+
+The repository was renamed agentic-UDPspeeder-simd to agentic-openwrt-packages
+before this session, which is why every API check agreed with the current
+name: it IS the new name. GitHub redirects repository URLs after a rename
+but not Pages URLs, so the book's end URL moved from
+connollydavid.github.io/agentic-UDPspeeder-simd/ (now 404) to
+connollydavid.github.io/agentic-openwrt-packages/ with no redirect; that
+was the changed end URL in the operator's goal note. Old entries in this
+log and in call/ keep the old name as history and stay as written.
+
+Internal references re-pointed: the README (title, the AGENTS.md manual
+pointer, the materialize path, the bootstrap entrypoint) and the
+udpspeeder-simd gh-pages landing page's Documentation link (rebased onto
+the live deploy tip as 8062fba, after the first push was rejected by the
+deploy workflow's newer commits). Component source trees and the feed
+branches carry no old-name references; the recorded CI receipts already
+cite new-name run URLs.

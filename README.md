@@ -1,4 +1,4 @@
-# agentic-UDPspeeder-simd
+# agentic-openwrt-packages
 
 The governance shell for **UDPspeeder-simd**, a Forward Error Correction UDP tunnel
 (C++, forked from UDPspeeder). This repository holds the *thought*: the plans,
@@ -6,9 +6,10 @@ decisions, personas, and the operating manual. The software itself, the *action*
 lives beneath it as a bare store with a worktree, kept separate and independently
 versioned.
 
-Read [`CLAUDE.md`](CLAUDE.md) first; it is the operating manual and works literally.
-[`STRUCTURE.md`](STRUCTURE.md) is the one-page map. The process that built this
-host lives in the [`host` repository](https://github.com/connollydavid/host).
+Read [`AGENTS.md`](AGENTS.md) first; it is the operating manual and works literally
+(`CLAUDE.md` is a pointer to it). [`STRUCTURE.md`](STRUCTURE.md) is the one-page map.
+The process that built this host lives in the
+[`host` repository](https://github.com/connollydavid/host).
 
 ## Layout
 
@@ -21,18 +22,18 @@ host lives in the [`host` repository](https://github.com/connollydavid/host).
 | `tools/` | the verification tools, referenced submodules |
 
 The software is pinned in [`.host-software`](.host-software) and materialized with
-`host-lifecycle software --materialize .` into `software/udpspeeder-simd/branch_libev/`.
+`host-lifecycle software --materialize .` into `software/<component>/<branch>/`
+(for udpspeeder-simd that is `software/udpspeeder-simd/main/`).
 
 ## Tooling
 
-`host-lifecycle` and `host-lint` drive the mechanical work. Build them from the
-`tools/` submodules, then generate the skill symlinks and install the commit gate:
+`host-lifecycle` and `host-lint` drive the mechanical work. A fresh clone reaches a
+set-up project with one command (`bootstrap` runs the submodules, the materialize,
+the skill links, the hooks, and the completeness gate):
 
 ```
-git submodule update --init --recursive
-./link-skills.sh
-host-lifecycle software --materialize .
-host-lifecycle software --install-hooks .
+./tools/install-tools.sh host-lifecycle
+host-lifecycle bootstrap .
 ```
 
 ## License
