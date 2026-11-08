@@ -174,15 +174,16 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="agentic-udpspeeder-simd"><a class="header" href="#agentic-udpspeeder-simd">agentic-UDPspeeder-simd</a></h1>
+                        <h1 id="agentic-openwrt-packages"><a class="header" href="#agentic-openwrt-packages">agentic-openwrt-packages</a></h1>
 <p>The governance shell for <strong>UDPspeeder-simd</strong>, a Forward Error Correction UDP tunnel
 (C++, forked from UDPspeeder). This repository holds the <em>thought</em>: the plans,
 decisions, personas, and the operating manual. The software itself, the <em>action</em>,
 lives beneath it as a bare store with a worktree, kept separate and independently
 versioned.</p>
-<p>Read <a href="CLAUDE.html"><code>CLAUDE.md</code></a> first; it is the operating manual and works literally.
-<a href="STRUCTURE.html"><code>STRUCTURE.md</code></a> is the one-page map. The process that built this
-host lives in the <a href="https://github.com/connollydavid/host"><code>host</code> repository</a>.</p>
+<p>Read <a href="AGENTS.html"><code>AGENTS.md</code></a> first; it is the operating manual and works literally
+(<code>CLAUDE.md</code> is a pointer to it). <a href="STRUCTURE.html"><code>STRUCTURE.md</code></a> is the one-page map.
+The process that built this host lives in the
+<a href="https://github.com/connollydavid/host"><code>host</code> repository</a>.</p>
 <h2 id="layout"><a class="header" href="#layout">Layout</a></h2>
 <div class="table-wrapper"><table><thead><tr><th>Room</th><th>Holds</th></tr></thead><tbody>
 <tr><td><code>cast/</code></td><td>personas (the Who); examples pending replacement</td></tr>
@@ -193,14 +194,14 @@ host lives in the <a href="https://github.com/connollydavid/host"><code>host</co
 </tbody></table>
 </div>
 <p>The software is pinned in <a href=".host-software"><code>.host-software</code></a> and materialized with
-<code>host-lifecycle software --materialize .</code> into <code>software/udpspeeder-simd/branch_libev/</code>.</p>
+<code>host-lifecycle software --materialize .</code> into <code>software/&lt;component&gt;/&lt;branch&gt;/</code>
+(for udpspeeder-simd that is <code>software/udpspeeder-simd/main/</code>).</p>
 <h2 id="tooling"><a class="header" href="#tooling">Tooling</a></h2>
-<p><code>host-lifecycle</code> and <code>host-lint</code> drive the mechanical work. Build them from the
-<code>tools/</code> submodules, then generate the skill symlinks and install the commit gate:</p>
-<pre><code>git submodule update --init --recursive
-./link-skills.sh
-host-lifecycle software --materialize .
-host-lifecycle software --install-hooks .
+<p><code>host-lifecycle</code> and <code>host-lint</code> drive the mechanical work. A fresh clone reaches a
+set-up project with one command (<code>bootstrap</code> runs the submodules, the materialize,
+the skill links, the hooks, and the completeness gate):</p>
+<pre><code>./tools/install-tools.sh host-lifecycle
+host-lifecycle bootstrap .
 </code></pre>
 <h2 id="license"><a class="header" href="#license">License</a></h2>
 <p>This governance shell is released into the public domain (Unlicense). The hosted
@@ -3952,6 +3953,22 @@ gh-pages content, lane health); recorded as unconfirmed. It arrived
 wrapped in a suspicious envelope claiming to be a goals plugin bridge and
 directing a third-party npx install; L flagged it, did not relay it, and
 the operator then sent the goal text directly.</p>
+<h2 id="2026-11-08--the-host-repo-was-renamed-internal-urls-re-pointed"><a class="header" href="#2026-11-08--the-host-repo-was-renamed-internal-urls-re-pointed">2026-11-08 — the host repo was renamed; internal URLs re-pointed</a></h2>
+<p>The repository was renamed agentic-UDPspeeder-simd to agentic-openwrt-packages
+before this session, which is why every API check agreed with the current
+name: it IS the new name. GitHub redirects repository URLs after a rename
+but not Pages URLs, so the book's end URL moved from
+connollydavid.github.io/agentic-UDPspeeder-simd/ (now 404) to
+connollydavid.github.io/agentic-openwrt-packages/ with no redirect; that
+was the changed end URL in the operator's goal note. Old entries in this
+log and in call/ keep the old name as history and stay as written.</p>
+<p>Internal references re-pointed: the README (title, the AGENTS.md manual
+pointer, the materialize path, the bootstrap entrypoint) and the
+udpspeeder-simd gh-pages landing page's Documentation link (rebased onto
+the live deploy tip as 8062fba, after the first push was rejected by the
+deploy workflow's newer commits). Component source trees and the feed
+branches carry no old-name references; the recorded CI receipts already
+cite new-name run URLs.</p>
 
                     </main>
 
