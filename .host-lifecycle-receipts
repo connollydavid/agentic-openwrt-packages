@@ -328,3 +328,19 @@
     recorded = 2026-11-08
     revision = 73258f409f3c552f2e95e6c6a30044d183d7293d
     conclusion = success
+
+[receipt "ci" "host/qemu-packet-test"]
+    disposition = done
+    evidence = https://github.com/connollydavid/agentic-openwrt-packages/actions/runs/42659872341
+    tool = host-lifecycle@0.63.0
+    recorded = 2026-11-11
+    revision = db52394affbac41d985c181ec771f9b0a26abea1
+    conclusion = success
+
+[receipt "ci" "host/flashprog-measure"]
+    disposition = done
+    evidence = https://github.com/connollydavid/agentic-openwrt-packages/actions/runs/43020399406
+    tool = host-lifecycle@0.63.0
+    recorded = 2026-11-11
+    revision = db52394affbac41d985c181ec771f9b0a26abea1
+    conclusion = success
