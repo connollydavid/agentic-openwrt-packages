@@ -10,6 +10,13 @@ name: flashprog measure
 
 on:
   workflow_dispatch:
+    inputs:
+      arch:
+        description: 'architecture to build (default x86_64)'
+        default: 'x86_64'
+      release:
+        description: 'release to build against (main or a numbered one)'
+        default: 'main'
 
 permissions:
   contents: read
@@ -29,10 +36,10 @@ jobs:
           mkdir -p "$GITHUB_WORKSPACE/.github/scripts"
           git clone --depth 1 --branch ci-flashprog "$PKG_REPO" ci
           cp -r ci/.github/scripts/. "$GITHUB_WORKSPACE/.github/scripts/"
-      - name: Build and check x86/64 main
+      - name: Build and check ${{ inputs.arch }} ${{ inputs.release }}
         env:
           PKG_REPO: https://github.com/connollydavid/packages.git
           PKG_REF: flashprog
         run: |
-          bash .github/scripts/flashprog-build.sh main x86_64
-          bash .github/scripts/flashprog-check.sh x86_64
+          bash .github/scripts/flashprog-build.sh "${{ inputs.release }}" "${{ inputs.arch }}"
+          bash .github/scripts/flashprog-check.sh "${{ inputs.arch }}"
