@@ -4010,6 +4010,35 @@ fetches. The baseline run proved the survivor check red on the old branch
 the post-push lane run 42505004613 is the green attempt. The bot's
 formality comment should clear on its re-run; plan/0000#upstream-cross-cxx
 stays pending until the PR merges.</p>
+<h2 id="2026-11-11--flashprog-sizes-re-measured-at-16-the-forks-actions-stalled"><a class="header" href="#2026-11-11--flashprog-sizes-re-measured-at-16-the-forks-actions-stalled">2026-11-11 — flashprog sizes re-measured at 1.6; the fork's Actions stalled</a></h2>
+<p>openwrt-ai's review on the thread caught the one stale figure: the size
+line in the commit message carried the 1.5 measurements (they matched
+the old table exactly) while the commit packages 1.6. The lane's green
+x86_64 jobs measured 1.6: spi 684,818 stays 685 kB, pci 944,160 (the
+changed digit, 936 to 944), external 1,006,930 stays 1.0 MB, full
+1,258,116 stays 1.3 MB. The main-snapshot and 25.12 SDKs produced
+byte-identical numbers. The single commit was amended (9f49c8217,
+re-signed, explicit-lease force push) and the bot's four checks are
+green on it. The idiom for figures in an unmerged final-view commit is
+amend, never a correction commit.</p>
+<p>The fork's Actions stopped between Nov 8 and Nov 11: pushes do not
+trigger, dispatch 422s with "Actions has been disabled for this
+repository", while the permissions API says enabled, the workflow says
+active, the repo is public, nothing in the audit trail or this host's
+records names a decision, and the account's Actions work (the host
+dispatched lanes the same morning). Two host cron lanes sit in
+disabled_inactivity, and the fork was idle Aug 9 to Nov 8, so an
+automatic idle suspension is the best theory; GitHub's own notice, if
+any, went to the account email. Until it clears, the host carries a
+dispatch-only flashprog measure lane (43020399406, green) that reads
+the scripts from the fork's ci-flashprog branch and measures the
+flashprog branch on x86/64 main.</p>
+<p>The 1.6 lane run also reclassified nicamd: it reaches the PCnet32
+through x86 port I/O, so upstream builds it nowhere else and it belongs
+with the port-I/O list, not the memory-mapped ones (29 non-x86 jobs
+failed on my first classification; the recipe was never wrong). The
+Nov 9 green qemu run (42659872341) is now the cited receipt for that
+lane, closing the flaky-run citation.</p>
 
                     </main>
 
