@@ -1,0 +1,38 @@
+name: flashprog measure
+
+# A dispatch-only measurement lane: the packages fork's own Actions sit in a
+# state GitHub describes only as "disabled" while every API surface claims
+# enabled (no settings change, no recorded decision; see MEMORY 2026-11-11).
+# The lane reads the build/check scripts from the fork's ci-flashprog branch
+# and points them at the flashprog branch for x86/64 against the main
+# snapshot, which produces the installed-size figures the PR commit message
+# cites. No schedule, no push trigger.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  measure:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - name: Install tools
+        run: sudo apt-get update && sudo apt-get install -y zstd
+      - name: Fetch the lane scripts from the fork's ci-flashprog branch
+        env:
+          PKG_REPO: https://github.com/connollydavid/packages.git
+        run: |
+          set -eo pipefail
+          mkdir -p "$GITHUB_WORKSPACE/.github/scripts"
+          git clone --depth 1 --branch ci-flashprog "$PKG_REPO" ci
+          cp -r ci/.github/scripts/. "$GITHUB_WORKSPACE/.github/scripts/"
+      - name: Build and check x86/64 main
+        env:
+          PKG_REPO: https://github.com/connollydavid/packages.git
+          PKG_REF: flashprog
+        run: |
+          bash .github/scripts/flashprog-build.sh main x86_64
+          bash .github/scripts/flashprog-check.sh x86_64
