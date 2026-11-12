@@ -1316,3 +1316,14 @@ main: headers, the set-fwmark function, and the command-line switch)
 and the work needed: review the approach, name the flag, test, land on
 canonical main, ride the next package release. Repo settings are not
 versioned, so this entry is the record that the tracker changed.
+
+## 2026-11-12 — allium pin moved 3.5.0 to 3.5.3
+
+`.env` now pins `ALLIUM_VERSION=3.5.3`, matching the global
+`~/.cargo/bin/allium` already on PATH, and `tools/install-tools.sh
+allium` installed it project-local at `.host-tools/allium/bin/allium`
+(cargo `--locked`, per call/0007's two-mechanism split). call/0007
+still names 3.5.0 in its Notes: that record is immutable, and this
+entry is the record of the move. The `tools/allium` skills submodule
+pin is unchanged. crates.io has since published 3.6.1; the pin is a
+choice, not a ceiling.
