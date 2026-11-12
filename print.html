@@ -2399,9 +2399,11 @@ governance shell is Unlicense. Keep the two separate.</li>
 stanza records a source <code>pin</code> with no <code>deploy</code> or <code>artifact</code>, so no reproducible
 build is claimed yet. Add a build recipe and a <code>repro-exempt = call/NNNN</code> (or a
 real <code>artifact</code>) before shipping a binary through the host.</li>
-<li><strong>Lanes.</strong> No <code>.allium</code> or <code>.tla</code> spec exists yet, so the requirements and timing
-lanes are inert. Author a spec through its skills and wire its CI lane before
-committing it; a present spec without its full lane is a defect.</li>
+<li><strong>Lanes.</strong> The component carries both spec kinds: <code>dns_lease_mgr.allium</code>
+and <code>socket_marks.allium</code> (with obligations manifests) run <code>check</code> +
+<code>analyse</code> + <code>plan</code> in its own CI, and the TLA/TLC suite lives under
+<code>spec/</code>. New behavioural work on this component adds or extends an
+allium spec with its obligations; the lanes are wired and gate release.</li>
 </ul>
 <h2 id="project-specifics-the-packages-lane"><a class="header" href="#project-specifics-the-packages-lane">Project specifics: the packages lane</a></h2>
 <p>A second software component, <code>packages</code>, is embedded as a Where-room lane
@@ -4222,6 +4224,29 @@ them would orphan the citations.</p>
 real inbox; the convention is Co-Authored-By: GLM-5.3 <a href="mailto:noreply@z.ai">noreply@z.ai</a>
 instead. Same rules otherwise: an email address, never a URL, no www.
 and no chat. in the domain.</p>
+<h2 id="2026-11-12--plan0002-complete-socket-marks-shipped-as-v120"><a class="header" href="#2026-11-12--plan0002-complete-socket-marks-shipped-as-v120">2026-11-12 — plan/0002 complete: socket marks shipped as v1.2.0</a></h2>
+<p>The socket-marks milestone closed in one day: socket_marks.allium (19
+obligations, strict-discharge clean), red-then-green bench tests, the
+three flags with an honor-or-refuse contract, two new CI lanes
+(FreeBSD 15.1 arm64 VM with scp sync and base clang; native windows
+with MSYS2 and a started qWAVE service), the Windows qWAVE dscp tier,
+dual-language docs, UCI wiring on the snapshot feed, and the tagged
+v1.2.0 release with binaries. The udpspeeder-simd pin follows the tag.</p>
+<p>Lessons worth keeping: SO_MARK needs CAP_NET_ADMIN even on 6.x kernels
+(the 5.17 unprivileged story was wrong, so the fwmark test is dual-mode
+and the lane runs the suite plain and under sudo); the vmactions
+rsync dies on every host and scp is the working transport; FreeBSD's
+gcc port clashes with base libgcc_s and base clang is the answer; wine
+is Windows without qWAVE, so support is probed rather than assumed and
+every platform permutation is a tested arm; some MinGW qos2.h headers
+reference a QOS_FLOWID they never declare, so the tier declares its
+own minimal ABI-exact surface; and a Server runner's qWAVE answers
+flow admission with ERROR_NOT_SUPPORTED, which is the refusal arm of
+the contract, not a test failure. The pktmon byte-capture tier remains
+unimplemented: no available CI host admits qWAVE flows.</p>
+<p>Issue 1 is closed with credit to sdanfa. The AGENTS lanes paragraph no
+longer claims the component is spec-less. The task receipts cite the
+runs; the goal close-out awaits the operator's attestation.</p>
 
                     </main>
 

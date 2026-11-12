@@ -1252,9 +1252,11 @@ governance shell is Unlicense. Keep the two separate.</li>
 stanza records a source <code>pin</code> with no <code>deploy</code> or <code>artifact</code>, so no reproducible
 build is claimed yet. Add a build recipe and a <code>repro-exempt = call/NNNN</code> (or a
 real <code>artifact</code>) before shipping a binary through the host.</li>
-<li><strong>Lanes.</strong> No <code>.allium</code> or <code>.tla</code> spec exists yet, so the requirements and timing
-lanes are inert. Author a spec through its skills and wire its CI lane before
-committing it; a present spec without its full lane is a defect.</li>
+<li><strong>Lanes.</strong> The component carries both spec kinds: <code>dns_lease_mgr.allium</code>
+and <code>socket_marks.allium</code> (with obligations manifests) run <code>check</code> +
+<code>analyse</code> + <code>plan</code> in its own CI, and the TLA/TLC suite lives under
+<code>spec/</code>. New behavioural work on this component adds or extends an
+allium spec with its obligations; the lanes are wired and gate release.</li>
 </ul>
 <h2 id="project-specifics-the-packages-lane"><a class="header" href="#project-specifics-the-packages-lane">Project specifics: the packages lane</a></h2>
 <p>A second software component, <code>packages</code>, is embedded as a Where-room lane
