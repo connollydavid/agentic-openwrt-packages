@@ -1464,3 +1464,10 @@ always the unquoted colon, now caught by tools/wfcheck.py before any
 push. Owed next: the release machinery (windows-arm64 job, the mac
 universal job, the publisher scheme, LIBS_EXTRA) merges back to main
 so the next release cuts from there and the pin follows.
+
+## 2026-11-12 — operator ruling: the mac exec waits for the pool
+
+v1.2.1 is complete as published, nine assets; the universal2 mac exec
+waits for the macOS pool to feed the lane and rides the next release
+through the publisher's if-present step, which the merge-back to main
+keeps wired. No workaround, no self-hosted runner for it: we wait.
