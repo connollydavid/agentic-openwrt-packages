@@ -2404,8 +2404,8 @@ available to greenfield software.</p>
 run that passed discharges it. Before a turn's work is reported done, the default
 branch's most recent CI runs are read, and every non-green conclusion is fixed in
 that turn or recorded as a <code>ci</code> receipt carrying the run URL. `host-lifecycle ci</p>
-<dir>` judges the lanes discovered from `.github/workflows/` offline -- at the host
-root's HEAD and at each component's recorded pin -- and absence is a finding, never
+<dir>` judges the lanes discovered from `.github/workflows/` offline — at the host
+root's HEAD and at each component's recorded pin — and absence is a finding, never
 a default: a lane declared by the tree with no receipted success at the revision
 under judgment is a HAZARD, and a component with no workflows states that absence
 as a named line rather than leaving it implied.
