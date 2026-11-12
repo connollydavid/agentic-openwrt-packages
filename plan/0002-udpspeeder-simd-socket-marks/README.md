@@ -61,7 +61,7 @@ that pattern:
 - `socket_marks.allium`, authored through the elicit skill at domain level (no
   setsockopt in the spec): three config fields, apply-before-use, the resolver
   rule, the refusal rule, the re-point rule. No TLA spec: pure configuration
-  surface, no ordering semantics — stated, not silently omitted.
+  surface, no ordering semantics -- stated, not silently omitted.
 - Red-green: the bench harness grows the marking tests first (parse accept and
   reject including negative wraparound, per-platform refusal, `getsockopt`
   round-trip apply, IPv6 parity, re-point persistence), failing on unmodified

@@ -350,3 +350,18 @@
     tool = host-lifecycle@0.63.0
     recorded = 2026-11-12
     target = plan/0002-udpspeeder-simd-socket-marks
+
+[receipt "goal" "park"]
+    disposition = done
+    reason = substance shipped as v1.2.0 and beyond; the close-the-loop attestation remains welcome and the task completes whenever given
+    tool = host-lifecycle@0.63.0
+    recorded = 2026-11-12
+    target = plan/0002-udpspeeder-simd-socket-marks
+
+[receipt "ci" "software/udpspeeder-simd/main/ci"]
+    disposition = done
+    evidence = https://github.com/connollydavid/UDPspeeder-simd/actions/runs/43174829142
+    tool = host-lifecycle@0.63.0
+    recorded = 2026-11-12
+    revision = 66fbb4dba53b614b5749b5ef55d419d8c63cef76
+    conclusion = success
