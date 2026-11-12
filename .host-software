@@ -33,7 +33,7 @@
 # artifact, so no reproducible build is claimed here. GPL-2.0 in its own tree.
 [software "packages"]
     url    = https://github.com/connollydavid/packages.git
-    pin    = 1d40ad929ad45cfbdf547996d0ba2379d9765172
+    pin      = c7ffd9a4a121e407a01450d83c16ae3571a17f21
     branch = master
     # The net/udpspeeder version bump offered to openwrt/packages, as its own
     # worktree rather than a checkout of the canonical one, so master stays at
