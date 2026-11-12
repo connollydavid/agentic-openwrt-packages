@@ -1171,7 +1171,7 @@ way and the reproducible-build lane stayed red for a day.
   decision or a `MEMORY.md` entry naming a rewritten SHA earns a new entry that
   points back, under the append-only rule.
 
-## Project specifics: UDPspeeder-simd
+## Project specifics: udpspeeder-simd
 
 The rules above are the inherited spine. The facts below are this project's own,
 recorded so an agent does not have to re-derive them from the code.
@@ -1199,7 +1199,7 @@ recorded so an agent does not have to re-derive them from the code.
 ## Project specifics: the packages lane
 
 A second software component, `packages`, is embedded as a Where-room lane
-alongside UDPspeeder-simd, recorded in `.host-software`.
+alongside udpspeeder-simd, recorded in `.host-software`.
 
 - **What it is.** A fork of the OpenWrt packages feed (`openwrt/packages`): build
   recipes (Makefiles), patches, and options for OpenWrt applications and libraries.
