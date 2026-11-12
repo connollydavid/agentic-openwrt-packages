@@ -1,5 +1,5 @@
 # The active goal
 
-plan/0002-udpspeeder-simd-socket-marks: Diego routes a tunnel through an OpenWrt box that shapes by firewall mark: the tunnel's outer packets must carry fwmark  ….
+plan/0002-udpspeeder-simd-socket-marks is complete; the operator's semantic acceptance is owed.
 
-Orient with: host-lifecycle goal show .
+Close with: host-lifecycle goal accept .
