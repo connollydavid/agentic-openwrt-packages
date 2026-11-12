@@ -676,7 +676,7 @@ that pattern:</p>
 <li><code>socket_marks.allium</code>, authored through the elicit skill at domain level (no
 setsockopt in the spec): three config fields, apply-before-use, the resolver
 rule, the refusal rule, the re-point rule. No TLA spec: pure configuration
-surface, no ordering semantics — stated, not silently omitted.</li>
+surface, no ordering semantics -- stated, not silently omitted.</li>
 <li>Red-green: the bench harness grows the marking tests first (parse accept and
 reject including negative wraparound, per-platform refusal, <code>getsockopt</code>
 round-trip apply, IPv6 parity, re-point persistence), failing on unmodified
@@ -2404,8 +2404,8 @@ available to greenfield software.</p>
 run that passed discharges it. Before a turn's work is reported done, the default
 branch's most recent CI runs are read, and every non-green conclusion is fixed in
 that turn or recorded as a <code>ci</code> receipt carrying the run URL. `host-lifecycle ci</p>
-<dir>` judges the lanes discovered from `.github/workflows/` offline — at the host
-root's HEAD and at each component's recorded pin — and absence is a finding, never
+<dir>` judges the lanes discovered from `.github/workflows/` offline -- at the host
+root's HEAD and at each component's recorded pin -- and absence is a finding, never
 a default: a lane declared by the tree with no receipted success at the revision
 under judgment is a HAZARD, and a component with no workflows states that absence
 as a named line rather than leaving it implied.
@@ -2612,8 +2612,8 @@ directly, and this custom-feed step is only needed for a release that predates
 the merge.</li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="the-active-goal"><a class="header" href="#the-active-goal">The active goal</a></h1>
-<p>plan/0002-udpspeeder-simd-socket-marks: Diego routes a tunnel through an OpenWrt box that shapes by firewall mark: the tunnel's outer packets must carry fwmark  ….</p>
-<p>Orient with: host-lifecycle goal show .</p>
+<p>plan/0002-udpspeeder-simd-socket-marks is parked: substance shipped as v1.2.0 and beyond; the close-the-loop attestation remains welcome and the task completes whenever given.</p>
+<p>Resume with: host-lifecycle goal unpark .</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="migrationmd-the-process-moved-to-the-host-repo"><a class="header" href="#migrationmd-the-process-moved-to-the-host-repo">MIGRATION.md: the process moved to the <code>host</code> repo</a></h1>
 <p>How to bring an existing repo under this methodology, and how to upgrade one that
 adopted an earlier revision, now lives as a single instruction file in its own
