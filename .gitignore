@@ -33,3 +33,4 @@ tools/formality-check/
 # Project-local tool installs: fetched by tools/install-tools.sh at the pinned
 # versions in .env, verified by sha256, never committed.
 /.host-tools/
+.host-goal
