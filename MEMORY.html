@@ -1501,6 +1501,30 @@ file was rejected at parse. The validation that would have caught it
 (yaml.safe_load) never ran: no pyyaml locally, and the failed import
 did not stop the commit chain. Validate with a tool that exists, or
 do not call it validation.</p>
+<h2 id="2026-11-12--v121-shipped-both-windows-arm-worlds-the-ruled-naming-scheme"><a class="header" href="#2026-11-12--v121-shipped-both-windows-arm-worlds-the-ruled-naming-scheme">2026-11-12 — v1.2.1 shipped: both windows arm worlds, the ruled naming scheme</a></h2>
+<p>v1.2.1 tags the release-v121-final branch (7c70a7d) and publishes the
+scheme the operator ruled: udpspeeder-simd.<arch> for linux where the
+arch-map name is the token, udpspeeder-simd.<arch>.exe for windows
+where the extension already names the platform -- both arm worlds,
+the aarch64 exe built natively on GitHub's windows-11-arm runner --
+and the mac exec will be plain udpspeeder-simd, one universal2 fat
+binary with no annotation, taken by the publisher the day the starved
+macOS pool feeds the lane. The validation branch dropped the starved
+lanes outright after the finding worth keeping: cancellation defeats
+continue-on-error -- a job the platform cancels for want of a runner
+fails the run conclusion whatever the flag says, so a lane that
+cannot run must not be in a validation branch at all.</p>
+<p>The smaller lessons, each already in its commit: CLANGARM64's
+compiler binaries are aarch64-native and need an arm host; its
+pthread_time.h resolves clock_gettime through winpthread, and the
+makefile grew LIBS_EXTRA as the extension point; the main exe has no
+--version and exits nonzero by design on bad options, so smokes
+assert the banner; clang builds of fec's parameter-sized arrays need
+-DBENCH_EXPOSE_INTERNALS; and the zero-jobs workflow failure was
+always the unquoted colon, now caught by tools/wfcheck.py before any
+push. Owed next: the release machinery (windows-arm64 job, the mac
+universal job, the publisher scheme, LIBS_EXTRA) merges back to main
+so the next release cuts from there and the pin follows.</p>
 
                     </main>
 
