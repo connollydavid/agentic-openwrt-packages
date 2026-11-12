@@ -378,3 +378,9 @@
     tool = host-lifecycle@0.63.0
     recorded = 2026-11-12
     target = plan/0002-udpspeeder-simd-socket-marks
+
+[receipt "goal" "unpark"]
+    disposition = done
+    tool = host-lifecycle@0.63.0
+    recorded = 2026-11-12
+    target = plan/0002-udpspeeder-simd-socket-marks
