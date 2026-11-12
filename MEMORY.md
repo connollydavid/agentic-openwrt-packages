@@ -1343,3 +1343,30 @@ The entry below fixed the URL form but chose glm@z.ai, which might be a
 real inbox; the convention is Co-Authored-By: GLM-5.3 <noreply@z.ai>
 instead. Same rules otherwise: an email address, never a URL, no www.
 and no chat. in the domain.
+
+## 2026-11-12 — plan/0002 complete: socket marks shipped as v1.2.0
+
+The socket-marks milestone closed in one day: socket_marks.allium (19
+obligations, strict-discharge clean), red-then-green bench tests, the
+three flags with an honor-or-refuse contract, two new CI lanes
+(FreeBSD 15.1 arm64 VM with scp sync and base clang; native windows
+with MSYS2 and a started qWAVE service), the Windows qWAVE dscp tier,
+dual-language docs, UCI wiring on the snapshot feed, and the tagged
+v1.2.0 release with binaries. The udpspeeder-simd pin follows the tag.
+
+Lessons worth keeping: SO_MARK needs CAP_NET_ADMIN even on 6.x kernels
+(the 5.17 unprivileged story was wrong, so the fwmark test is dual-mode
+and the lane runs the suite plain and under sudo); the vmactions
+rsync dies on every host and scp is the working transport; FreeBSD's
+gcc port clashes with base libgcc_s and base clang is the answer; wine
+is Windows without qWAVE, so support is probed rather than assumed and
+every platform permutation is a tested arm; some MinGW qos2.h headers
+reference a QOS_FLOWID they never declare, so the tier declares its
+own minimal ABI-exact surface; and a Server runner's qWAVE answers
+flow admission with ERROR_NOT_SUPPORTED, which is the refusal arm of
+the contract, not a test failure. The pktmon byte-capture tier remains
+unimplemented: no available CI host admits qWAVE flows.
+
+Issue 1 is closed with credit to sdanfa. The AGENTS lanes paragraph no
+longer claims the component is spec-less. The task receipts cite the
+runs; the goal close-out awaits the operator's attestation.

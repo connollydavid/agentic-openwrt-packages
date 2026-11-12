@@ -1190,9 +1190,11 @@ recorded so an agent does not have to re-derive them from the code.
   stanza records a source `pin` with no `deploy` or `artifact`, so no reproducible
   build is claimed yet. Add a build recipe and a `repro-exempt = call/NNNN` (or a
   real `artifact`) before shipping a binary through the host.
-- **Lanes.** No `.allium` or `.tla` spec exists yet, so the requirements and timing
-  lanes are inert. Author a spec through its skills and wire its CI lane before
-  committing it; a present spec without its full lane is a defect.
+- **Lanes.** The component carries both spec kinds: `dns_lease_mgr.allium`
+  and `socket_marks.allium` (with obligations manifests) run `check` +
+  `analyse` + `plan` in its own CI, and the TLA/TLC suite lives under
+  `spec/`. New behavioural work on this component adds or extends an
+  allium spec with its obligations; the lanes are wired and gate release.
 
 ## Project specifics: the packages lane
 
