@@ -1,0 +1,370 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Socket marks for udpspeeder-simd (fwmark, cookie, dscp) - agentic-openwrt-packages</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../../favicon.svg">
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../../index.html">agentic-openwrt-packages</a></li><li class="chapter-item expanded affix "><li class="part-title">Cast: who</li><li class="chapter-item expanded "><a href="../../cast/index.html"><strong aria-hidden="true">1.</strong> Cast: the project's Who</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../cast/applying-personas.html"><strong aria-hidden="true">1.1.</strong> Applying personas during planning</a></li><li class="chapter-item expanded "><a href="../../cast/diego.html"><strong aria-hidden="true">1.2.</strong> Diego (router administrator)</a></li><li class="chapter-item expanded "><a href="../../cast/ingrid.html"><strong aria-hidden="true">1.3.</strong> Ingrid (OpenWrt feed maintainer)</a></li><li class="chapter-item expanded "><a href="../../cast/samira.html"><strong aria-hidden="true">1.4.</strong> Samira (security engineer)</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Plan: what & when</li><li class="chapter-item expanded "><a href="../../PLAN.html"><strong aria-hidden="true">2.</strong> PLAN: milestone index</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../plan/0000-openwrt-udpspeeder-simd-package/index.html"><strong aria-hidden="true">2.1.</strong> Add an OpenWrt package for udpspeeder-simd</a></li><li class="chapter-item expanded "><a href="../../plan/0001-dns-lease-manager/index.html"><strong aria-hidden="true">2.2.</strong> DNS lease manager for udpspeeder-simd (v1.1.0)</a></li><li class="chapter-item expanded "><a href="../../plan/0002-udpspeeder-simd-socket-marks/index.html" class="active"><strong aria-hidden="true">2.3.</strong> Socket marks for udpspeeder-simd (fwmark, cookie, dscp)</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Software: where</li><li class="chapter-item expanded "><a href="../../where.html"><strong aria-hidden="true">3.</strong> Software</a></li><li class="chapter-item expanded affix "><li class="part-title">Call: why</li><li class="chapter-item expanded "><a href="../../call/0000-adopt-agentic-host-methodology.html"><strong aria-hidden="true">4.</strong> Govern UDPspeeder-simd under the agentic-host methodology</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../call/0001-pin-tools-to-current-releases.html"><strong aria-hidden="true">4.1.</strong> Pin the verification tools to current releases, not the template gitlinks</a></li><li class="chapter-item expanded "><a href="../../call/0002-host-lint-consumed-not-reproduced.html"><strong aria-hidden="true">4.2.</strong> host-lint is a consumed tool, not reproduced by this host</a></li><li class="chapter-item expanded "><a href="../../call/0003-no-claude-co-author-trailers-on-packages.html"><strong aria-hidden="true">4.3.</strong> No Claude co-author trailers on packages commits</a></li><li class="chapter-item expanded "><a href="../../call/0004-udpspeeder-simd-package-coexists-and-links-dynamically.html"><strong aria-hidden="true">4.4.</strong> The udpspeeder-simd package coexists with udpspeeder and links dynamically</a></li><li class="chapter-item expanded "><a href="../../call/0005-cross-build-adjustments-live-in-the-fork.html"><strong aria-hidden="true">4.5.</strong> Cross-build adjustments for udpspeeder-simd live in the fork</a></li><li class="chapter-item expanded "><a href="../../call/0006-udpspeeder-simd-release-binaries-are-not-yet-reproducible.html"><strong aria-hidden="true">4.6.</strong> udpspeeder-simd release binaries are not yet reproducible</a></li><li class="chapter-item expanded "><a href="../../call/0007-host-tools-are-pinned-and-hash-verified.html"><strong aria-hidden="true">4.7.</strong> The tools this host runs are pinned and hash-verified</a></li><li class="chapter-item expanded "><a href="../../call/0008-udpspeeder-simd-versioning-and-releases.html"><strong aria-hidden="true">4.8.</strong> udpspeeder-simd versioning and releases</a></li><li class="chapter-item expanded "><a href="../../call/0009-dns-lease-manager-cxx-single-header.html"><strong aria-hidden="true">4.9.</strong> The DNS lease manager ships as a C++-compatible single header</a></li><li class="chapter-item expanded "><a href="../../call/0010-exec-bit-audit-over-fires-on-the-openwrt-install-idiom.html"><strong aria-hidden="true">4.10.</strong> The exec-bit audit over-fires on the OpenWrt install idiom</a></li><li class="chapter-item expanded "><a href="../../call/0011-template-span-v063-agents-manual-lem-and-ci-receipts.html"><strong aria-hidden="true">4.11.</strong> The template span through the v0.63.0 pins: the AGENTS.md manual, the lem system, and the CI-receipt lane</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Reference: how</li><li class="chapter-item expanded "><a href="../../AGENTS.html"><strong aria-hidden="true">5.</strong> AGENTS.md: operating manual for an agentic project</a></li><li class="chapter-item expanded "><a href="../../CLAUDE.html"><strong aria-hidden="true">6.</strong> CLAUDE</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../reference/udpspeeder-simd-on-openwrt-releases.html"><strong aria-hidden="true">6.1.</strong> Using udpspeeder-simd on an OpenWrt release</a></li><li class="chapter-item expanded "><a href="../../MIGRATION.html"><strong aria-hidden="true">6.2.</strong> MIGRATION.md: the process moved to the host repo</a></li><li class="chapter-item expanded "><a href="../../STRUCTURE.html"><strong aria-hidden="true">6.3.</strong> Structure</a></li><li class="chapter-item expanded "><a href="../../UPGRADING.html"><strong aria-hidden="true">6.4.</strong> UPGRADING.md: the version-to-version upgrade ledger</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Memory</li><li class="chapter-item expanded "><a href="../../MEMORY.html"><strong aria-hidden="true">7.</strong> Memory</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">agentic-openwrt-packages</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="socket-marks-for-udpspeeder-simd-fwmark-cookie-dscp"><a class="header" href="#socket-marks-for-udpspeeder-simd-fwmark-cookie-dscp">Socket marks for udpspeeder-simd (fwmark, cookie, dscp)</a></h1>
+<ul>
+<li>Status: planned</li>
+<li>Persona: Diego (router administrator, policy routing and shaping); Samira
+cross-cuts (spec lanes)</li>
+<li>Serves: UDPspeeder-simd issue 1 (sdanfa's fwmark request, arrived via the
+openwrt/packages 29901 thread because this fork's tracker was closed; the idea
+and the first prototype are theirs)</li>
+<li>Scope: the <code>udpspeeder-simd</code> component and its feed packages</li>
+<li>Decisions: <a href="../../call/0008-udpspeeder-simd-versioning-and-releases.html"><code>call/0008</code></a>
+(versioning and release policy governs the bump); the marking-surface design
+(honor-or-refuse, cookie out of UCI, qWAVE in scope) is recorded as a call on
+acceptance</li>
+</ul>
+<h2 id="why"><a class="header" href="#why">Why</a></h2>
+<p>Diego routes a tunnel through an OpenWrt box that shapes by firewall mark: the
+tunnel's outer packets must carry <code>fwmark</code> so policy routing can send them out
+the WAN without recursing through the tunnel itself, and <code>dscp</code> so the wider
+path can treat them as voice-like. Today the only way to mark udpspeeder-simd
+traffic is an external nftables mangle rule guessing at the sockets; sdanfa
+asked for the native option and prototyped it untested.</p>
+<p>The milestone adds three command-line marks with one contract: <strong>a mark the
+host cannot honor is refused at startup, never silently dropped</strong>.</p>
+<div class="table-wrapper"><table><thead><tr><th>flag</th><th>mechanism</th><th>honored on</th><th>refused on</th></tr></thead><tbody>
+<tr><td><code>--fwmark &lt;u32&gt;</code></td><td><code>SO_MARK</code></td><td>Linux</td><td>macOS, Windows, BSD</td></tr>
+<tr><td><code>--cookie &lt;u32&gt;</code></td><td><code>SO_USER_COOKIE</code></td><td>FreeBSD/DragonFly (ipfw)</td><td>everywhere else</td></tr>
+<tr><td><code>--dscp &lt;0-63&gt;</code></td><td><code>IP_TOS&lt;&lt;2</code> / <code>IPV6_TCLASS</code>; qWAVE on Windows</td><td>Linux, Darwin, BSD, Windows</td><td>nowhere</td></tr>
+</tbody></table>
+</div>
+<p>Design notes:</p>
+<ul>
+<li>One variable per flag, zero default meaning untouched; <code>u32_t</code>; <code>strtoul</code>
+base 0 (hex or decimal) with end-pointer, range and leading-minus checks;
+fatal on garbage. sdanfa's prototype broke here (<code>sscanf("%x" SCNu32)</code>) and
+gets replaced, with credit, not cherry-picked.</li>
+<li>Marks dress every tunnel data socket in both creators (after <code>set_buf_size</code>,
+beside the <code>SO_BINDTODEVICE</code> precedent); the startup log states the effective
+marks.</li>
+<li><strong>Resolver traffic is never marked.</strong> DNS queries ride libc sockets the
+creators never touch; the spec states it as a rule so no refactor marks "all
+sockets" and builds the policy-routing loop.</li>
+<li>Marks survive a tunnel re-point by construction on Linux/BSD (applied at fd
+creation); on Windows qWAVE is destination-keyed, so the lease manager's
+re-point re-tracks explicitly, and the handle closes on shutdown.</li>
+<li>No wire-protocol change; marks are host-local and need no version agreement
+between tunnel ends.</li>
+<li><code>SO_PRIORITY</code> (overlaps dscp for wifi classes) and symbolic DSCP class names
+are out of scope; the manual documents how dscp reaches WMM access categories
+per platform and points Windows users at <code>New-NetQosPolicy</code>.</li>
+</ul>
+<h2 id="specification-and-testing"><a class="header" href="#specification-and-testing">Specification and testing</a></h2>
+<p>The component already carries both spec lanes (<code>dns_lease_mgr.allium</code> with its
+obligations manifest, and the TLC suite under <code>spec/</code>); this milestone follows
+that pattern:</p>
+<ul>
+<li><code>socket_marks.allium</code>, authored through the elicit skill at domain level (no
+setsockopt in the spec): three config fields, apply-before-use, the resolver
+rule, the refusal rule, the re-point rule. No TLA spec: pure configuration
+surface, no ordering semantics — stated, not silently omitted.</li>
+<li>Red-green: the bench harness grows the marking tests first (parse accept and
+reject including negative wraparound, per-platform refusal, <code>getsockopt</code>
+round-trip apply, IPv6 parity, re-point persistence), failing on unmodified
+code, then the implementation greens them.</li>
+<li>Two new host-OS CI lanes stand up in the component's ci.yml:
+<ul>
+<li><strong>FreeBSD</strong> via the macOS-runner VM (<code>vmactions/freebsd-vm</code>, pinned): native
+build, <code>--cookie</code> apply and <code>--dscp</code> apply for real, <code>--fwmark</code> refusal.</li>
+<li><strong>Windows</strong> on <code>windows-latest</code> (MSYS2/MinGW, matching the codebase's
+<code>__MINGW32__</code> layer): parse and refusal tests, the qWAVE flow completing,
+and an e2e asserting the DSCP byte on the tunnel's own packets with the
+built-in <code>pktmon</code>.
+Each lane covers exactly what the others cannot; every refusal path is
+somebody's tested behavior.</li>
+</ul>
+</li>
+</ul>
+<h2 id="openwrt-wiring"><a class="header" href="#openwrt-wiring">OpenWrt wiring</a></h2>
+<p>The UCI surface offers the marks Linux honors: <code>option fwmark</code> and
+<code>option dscp</code> in <code>udpspeeder-simd.config</code> with guarded init appends.
+<code>--cookie</code> is absent by rule (OpenWrt is Linux; the option would be a
+guaranteed startup death), with no narrating comment; the CLI and manual
+document all three flags for hand-run binaries everywhere.</p>
+<h2 id="build-sequence"><a class="header" href="#build-sequence">Build sequence</a></h2>
+<h3 id="elicit-socket-marks-allium"><a class="header" href="#elicit-socket-marks-allium">Elicit socket_marks.allium</a></h3>
+<ul>
+<li>verify: allium check + analyse + plan green for the new spec in the component CI</li>
+<li>inputs: dns_lease_mgr.allium</li>
+</ul>
+<h3 id="author-the-obligations-manifest"><a class="header" href="#author-the-obligations-manifest">Author the obligations manifest</a></h3>
+<ul>
+<li>depends: #elicit-socket-marks-allium</li>
+<li>verify: host-lifecycle obligations socket_marks.allium --tests bench --strict-discharge</li>
+<li>inputs: socket_marks.allium</li>
+</ul>
+<h3 id="stand-up-the-freebsd-lane"><a class="header" href="#stand-up-the-freebsd-lane">Stand up the FreeBSD lane</a></h3>
+<ul>
+<li>verify: the lane runs the existing suite green on FreeBSD before the feature lands</li>
+<li>inputs: .github/workflows/ci.yml</li>
+</ul>
+<h3 id="stand-up-the-windows-lane"><a class="header" href="#stand-up-the-windows-lane">Stand up the Windows lane</a></h3>
+<ul>
+<li>depends: #stand-up-the-freebsd-lane</li>
+<li>verify: the lane builds the MinGW target on windows-latest and runs the existing suite green</li>
+<li>inputs: .github/workflows/ci.yml</li>
+</ul>
+<h3 id="write-the-red-marking-tests"><a class="header" href="#write-the-red-marking-tests">Write the red marking tests</a></h3>
+<ul>
+<li>depends: #elicit-socket-marks-allium</li>
+<li>verify: every new test fails on unmodified code for its intended reason</li>
+<li>inputs: bench/</li>
+</ul>
+<h3 id="implement-the-three-flags"><a class="header" href="#implement-the-three-flags">Implement the three flags</a></h3>
+<ul>
+<li>depends: #write-the-red-marking-tests, #stand-up-the-freebsd-lane</li>
+<li>verify: ubuntu lane greens parse, refusal, apply and IPv6 tests; FreeBSD lane greens cookie and dscp apply and fwmark refusal</li>
+<li>inputs: misc.cpp, misc.h, common.cpp, common.h, main.cpp</li>
+</ul>
+<h3 id="implement-the-windows-qwave-tier"><a class="header" href="#implement-the-windows-qwave-tier">Implement the Windows qWAVE tier</a></h3>
+<ul>
+<li>depends: #implement-the-three-flags, #stand-up-the-windows-lane</li>
+<li>verify: windows lane greens flow completion and the pktmon DSCP-byte assertion with re-point re-track</li>
+</ul>
+<h3 id="document-the-surface"><a class="header" href="#document-the-surface">Document the surface</a></h3>
+<ul>
+<li>depends: #implement-the-three-flags</li>
+<li>verify: help carries the three flags with defaults; README and README.zh-cn document them, permissions, WMM and the New-NetQosPolicy pointer</li>
+</ul>
+<h3 id="wire-the-uci-options"><a class="header" href="#wire-the-uci-options">Wire the UCI options</a></h3>
+<ul>
+<li>depends: #implement-the-three-flags</li>
+<li>verify: the package builds in the SDK lane and an init render appends the flags when set; cookie is absent</li>
+<li>inputs: software/packages/feed-main/net/udpspeeder-simd-snapshot/files/</li>
+</ul>
+<h3 id="release-v1-2-0"><a class="header" href="#release-v1-2-0">Release v1.2.0</a></h3>
+<ul>
+<li>depends: #implement-the-windows-qwave-tier, #document-the-surface, #author-the-obligations-manifest</li>
+<li>verify: tag at the bump commit, feed pin follows it, software --check green at the new pin</li>
+</ul>
+<h3 id="close-the-loop"><a class="header" href="#close-the-loop">Close the loop</a></h3>
+<ul>
+<li>depends: #release-v1-2-0, #wire-the-uci-options</li>
+<li>verify: attested operator</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../plan/0001-dns-lease-manager/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../../where.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../plan/0001-dns-lease-manager/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../../where.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../../elasticlunr.min.js"></script>
+        <script src="../../mark.min.js"></script>
+        <script src="../../searcher.js"></script>
+
+        <script src="../../clipboard.min.js"></script>
+        <script src="../../highlight.js"></script>
+        <script src="../../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>
