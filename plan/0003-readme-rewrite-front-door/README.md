@@ -1,7 +1,7 @@
 # README rewrite: the front door for our own software
 
 - Status: planned
-- Persona: Diego (primary reader — installs, configures, watches it run);
+- Persona: Diego (primary reader -- installs, configures, watches it run);
   Ingrid (reads it for packaging truth); Samira (holds its claims to evidence)
 - Serves: every new visitor to the repository, and sdanfa's class of user who
   arrives with one feature in mind
@@ -11,7 +11,7 @@
 ## Why
 
 The READMEs are still upstream's: their structure, their diagrams, their
-story. The software underneath stopped being upstream long ago — the SIMD
+story. The software underneath stopped being upstream long ago -- the SIMD
 kernels, the DNS lease manager that follows a moving endpoint, the socket
 marks with their honor-or-refuse contract, four-host CI that reads the
 priority byte off the wire, the OpenWrt packages, the renamed binary. A
@@ -20,7 +20,7 @@ not the software they would actually run. The Chinese README compounds it:
 a translation of the old English one, one version behind even that.
 
 The rewrite keeps three things deliberately. Full, prominent credit to
-wangyu-/UDPspeeder — this is a fork and its foundation is honest work, MIT
+wangyu-/UDPspeeder -- this is a fork and its foundation is honest work, MIT
 carried forward. The two READMEs stay 1:1 aligned, English and Chinese
 carrying the same structure, section for section, so neither language is a
 second-class reader again. And the diagrams are mermaid in the markdown
@@ -29,17 +29,17 @@ that explains them.
 
 ## What the new front door says
 
-- What this is: a fork of UDPspeeder that became its own tunnel — the one
+- What this is: a fork of UDPspeeder that became its own tunnel -- the one
   paragraph lineage with the credit link up front, not buried in a footer.
-- Why it is fast: the SIMD story elaborated from OPTIMIZATION.md — the
+- Why it is fast: the SIMD story elaborated from OPTIMIZATION.md -- the
   vectorized FEC kernels, the per-CPU dispatch tiers (SSSE3, AVX2, NEON,
   and the PowerPC SPE path), what the dispatcher picks at runtime and the
-  measured gain per tier — with a mermaid flowchart of the dispatch.
+  measured gain per tier -- with a mermaid flowchart of the dispatch.
 - Why it is different: the endpoint that follows DNS, the socket marks, the
   platforms and binaries we actually ship.
 - VPN over the tunnel is a key goal: an applied family with one backbone,
   the MTU ledger (path MTU x inner VPN -> safe inner MTU and the knob that
-  sets it, every number verified by capturing real stacked packets) —
+  sets it, every number verified by capturing real stacked packets) --
   WireGuard at full MTU with mark coordination, OpenVPN TCP carried on UDP
   (the loss-rescue claim with its double-spend tension left live), the
   stranger scenarios (raw TCP, IPv6 inner, double stacking, the no-VPN
@@ -53,7 +53,7 @@ that explains them.
   by side).
 - New mermaid diagrams: the tunnel architecture with the marks drawn on the
   outer packets, the endpoint re-pointing when DNS moves, and the SIMD
-  dispatch — three blocks in the markdown, no image files.
+  dispatch -- three blocks in the markdown, no image files.
 - The evidence posture, in plain words: what we claim, we test; the wire
   proofs described as they run.
 - Platform table, privileges table, the feed, the license story.
@@ -111,7 +111,7 @@ artifacts.
 ### Author the mermaid diagrams {#author-the-mermaid-diagrams}
 
 - depends: #inventory-the-old-readmes-against-reality
-- verify: three mermaid blocks render on GitHub — the architecture with marked outer packets, the DNS re-point, and the SIMD dispatch; no upstream images remain referenced
+- verify: three mermaid blocks render on GitHub -- the architecture with marked outer packets, the DNS re-point, and the SIMD dispatch; no upstream images remain referenced
 
 ### Write the Chinese README, one to one {#write-the-chinese-readme-one-to-one}
 

@@ -19,6 +19,6 @@ Worked in this order:
   contract, a Windows qWAVE tier, FreeBSD and Windows CI lanes, and the UCI
   wiring for the marks Linux honors (Diego's shaping story, sdanfa's request).
 - [0003-readme-rewrite-front-door](0003-readme-rewrite-front-door/README.md).
-  Rewrites both READMEs as the front door to the fork as its own software —
+  Rewrites both READMEs as the front door to the fork as its own software --
   new diagrams, full credit to upstream UDPspeeder, English and Chinese kept
-  one-to-one — with every claim held to evidence.
+  one-to-one -- with every claim held to evidence.
