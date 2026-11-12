@@ -1304,3 +1304,15 @@ The entry above quotes "spi 684,818 stays 685 kB" as a 1.6 measurement;
 is 684,814 (byte-identical across the main and 25.12 SDKs). The commit
 message's "685 kB" rounding is unaffected, and the reply drafted for
 the thread already carries 684,814.
+
+## 2026-11-12 — the UDPspeeder-simd tracker is open; fwmark is its first issue
+
+sdanfa (the original OpenWrt package requester) had to ask for an
+fwmark feature on the unrelated openwrt/packages PR 29901 thread
+because this fork's issue tracker was disabled. The tracker is open
+now (has_issues), and the request lives as UDPspeeder-simd issue 1,
+which carries their untested reference commits (sdanfa/UDPspeeder-simd
+main: headers, the set-fwmark function, and the command-line switch)
+and the work needed: review the approach, name the flag, test, land on
+canonical main, ride the next package release. Repo settings are not
+versioned, so this entry is the record that the tracker changed.
