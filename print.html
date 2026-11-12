@@ -4045,6 +4045,16 @@ lane, closing the flaky-run citation.</p>
 is 684,814 (byte-identical across the main and 25.12 SDKs). The commit
 message's "685 kB" rounding is unaffected, and the reply drafted for
 the thread already carries 684,814.</p>
+<h2 id="2026-11-12--the-udpspeeder-simd-tracker-is-open-fwmark-is-its-first-issue"><a class="header" href="#2026-11-12--the-udpspeeder-simd-tracker-is-open-fwmark-is-its-first-issue">2026-11-12 — the UDPspeeder-simd tracker is open; fwmark is its first issue</a></h2>
+<p>sdanfa (the original OpenWrt package requester) had to ask for an
+fwmark feature on the unrelated openwrt/packages PR 29901 thread
+because this fork's issue tracker was disabled. The tracker is open
+now (has_issues), and the request lives as UDPspeeder-simd issue 1,
+which carries their untested reference commits (sdanfa/UDPspeeder-simd
+main: headers, the set-fwmark function, and the command-line switch)
+and the work needed: review the approach, name the flag, test, land on
+canonical main, ride the next package release. Repo settings are not
+versioned, so this entry is the record that the tracker changed.</p>
 
                     </main>
 
