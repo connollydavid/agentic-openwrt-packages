@@ -186,3 +186,10 @@
     evidence = v1.2.0 tagged at 66fbb4d, release run 43174829142 green (banner matches tag, binaries published); .host-software pin bumped and pushed
     tool = host-lifecycle@0.63.0
     recorded = 2026-11-12
+
+[receipt "plan/0002#close-the-loop"]
+    disposition = done
+    verify = attested operator
+    evidence = attested operator (session 2026-11-12): issue 1 closed with credit, AGENTS lanes paragraph corrected, MEMORY current through the v1.2.1 release and the mac-pool ruling; the operator's 29901 reply remains theirs
+    tool = host-lifecycle@0.63.0
+    recorded = 2026-11-12
