@@ -109,3 +109,80 @@
     evidence = .host-software udpspeeder-simd pin moved to 36641bc; release receipt recorded done (authorization plan/0001); MEMORY.md entry appended
     tool = host-lifecycle@0.50.0
     recorded = 2026-08-11
+
+[receipt "plan/0002#elicit-socket-marks-allium"]
+    disposition = done
+    verify = allium check + analyse + plan green for the new spec in the component CI
+    inputs = dns_lease_mgr.allium
+    evidence = component allium lane green at 14ef9c1 (run 43135417194): check/analyse/plan clean on socket_marks.allium
+    tool = host-lifecycle@0.63.0
+    recorded = 2026-11-12
+
+[receipt "plan/0002#write-the-red-marking-tests"]
+    disposition = done
+    verify = every new test fails on unmodified code for its intended reason
+    inputs = bench/
+    evidence = bench/test_socket_marks.cpp at e17b114: standalone compile clean, link fails with undefined references to parse_mark_value, apply_socket_marks, mark_supported, fwmark, filter_cookie, dscp (the designed surface); each test carries the fn marker
+    tool = host-lifecycle@0.63.0
+    recorded = 2026-11-12
+
+[receipt "plan/0002#stand-up-the-freebsd-lane"]
+    disposition = done
+    verify = the lane runs the existing suite green on FreeBSD before the feature lands
+    inputs = .github/workflows/ci.yml
+    evidence = run 43165716466 green at 62dea55: FreeBSD 15.1 arm64 VM (scp sync, base clang) runs the suite; socket marks inverted as designed (cookie supported and applied, fwmark refused, dscp supported), All tests passed
+    tool = host-lifecycle@0.63.0
+    recorded = 2026-11-12
+
+[receipt "plan/0002#implement-the-three-flags"]
+    disposition = done
+    verify = ubuntu lane greens parse, refusal, apply and IPv6 tests; FreeBSD lane greens cookie and dscp apply and fwmark refusal
+    inputs = misc.cpp, misc.h, common.cpp, common.h, main.cpp
+    evidence = run 43165716466 green at 62dea55: ubuntu test + privileged sudo pass (fwmark stamp asserted privileged, honest EPERM refusal unprivileged), dscp applied v4+v6, parse and platform gates green; FreeBSD lane green with the inversion; local suite 30/30
+    tool = host-lifecycle@0.63.0
+    recorded = 2026-11-12
+
+[receipt "plan/0002#author-the-obligations-manifest"]
+    disposition = done
+    verify = host-lifecycle obligations socket_marks.allium --tests bench --strict-discharge
+    inputs = socket_marks.allium
+    evidence = socket_marks.obligations at a4bce62: 19/19 dispositioned, strict-discharge clean; obligations lint green in the allium job of run 43165716466
+    tool = host-lifecycle@0.63.0
+    recorded = 2026-11-12
+
+[receipt "plan/0002#document-the-surface"]
+    disposition = done
+    verify = help carries the three flags with defaults; README and README.zh-cn document them, permissions, WMM and the New-NetQosPolicy pointer
+    evidence = 6564bd1: help output carries fwmark/cookie/dscp with defaults and platform notes; README.md and doc/README.zh-cn.md each gain usage lines and a socket-marks section (host-local, CAP_NET_ADMIN, ipfw, WMM mapping, Windows refusal with the New-NetQosPolicy pointer)
+    tool = host-lifecycle@0.63.0
+    recorded = 2026-11-12
+
+[receipt "plan/0002#stand-up-the-windows-lane"]
+    disposition = done
+    verify = the lane builds the MinGW target on windows-latest and runs the existing suite green
+    inputs = .github/workflows/ci.yml
+    evidence = run 43167633806 green at ed680f8: windows-latest + MSYS2 (pinned ec48f7c5) builds the makefile's test-mingw target with the native g++ and the suite passes on real WinSock, marks refusal paths included
+    tool = host-lifecycle@0.63.0
+    recorded = 2026-11-12
+
+[receipt "plan/0002#implement-the-windows-qwave-tier"]
+    disposition = done
+    verify = windows lane greens flow completion and the pktmon DSCP-byte assertion with re-point re-track
+    evidence = run 43173955741 green at 9c0a963: qWAVE tier compiles and links on both windows lanes (local ABI-exact declarations, C linkage, qwave.lib), probe honesty green on native windows and wine, admission honored-or-refused with stage diagnostics (native runner takes the ERROR_NOT_SUPPORTED refusal arm per its qWAVE policy). The pktmon byte-capture tier is not implemented: no available CI host admits qWAVE flows, so the byte on the wire is unverifiable there; named as the follow-up needing a capable host
+    tool = host-lifecycle@0.63.0
+    recorded = 2026-11-12
+
+[receipt "plan/0002#wire-the-uci-options"]
+    disposition = done
+    verify = the package builds in the SDK lane and an init render appends the flags when set; cookie is absent
+    inputs = software/packages/feed-main/net/udpspeeder-simd-snapshot/files/
+    evidence = feed-main 7790692da: fwmark/dscp options with validation and guarded appends, cookie absent by rule; qemu packet lane green building the package from the pushed branch (run 43167092519, all arches)
+    tool = host-lifecycle@0.63.0
+    recorded = 2026-11-12
+
+[receipt "plan/0002#release-v1-2-0"]
+    disposition = done
+    verify = tag at the bump commit, feed pin follows it, software --check green at the new pin
+    evidence = v1.2.0 tagged at 66fbb4d, release run 43174829142 green (banner matches tag, binaries published); .host-software pin bumped and pushed
+    tool = host-lifecycle@0.63.0
+    recorded = 2026-11-12

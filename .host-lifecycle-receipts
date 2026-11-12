@@ -344,3 +344,9 @@
     recorded = 2026-11-11
     revision = db52394affbac41d985c181ec771f9b0a26abea1
     conclusion = success
+
+[receipt "goal" "set"]
+    disposition = done
+    tool = host-lifecycle@0.63.0
+    recorded = 2026-11-12
+    target = plan/0002-udpspeeder-simd-socket-marks

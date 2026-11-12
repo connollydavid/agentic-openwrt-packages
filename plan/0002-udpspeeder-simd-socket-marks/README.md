@@ -1,4 +1,5 @@
 # Socket marks for udpspeeder-simd (fwmark, cookie, dscp)
+**Status:**; active goal since 2026-11-12
 
 - Status: planned
 - Persona: Diego (router administrator, policy routing and shaping); Samira
