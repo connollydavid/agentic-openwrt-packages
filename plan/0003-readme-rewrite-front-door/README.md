@@ -37,13 +37,42 @@ that explains them.
   measured gain per tier — with a mermaid flowchart of the dispatch.
 - Why it is different: the endpoint that follows DNS, the socket marks, the
   platforms and binaries we actually ship.
-- Quick start both ways: command line and OpenWrt UCI, Diego's two doors.
+- VPN over the tunnel is a key goal: an applied family with one backbone,
+  the MTU ledger (path MTU x inner VPN -> safe inner MTU and the knob that
+  sets it, every number verified by capturing real stacked packets) —
+  WireGuard at full MTU with mark coordination, OpenVPN TCP carried on UDP
+  (the loss-rescue claim with its double-spend tension left live), the
+  stranger scenarios (raw TCP, IPv6 inner, double stacking, the no-VPN
+  case), and the anti-loop route exception generalized.
+- The applied sections: tuning a lossy link (ratio table, live fifo
+  levers, measure-your-own-link), the moving endpoint, what this is not
+  (five honest lines), which binary for which CPU, and troubleshooting
+  routed to its own guide.
+- Quick start both ways: command line and OpenWrt UCI, every applied
+  section ending in the two-door pattern (CLI block and UCI stanza side
+  by side).
 - New mermaid diagrams: the tunnel architecture with the marks drawn on the
   outer packets, the endpoint re-pointing when DNS moves, and the SIMD
   dispatch — three blocks in the markdown, no image files.
 - The evidence posture, in plain words: what we claim, we test; the wire
   proofs described as they run.
 - Platform table, privileges table, the feed, the license story.
+
+## Writing charter
+
+Four sources govern the prose and the ink, and every task's verify line
+enforces them. Practitioner Voice (Highsmith on martinfowler.com): sections
+open with claims, authority comes from consequence, scars are credibility,
+tensions are named and left live, compression respects the reader, a carry
+phrase closes. Tufte: data-ink maximized, tables as small multiples,
+graphics inside the prose flow, every number adjacent to its origin, empty
+cells stated as data. Diataxis: every section declares one quadrant and
+keeps its register; the README routes what it does not own; blur is the
+named failure. The Good Docs Project: status and engage sections present;
+an EN-zh terminology table keeps the two READMEs a translation of record.
+Personas describe readers inside this host's rooms only; the shipped
+documents never name them, and no methodology vocabulary appears in the
+artifacts.
 
 ## Build sequence
 
@@ -58,10 +87,26 @@ that explains them.
 - verify: the section names each kernel family, its vector width, the dispatch tier that selects it, and the measured gain, every number traceable to OPTIMIZATION.md or the bench lane
 - inputs: OPTIMIZATION.md, bench/test_dispatch.cpp, bench/arch-matrix.awk
 
+### Write the VPN-over-tunnel family {#write-the-vpn-over-tunnel-family}
+
+- depends: #inventory-the-old-readmes-against-reality
+- verify: the MTU ledger's every cell verified by capturing real stacked packets (WG, OpenVPN UDP, OpenVPN TCP at 1500 and 1492 paths); the WireGuard recipe runs as written with both marks rules non-conflicting; the OpenVPN TCP section states the double-spend tension without resolving it; doc/vpn-over-the-tunnel.md supersedes the upstream openvpn guide with credit retained
+- inputs: doc/udpspeeder_openvpn.md, bench/throughput.sh
+
+### Write the applied sections {#write-the-applied-sections}
+
+- depends: #inventory-the-old-readmes-against-reality, #write-the-vpn-over-tunnel-family
+- verify: each recipe runs as written; every applied section ends in the two-door pattern; tuning table, moving endpoint, what-this-is-not, which-binary sections present in both languages with no untraceable numbers
+
+### Write the troubleshooting guide {#write-the-troubleshooting-guide}
+
+- depends: #write-the-applied-sections
+- verify: every symptom traced to a real incident on record (ratio, MTU blackhole, dscp remarking downstream, admission-refused fatal); symptom-cause-fix form; routed to doc/ and linked from both READMEs
+
 ### Write the English README {#write-the-english-readme}
 
-- depends: #elaborate-the-simd-kernels
-- verify: a new reader (Diego stand-in) can install, configure with marks, understand why it is fast, and find the answer to "why this over upstream" without leaving the page
+- depends: #elaborate-the-simd-kernels, #write-the-applied-sections
+- verify: sections open with claims, each declares one quadrant and keeps its register, the three tensions named and left live, two scars told as stories, a reader can install, stack a VPN at correct MTU, and answer why-this-over-upstream without leaving the page
 
 ### Author the mermaid diagrams {#author-the-mermaid-diagrams}
 
@@ -80,5 +125,5 @@ that explains them.
 
 ### Hold every claim to evidence {#hold-every-claim-to-evidence}
 
-- depends: #write-the-english-readme, #write-the-chinese-readme-one-to-one, #translate-the-socket-marks-guide
-- verify: each performance, platform and feature statement in all three documents traces to a lane, a spec, or a document; the untraceable are removed rather than softened
+- depends: #write-the-english-readme, #write-the-chinese-readme-one-to-one, #translate-the-socket-marks-guide, #write-the-troubleshooting-guide
+- verify: each performance, platform and feature statement in every shipped document traces to a lane, a spec, or a document; the untraceable are removed rather than softened; no persona names or methodology vocabulary appear in any artifact; the EN-zh terminology table covers every term the two READMEs share
