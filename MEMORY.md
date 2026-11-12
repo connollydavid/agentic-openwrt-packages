@@ -1327,3 +1327,12 @@ still names 3.5.0 in its Notes: that record is immutable, and this
 entry is the record of the move. The `tools/allium` skills submodule
 pin is unchanged. crates.io has since published 3.6.1; the pin is a
 choice, not a ceiling.
+
+## 2026-11-12 — commit trailer convention: email form, never a URL
+
+The co-author trailer is Co-Authored-By: GLM-5.3 <glm@z.ai> from this
+entry forward: a name and an email address, never a URL, and the email
+carries no www. and no chat. subdomain. Earlier commits this session
+carry the URL form and earlier sessions a www.-form address; they stay
+as pushed because the task receipts cite those exact SHAs and rewriting
+them would orphan the citations.
