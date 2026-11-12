@@ -14,7 +14,7 @@ Worked in this order:
   resolving it to candidate IPs, refreshing before TTL expiry, and re-pointing the
   tunnel across IP changes and collapse; ships as v1.1.0, the first minor bump
   (Diego's story, Samira's spec-lane obligations).
-- [0002-udpspeeder-simd-socket-marks](0002-udpspeeder-simd-socket-marks/README.md).
+- [plan/0002-udpspeeder-simd-socket-marks](0002-udpspeeder-simd-socket-marks/README.md).
   Adds `--fwmark`, `--cookie` and `--dscp` socket marks with an honor-or-refuse
   contract, a Windows qWAVE tier, FreeBSD and Windows CI lanes, and the UCI
   wiring for the marks Linux honors (Diego's shaping story, sdanfa's request).

@@ -365,3 +365,9 @@
     recorded = 2026-11-12
     revision = 66fbb4dba53b614b5749b5ef55d419d8c63cef76
     conclusion = success
+
+[receipt "goal" "unpark"]
+    disposition = done
+    tool = host-lifecycle@0.63.0
+    recorded = 2026-11-12
+    target = plan/0002-udpspeeder-simd-socket-marks
