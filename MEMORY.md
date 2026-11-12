@@ -1370,3 +1370,30 @@ unimplemented: no available CI host admits qWAVE flows.
 Issue 1 is closed with credit to sdanfa. The AGENTS lanes paragraph no
 longer claims the component is spec-less. The task receipts cite the
 runs; the goal close-out awaits the operator's attestation.
+
+## 2026-11-12 — the qWAVE breakthrough: non-adaptive flows
+
+The windows qWAVE positive path is CI-proven. A probe-matrix experiment
+on the hosted runner isolated the answer: qWAVE's ADAPTIVE flows are
+refused with ERROR_NOT_SUPPORTED on Azure Windows runners for every
+destination (loopback, routable, gateway; plain or elevated), while
+QOS_NON_ADAPTIVE_FLOW flows are admitted everywhere probed. The
+estimation machinery is what those environments cannot provide; a
+tunnel wants the stamp, not the estimate, so track_dscp_socket joins
+flows non-adaptive and the windows lane asserts the flow carries dscp
+every run. Two finer points from the same ladder: qWAVE refuses
+loopback flows outright (no path, adaptive or not -- the flow test
+asks a routable destination), and the working reference (a verified
+Cygwin patch in the iperf3 thread) pointed at non-adaptive + NULL
+dest, but raw AddSocketToFlow rejects NULL (gle=87) -- the flag is
+what mattered, not the NULL.
+
+The receipt for plan/0002#implement-the-windows-qwave-tier recorded
+"no available CI host admits qWAVE flows" as the reason pktmon was
+not implemented; that premise is now false and this entry corrects
+it. The pktmon wire-byte read on the hosted lane is the remaining
+inch, and it is now possible: marked flows exist there to capture.
+The probe ladder (six iterations: bindings, loopback-vs-routable,
+dependencies and the empty QoS event log, elevation, the matrix, the
+routable test destination) lives on the ci-winprobe2 branch with each
+lesson in its commit.
