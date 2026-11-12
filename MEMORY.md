@@ -1336,3 +1336,10 @@ carries no www. and no chat. subdomain. Earlier commits this session
 carry the URL form and earlier sessions a www.-form address; they stay
 as pushed because the task receipts cite those exact SHAs and rewriting
 them would orphan the citations.
+
+## 2026-11-12 — correction: the trailer address is the noreply form
+
+The entry below fixed the URL form but chose glm@z.ai, which might be a
+real inbox; the convention is Co-Authored-By: GLM-5.3 <noreply@z.ai>
+instead. Same rules otherwise: an email address, never a URL, no www.
+and no chat. in the domain.
