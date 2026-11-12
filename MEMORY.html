@@ -1468,6 +1468,22 @@ The probe ladder (six iterations: bindings, loopback-vs-routable,
 dependencies and the empty QoS event log, elevation, the matrix, the
 routable test destination) lives on the ci-winprobe2 branch with each
 lesson in its commit.</p>
+<h2 id="2026-11-12--pktmon-landed-macos-runners-starve-for-this-repo"><a class="header" href="#2026-11-12--pktmon-landed-macos-runners-starve-for-this-repo">2026-11-12 — pktmon landed; macos runners starve for this repo</a></h2>
+<p>The windows wire proof is continuous: the wire sender dresses a qWAVE
+flow to a routable destination, pktmon captures, and a small parser
+reads the DSCP byte straight out of the pcapng. The evidence ladder
+now reads Linux, FreeBSD and Windows wire-proven every run, three
+capture mechanisms (tcpdump lo, tcpdump lo0, pktmon pcapng) asserting
+the same tos 0xb8.</p>
+<p>The macos lane is wired but cannot start: macOS runners are not being
+granted to this repository -- a trivial uname job queued past ten
+minutes on macos-latest and macos-14 alike and was cancelled without a
+runner, twice, while ubuntu and windows jobs ran freely, and GitHub
+reports all systems operational. The lane stays in the workflow and
+self-heals when capacity returns; until then macOS dscp evidence rests
+on the same IP_TOS path FreeBSD proves on the wire and on its
+compile-level refusal arms, and that inference is stated rather than
+hidden.</p>
 
                     </main>
 
