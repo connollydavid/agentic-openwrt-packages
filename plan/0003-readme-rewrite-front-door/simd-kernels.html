@@ -1,0 +1,371 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>The SIMD kernels, elaborated - agentic-openwrt-packages</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../../favicon.svg">
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../../index.html">agentic-openwrt-packages</a></li><li class="chapter-item expanded affix "><li class="part-title">Cast: who</li><li class="chapter-item expanded "><a href="../../cast/index.html"><strong aria-hidden="true">1.</strong> Cast: the project's Who</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../cast/applying-personas.html"><strong aria-hidden="true">1.1.</strong> Applying personas during planning</a></li><li class="chapter-item expanded "><a href="../../cast/diego.html"><strong aria-hidden="true">1.2.</strong> Diego (router administrator)</a></li><li class="chapter-item expanded "><a href="../../cast/ingrid.html"><strong aria-hidden="true">1.3.</strong> Ingrid (OpenWrt feed maintainer)</a></li><li class="chapter-item expanded "><a href="../../cast/samira.html"><strong aria-hidden="true">1.4.</strong> Samira (security engineer)</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Plan: what & when</li><li class="chapter-item expanded "><a href="../../PLAN.html"><strong aria-hidden="true">2.</strong> PLAN: milestone index</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../plan/0000-openwrt-udpspeeder-simd-package/index.html"><strong aria-hidden="true">2.1.</strong> Add an OpenWrt package for udpspeeder-simd</a></li><li class="chapter-item expanded "><a href="../../plan/0001-dns-lease-manager/index.html"><strong aria-hidden="true">2.2.</strong> DNS lease manager for udpspeeder-simd (v1.1.0)</a></li><li class="chapter-item expanded "><a href="../../plan/0002-udpspeeder-simd-socket-marks/index.html"><strong aria-hidden="true">2.3.</strong> Socket marks for udpspeeder-simd (fwmark, cookie, dscp)</a></li><li class="chapter-item expanded "><a href="../../plan/0003-readme-rewrite-front-door/index.html"><strong aria-hidden="true">2.4.</strong> README rewrite: the front door for our own software</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../plan/0003-readme-rewrite-front-door/inventory.html"><strong aria-hidden="true">2.4.1.</strong> The old READMEs, classified against reality</a></li><li class="chapter-item expanded "><a href="../../plan/0003-readme-rewrite-front-door/simd-kernels.html" class="active"><strong aria-hidden="true">2.4.2.</strong> The SIMD kernels, elaborated</a></li></ol></li></ol></li><li class="chapter-item expanded "><li class="part-title">Software: where</li><li class="chapter-item expanded "><a href="../../where.html"><strong aria-hidden="true">3.</strong> Software</a></li><li class="chapter-item expanded affix "><li class="part-title">Call: why</li><li class="chapter-item expanded "><a href="../../call/0000-adopt-agentic-host-methodology.html"><strong aria-hidden="true">4.</strong> Govern UDPspeeder-simd under the agentic-host methodology</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../call/0001-pin-tools-to-current-releases.html"><strong aria-hidden="true">4.1.</strong> Pin the verification tools to current releases, not the template gitlinks</a></li><li class="chapter-item expanded "><a href="../../call/0002-host-lint-consumed-not-reproduced.html"><strong aria-hidden="true">4.2.</strong> host-lint is a consumed tool, not reproduced by this host</a></li><li class="chapter-item expanded "><a href="../../call/0003-no-claude-co-author-trailers-on-packages.html"><strong aria-hidden="true">4.3.</strong> No Claude co-author trailers on packages commits</a></li><li class="chapter-item expanded "><a href="../../call/0004-udpspeeder-simd-package-coexists-and-links-dynamically.html"><strong aria-hidden="true">4.4.</strong> The udpspeeder-simd package coexists with udpspeeder and links dynamically</a></li><li class="chapter-item expanded "><a href="../../call/0005-cross-build-adjustments-live-in-the-fork.html"><strong aria-hidden="true">4.5.</strong> Cross-build adjustments for udpspeeder-simd live in the fork</a></li><li class="chapter-item expanded "><a href="../../call/0006-udpspeeder-simd-release-binaries-are-not-yet-reproducible.html"><strong aria-hidden="true">4.6.</strong> udpspeeder-simd release binaries are not yet reproducible</a></li><li class="chapter-item expanded "><a href="../../call/0007-host-tools-are-pinned-and-hash-verified.html"><strong aria-hidden="true">4.7.</strong> The tools this host runs are pinned and hash-verified</a></li><li class="chapter-item expanded "><a href="../../call/0008-udpspeeder-simd-versioning-and-releases.html"><strong aria-hidden="true">4.8.</strong> udpspeeder-simd versioning and releases</a></li><li class="chapter-item expanded "><a href="../../call/0009-dns-lease-manager-cxx-single-header.html"><strong aria-hidden="true">4.9.</strong> The DNS lease manager ships as a C++-compatible single header</a></li><li class="chapter-item expanded "><a href="../../call/0010-exec-bit-audit-over-fires-on-the-openwrt-install-idiom.html"><strong aria-hidden="true">4.10.</strong> The exec-bit audit over-fires on the OpenWrt install idiom</a></li><li class="chapter-item expanded "><a href="../../call/0011-template-span-v063-agents-manual-lem-and-ci-receipts.html"><strong aria-hidden="true">4.11.</strong> The template span through the v0.63.0 pins: the AGENTS.md manual, the lem system, and the CI-receipt lane</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Reference: how</li><li class="chapter-item expanded "><a href="../../AGENTS.html"><strong aria-hidden="true">5.</strong> AGENTS.md: operating manual for an agentic project</a></li><li class="chapter-item expanded "><a href="../../CLAUDE.html"><strong aria-hidden="true">6.</strong> CLAUDE</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../reference/udpspeeder-simd-on-openwrt-releases.html"><strong aria-hidden="true">6.1.</strong> Using udpspeeder-simd on an OpenWrt release</a></li><li class="chapter-item expanded "><a href="../../GOAL.html"><strong aria-hidden="true">6.2.</strong> The active goal</a></li><li class="chapter-item expanded "><a href="../../MIGRATION.html"><strong aria-hidden="true">6.3.</strong> MIGRATION.md: the process moved to the host repo</a></li><li class="chapter-item expanded "><a href="../../STRUCTURE.html"><strong aria-hidden="true">6.4.</strong> Structure</a></li><li class="chapter-item expanded "><a href="../../UPGRADING.html"><strong aria-hidden="true">6.5.</strong> UPGRADING.md: the version-to-version upgrade ledger</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Memory</li><li class="chapter-item expanded "><a href="../../MEMORY.html"><strong aria-hidden="true">7.</strong> Memory</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">agentic-openwrt-packages</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="the-simd-kernels-elaborated"><a class="header" href="#the-simd-kernels-elaborated">The SIMD kernels, elaborated</a></h1>
+<p>Working material for <code>#elaborate-the-simd-kernels</code>. This is the section the
+new README absorbs under "why it is fast". Every number below carries its
+origin: an OPTIMIZATION.md section or a bench-lane artifact. Vector widths
+and dispatch rules are read from the code that implements them (<code>lib/fec.cpp</code>,
+<code>packet_cook.cpp</code>, <code>xor_spe.S</code>) and from <code>bench/arch-map.tsv</code>, which CI holds
+as a check rather than a report.</p>
+<h2 id="the-three-kernel-families"><a class="header" href="#the-three-kernel-families">The three kernel families</a></h2>
+<p>The hot path has three families, and each one dispatches on its own:</p>
+<div class="table-wrapper"><table><thead><tr><th>Family</th><th>What it computes</th><th>Where it runs</th></tr></thead><tbody>
+<tr><td>addmul1</td><td>GF(2^8) multiply-accumulate, the inner loop of Reed-Solomon encode and decode</td><td><code>lib/fec.cpp</code></td></tr>
+<tr><td>xor_tile</td><td>XOR of the repeating key and IV patterns over the packet (obscure plus encryption)</td><td><code>packet_cook.cpp</code></td></tr>
+<tr><td>crc32c</td><td>The Castagnoli checksum over the packet body</td><td><code>crc32c.h</code>, resolved by <code>crc32c_resolve</code></td></tr>
+</tbody></table>
+</div>
+<h2 id="addmul1-the-reed-solomon-inner-loop"><a class="header" href="#addmul1-the-reed-solomon-inner-loop">addmul1: the Reed-Solomon inner loop</a></h2>
+<p>The scalar original multiplies one byte at a time through a 64 KB lookup
+table. The vector paths decompose each byte into low and high nibbles and use
+a byte shuffle as a 16-entry parallel table lookup: <code>PSHUFB</code> on x86, <code>TBL</code> on
+ARM, XOR the two partial products. Sixteen bytes per iteration, with a scalar
+tail for the remainder. AVX2 widens the same scheme to 256-bit registers;
+because <code>VPSHUFB</code> operates on two independent 128-bit lanes, the 16-byte
+lookup table is broadcast into both (<code>_mm256_broadcastsi128_si256</code>), and an
+SSE tail covers the 16 to 31 byte remainder.</p>
+<p>The x86 dispatch is a three-phase CPUID probe resolved once in <code>init_fec()</code>:
+OSXSAVE plus XCR0 AVX state plus leaf 7 bit 5 before AVX2 is allowed, the
+same OS-support discipline extended to AVX-512BW (which the probe declines
+where the OS does not enable opmask and ZMM state). The tier ladder, from
+<code>lib/fec.cpp</code>:</p>
+<div class="table-wrapper"><table><thead><tr><th>Tier</th><th>Vector width</th><th>Selection</th><th>Measured at 1500 B</th></tr></thead><tbody>
+<tr><td>scalar</td><td>1 B</td><td>no SIMD, the base</td><td>1578.8 ns, 0.95 GB/s</td></tr>
+<tr><td>sse2</td><td>16 B</td><td>CPUID leaf 1, SSE2, when SSSE3 is absent</td><td>913.3 ns, 1.64 GB/s, 1.73x over scalar</td></tr>
+<tr><td>ssse3</td><td>16 B</td><td>CPUID leaf 1 ECX bit 9</td><td>161.3 ns, 9.30 GB/s, 9.8x over scalar</td></tr>
+<tr><td>avx2</td><td>32 B</td><td>three-phase probe</td><td>in the ssse3 to avx2 step of the 11.5x whole-path gain</td></tr>
+<tr><td>avx512bw</td><td>64 B</td><td>full OS-support probe</td><td>guarded; declined where the OS withholds the state</td></tr>
+<tr><td>neon</td><td>16 B</td><td>build-time, the ARM toolchain's FPU default</td><td>the a15 row of the arch map</td></tr>
+<tr><td>scalar</td><td>1 B</td><td>build-time, cores with no vector unit</td><td>the a9, mips, riscv64 rows</td></tr>
+</tbody></table>
+</div>
+<p>The SSE2 tier is the one that makes the ladder safe rather than fast: it has
+no byte shuffle, so it multiplies by repeated doubling in the field
+(<code>_mm_add_epi8(x, x)</code> with a conditional reduction), no tables and no memory
+traffic. It exists because x86_64 does not imply SSSE3 (OPTIMIZATION.md #16
+tells the story: AMD K8 and K10, and the early 64-bit Intel parts, lack it,
+and the first <code>PSHUFB</code> there was a SIGILL that killed the tunnel on its first
+FEC batch; the crash was found under <code>qemu64</code>, the conservative baseline
+model, which no developer machine or CI runner had ever matched).</p>
+<p>Whole-path numbers, from the microbenchmark summary at 1500 B:</p>
+<div class="table-wrapper"><table><thead><tr><th>Path</th><th>Before</th><th>After</th><th>Speedup</th></tr></thead><tbody>
+<tr><td>addmul1</td><td>665 ns</td><td>58 ns</td><td>11.5x</td></tr>
+<tr><td>rs_encode k=10 n=15</td><td>34,000 ns</td><td>3,100 ns</td><td>11x</td></tr>
+<tr><td>rs_decode k=10 n=15</td><td>36,000 ns</td><td>4,500 ns</td><td>8x</td></tr>
+</tbody></table>
+</div>
+<h2 id="xor_tile-the-cook-pipeline"><a class="header" href="#xor_tile-the-cook-pipeline">xor_tile: the cook pipeline</a></h2>
+<p>Every packet is cooked: checksummed, obfuscated, and (with a key) encrypted,
+all XOR-shaped work. The original walked byte at a time with data-dependent
+branches (<code>if (key[j] == 0) j = 0</code>), which compilers cannot vectorize. The
+vector path pre-expands the repeating key or IV pattern into a tile whose
+length is the least common multiple of the pattern length and 16, computes
+the key tile once at startup, builds the IV tile per packet on the stack
+(at most 496 B), and XORs 16 bytes at a time.</p>
+<div class="table-wrapper"><table><thead><tr><th>Tier</th><th>Vector width</th><th>Selection</th></tr></thead><tbody>
+<tr><td>word</td><td>one machine word (<code>sizeof(unsigned long)</code>)</td><td>the generic fallback, MIPS, RISC-V, ARMv7 without NEON</td></tr>
+<tr><td>sse2</td><td>16 B</td><td>x86 baseline, compile-time</td></tr>
+<tr><td>avx2</td><td>32 B</td><td>runtime probe with the OSXSAVE and XCR0 YMM check</td></tr>
+<tr><td>neon</td><td>16 B</td><td>build-time, the ARM toolchain default</td></tr>
+<tr><td>spe</td><td>8 B doubleword</td><td>PowerPC e500v2, a build guard (<code>make SPE=1</code>)</td></tr>
+</tbody></table>
+</div>
+<p>The SPE tier is hand-written assembly (<code>xor_spe.S</code>) for the e500v2 core
+(Freescale P1014, the TP-Link TL-WDR4900 among others), which has no AltiVec.
+GCC 9 removed the SPE intrinsics, so the kernel follows the Linux kernel's
+own pattern for SPE crypto (<code>arch/powerpc/crypto/aes-spe-core.S</code>): a 4x
+unrolled <code>evldd</code>/<code>evxor</code>/<code>evstdd</code> main loop at 32 B per iteration, alignment
+head and tail loops, and tile buffers padded so an unaligned offset cannot
+straddle the end. SPE cannot help addmul1 (byte-level shuffle is absent) or
+CRC32C (no hardware CRC on the e500v2), so on PowerPC the gains are the XOR
+stage plus the allocator work below.</p>
+<p>Measured:</p>
+<div class="table-wrapper"><table><thead><tr><th>Path</th><th>Before</th><th>After</th><th>Speedup</th></tr></thead><tbody>
+<tr><td>XOR-encryption stage alone</td><td>1,826 ns</td><td>131 ns</td><td>14x</td></tr>
+<tr><td>whole <code>do_cook</code></td><td>3,000 ns</td><td>713 ns</td><td>4.2x</td></tr>
+</tbody></table>
+</div>
+<p>On PowerPC under
+QEMU, <code>do_cook</code> at 1500 B stands at 4,090 ns with the SPE stage
+(<code>cook_xor_only</code> 1,091 ns of it), and RS encode improved 1.5x there from the
+decode-buffer preallocation alone.</p>
+<h2 id="crc32c-the-checksum"><a class="header" href="#crc32c-the-checksum">crc32c: the checksum</a></h2>
+<p>The zlib CRC32 became CRC32C (Castagnoli), which has hardware support worth
+taking: <code>_mm_crc32_u64</code> under SSE4.2 on x86, <code>__crc32cb</code> under ARMv8. The
+resolver probes once; without hardware support the software path is a
+slicing-by-8 Castagnoli table, itself faster than the zlib CRC32 it replaced
+(on PowerPC, 2,609 ns to 1,804 ns at 1500 B, a 1.4x gain from the switch
+alone).</p>
+<h2 id="what-the-tiers-choose-at-runtime-and-who-checks"><a class="header" href="#what-the-tiers-choose-at-runtime-and-who-checks">What the tiers choose at runtime, and who checks</a></h2>
+<p>On x86 the three ladders resolve at startup by CPUID probe. On the feed
+targets the choice is made by the build: the compiler the OpenWrt toolchain
+configures decides whether the NEON paths exist in the binary at all, and
+<code>bench/arch-map.tsv</code> records, for every shipped architecture, the path each
+dispatcher must land on when its binary runs under a named QEMU CPU model:</p>
+<div class="table-wrapper"><table><thead><tr><th>Row</th><th>addmul1</th><th>xor_tile</th><th>crc32c</th></tr></thead><tbody>
+<tr><td>x86_64</td><td>any (pinned by the cpu-dispatch job against named models)</td><td>any</td><td>any</td></tr>
+<tr><td>aarch64</td><td>neon</td><td>neon</td><td>sw</td></tr>
+<tr><td>armv7-neon (cortex-a15)</td><td>neon</td><td>neon</td><td>sw</td></tr>
+<tr><td>armv7-scalar (cortex-a9)</td><td>scalar</td><td>word</td><td>sw</td></tr>
+<tr><td>mips</td><td>scalar</td><td>word</td><td>sw</td></tr>
+<tr><td>powerpc (e500v2)</td><td>scalar</td><td>spe</td><td>sw</td></tr>
+<tr><td>riscv64</td><td>scalar</td><td>word</td><td>sw</td></tr>
+</tbody></table>
+</div>
+<p><code>bench/test_dispatch.cpp</code> turns each row into a check: under
+<code>EXPECT_DISPATCH_HELD</code>, an unnamed expectation fails the run, and the chosen
+path must equal the named one. The cpu-dispatch job pins x86_64 down the same
+way (<code>qemu64</code> yields SSE2, <code>Nehalem</code> SSSE3, <code>Haswell</code> AVX2; AVX-512BW is
+declined under qemu-user because the OS-support check is honest). The
+two-row ARM pair is deliberate: the a15 row proves the vector paths are
+reached, the a9 row proves they stay out of a build for a core with no NEON
+unit, both built with the toolchains the feed actually uses.</p>
+<h2 id="the-end-to-end-claim"><a class="header" href="#the-end-to-end-claim">The end-to-end claim</a></h2>
+<p>All of it composes into the tunnel numbers, measured end to end on CI
+runners (1400 B UDP, loopback). The ranges are CI host variance; each
+current-to-baseline pair is measured on the same host within one run, and FEC
+overhead dropped from about 41% of throughput to about 30%:</p>
+<div class="table-wrapper"><table><thead><tr><th>Config</th><th>Baseline</th><th>Current</th><th>Improvement</th></tr></thead><tbody>
+<tr><td>no-fec</td><td>618-861 Mbps</td><td>942-1517 Mbps</td><td>+48-76%</td></tr>
+<tr><td>fec 20:10</td><td>364-509 Mbps</td><td>657-1082 Mbps</td><td>+81-113%</td></tr>
+</tbody></table>
+</div>
+<h2 id="notes-for-the-readme-assembly"><a class="header" href="#notes-for-the-readme-assembly">Notes for the README assembly</a></h2>
+<ul>
+<li>The SIGILL story (OPTIMIZATION.md #16) is the scar to tell: the multiply
+was correct on every machine that had SSSE3, and choosing it on a CPU
+without it killed the tunnel. It is also why the dispatch is probed and
+held rather than assumed, which the arch-map table shows.</li>
+<li>The dispatch mermaid block draws the addmul1 ladder with the OS-support
+gates, and the arch-map rows as the leaf labels.</li>
+<li>Numbers to keep adjacent to their origins in the README tables: the 1500 B
+microbenchmarks and the end-to-end ranges, each cited to OPTIMIZATION.md;
+the arch-map rows cited to the bench lane.</li>
+<li>The fork never claims the unmeasured: Android and Raspberry Pi appear
+nowhere in the arch map, so they appear nowhere in the platform table.</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../plan/0003-readme-rewrite-front-door/inventory.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../../where.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../plan/0003-readme-rewrite-front-door/inventory.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../../where.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../../elasticlunr.min.js"></script>
+        <script src="../../mark.min.js"></script>
+        <script src="../../searcher.js"></script>
+
+        <script src="../../clipboard.min.js"></script>
+        <script src="../../highlight.js"></script>
+        <script src="../../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>
