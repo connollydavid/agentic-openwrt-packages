@@ -1105,8 +1105,9 @@ unit, both built with the toolchains the feed actually uses.</p>
 <h2 id="the-end-to-end-claim"><a class="header" href="#the-end-to-end-claim">The end-to-end claim</a></h2>
 <p>All of it composes into the tunnel numbers, measured end to end on CI
 runners (1400 B UDP, loopback). The ranges are CI host variance; each
-current-to-baseline pair is measured on the same host within one run, and FEC
-overhead dropped from about 41% of throughput to about 30%:</p>
+current-to-baseline pair is measured on the same host within one run. FEC
+overhead now costs about 30% of throughput, where the baseline paid about
+41%:</p>
 <div class="table-wrapper"><table><thead><tr><th>Config</th><th>Baseline</th><th>Current</th><th>Improvement</th></tr></thead><tbody>
 <tr><td>no-fec</td><td>618-861 Mbps</td><td>942-1517 Mbps</td><td>+48-76%</td></tr>
 <tr><td>fec 20:10</td><td>364-509 Mbps</td><td>657-1082 Mbps</td><td>+81-113%</td></tr>
