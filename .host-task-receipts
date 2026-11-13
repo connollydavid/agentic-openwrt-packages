@@ -234,3 +234,10 @@
     evidence = plan/0003-readme-rewrite-front-door/applied-sections.md: tuning, moving endpoint, what-this-is-not, which-binary, each in EN and zh 1:1, each ending two-door with the package's real UCI option names; recipes verified live by bench/recipes-check.sh (5/5, including the DNS flip re-point); ratio table is RS arithmetic, throughput cites OPTIMIZATION.md, the binary table cites the v1.2.2 assets and arch-map.tsv
     tool = host-lifecycle@0.63.0
     recorded = 2026-11-13
+
+[receipt "plan/0003#write-the-openwrt-section"]
+    disposition = done
+    verify = deployment from the release assets only (operator ruling 2026-11-13: no feed door, no upstream claims); the procd service pattern follows OpenWrt's documented interface; every asset name matches the v1.2.2 release; the section is in both languages and routes to doc/openwrt.md; no claim about the feed package or upstream inclusion
+    evidence = doc/openwrt.md at a4009ff plus the EN-zh README stub in plan/0003.../openwrt-section.md: deployment from the release assets only (no feed or upstream claims anywhere); asset names match the v1.2.2 release; the procd init script is syntax-checked, mirrors the verified UCI option surface so every documented stanza works on a binary deployment, and follows OpenWrt's documented procd interface; io_uring fallback claim traced to io_uring_recv.cpp
+    tool = host-lifecycle@0.63.0
+    recorded = 2026-11-13

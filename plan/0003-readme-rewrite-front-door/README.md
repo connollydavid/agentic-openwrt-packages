@@ -99,6 +99,11 @@ artifacts.
 - depends: #inventory-the-old-readmes-against-reality, #write-the-vpn-over-tunnel-family
 - verify: each recipe runs as written; every applied section ends in the two-door pattern; tuning table, moving endpoint, what-this-is-not, which-binary sections present in both languages with no untraceable numbers
 
+### Write the OpenWrt section {#write-the-openwrt-section}
+
+- depends: #write-the-applied-sections
+- verify: deployment from the release assets only (operator ruling 2026-11-13: no feed door, no upstream claims); the procd service pattern follows OpenWrt's documented interface; every asset name matches the v1.2.2 release; the section is in both languages and routes to doc/openwrt.md; no claim about the feed package or upstream inclusion
+
 ### Write the troubleshooting guide {#write-the-troubleshooting-guide}
 
 - depends: #write-the-applied-sections
@@ -106,7 +111,7 @@ artifacts.
 
 ### Write the English README {#write-the-english-readme}
 
-- depends: #elaborate-the-simd-kernels, #write-the-applied-sections
+- depends: #elaborate-the-simd-kernels, #write-the-applied-sections, #write-the-openwrt-section
 - verify: sections open with claims, each declares one quadrant and keeps its register, the three tensions named and left live, two scars told as stories, a reader can install, stack a VPN at correct MTU, and answer why-this-over-upstream without leaving the page
 
 ### Author the mermaid diagrams {#author-the-mermaid-diagrams}
