@@ -227,3 +227,10 @@
     evidence = doc/vpn-over-the-tunnel.md at 79711b9: every ledger cell measured by bench/vpn-ledger.sh across two reproducible runs (WG 1419/1313, OVPN-UDP 1499/1254 at both 1500 and 1492; OVPN-TCP refused at the UDP listener, measured at both MTUs -- the honest divergence from the plan's assumption that it could stack); marks coordination proven 4/4 by bench/vpn-marks-check.sh; upstream guide superseded with credit retained
     tool = host-lifecycle@0.63.0
     recorded = 2026-11-13
+
+[receipt "plan/0003#write-the-applied-sections"]
+    disposition = done
+    verify = each recipe runs as written; every applied section ends in the two-door pattern; tuning table, moving endpoint, what-this-is-not, which-binary sections present in both languages with no untraceable numbers
+    evidence = plan/0003-readme-rewrite-front-door/applied-sections.md: tuning, moving endpoint, what-this-is-not, which-binary, each in EN and zh 1:1, each ending two-door with the package's real UCI option names; recipes verified live by bench/recipes-check.sh (5/5, including the DNS flip re-point); ratio table is RS arithmetic, throughput cites OPTIMIZATION.md, the binary table cites the v1.2.2 assets and arch-map.tsv
+    tool = host-lifecycle@0.63.0
+    recorded = 2026-11-13
