@@ -202,3 +202,12 @@
     evidence = plan/0003-readme-rewrite-front-door/inventory.md: every claim in README.md and doc/README.zh-cn.md classified still-true/stale/fork-unique; the stale digest names the eight replacements
     tool = host-lifecycle@0.63.0
     recorded = 2026-11-13
+
+[receipt "plan/0003#elaborate-the-simd-kernels"]
+    disposition = done
+    verify = the section names each kernel family, its vector width, the dispatch tier that selects it, and the measured gain, every number traceable to OPTIMIZATION.md or the bench lane
+    inputs = software/udpspeeder-simd/main/OPTIMIZATION.md, software/udpspeeder-simd/main/bench/test_dispatch.cpp, software/udpspeeder-simd/main/bench/arch-matrix.awk
+    digest = e14d17d3ccff5cd851db06da4bb999d382d82fbe,159179aafd749e1b24037dc323e116a62db55cc7,fe8dcf631feb5960dcc88fea71863f6be25cf374
+    evidence = plan/0003-readme-rewrite-front-door/simd-kernels.md: three kernel families named with vector widths, tier ladders, and dispatch rules; every number cited to OPTIMIZATION.md sections or the bench arch map
+    tool = host-lifecycle@0.63.0
+    recorded = 2026-11-13
