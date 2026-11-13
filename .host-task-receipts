@@ -211,3 +211,19 @@
     evidence = plan/0003-readme-rewrite-front-door/simd-kernels.md: three kernel families named with vector widths, tier ladders, and dispatch rules; every number cited to OPTIMIZATION.md sections or the bench arch map
     tool = host-lifecycle@0.63.0
     recorded = 2026-11-13
+
+[receipt "plan/0003#author-the-mermaid-diagrams"]
+    disposition = done
+    verify = three mermaid blocks render on GitHub -- the architecture with marked outer packets, the DNS re-point, and the SIMD dispatch; no upstream images remain referenced
+    evidence = plan/0003-readme-rewrite-front-door/diagrams.md: three blocks, each rendered to SVG by mermaid-cli 11.4.2 (tunnel 15605 B, repoint 26372 B, dispatch 25256 B); constructs limited to flowchart/sequenceDiagram basics supported by every deployed mermaid
+    tool = host-lifecycle@0.63.0
+    recorded = 2026-11-13
+
+[receipt "plan/0003#write-the-vpn-over-tunnel-family"]
+    disposition = done
+    verify = the MTU ledger's every cell verified by capturing real stacked packets (WG, OpenVPN UDP, OpenVPN TCP at 1500 and 1492 paths); the WireGuard recipe runs as written with both marks rules non-conflicting; the OpenVPN TCP section states the double-spend tension without resolving it; doc/vpn-over-the-tunnel.md supersedes the upstream openvpn guide with credit retained
+    inputs = software/udpspeeder-simd/main/doc/udpspeeder_openvpn.md, software/udpspeeder-simd/main/bench/throughput.sh
+    digest = d5ea6bc3e75da91fb3cc883dd86e8408c5bd5422,8b8a345182bf78e4f3f3163dcfbbefbef9770c1f
+    evidence = doc/vpn-over-the-tunnel.md at 79711b9: every ledger cell measured by bench/vpn-ledger.sh across two reproducible runs (WG 1419/1313, OVPN-UDP 1499/1254 at both 1500 and 1492; OVPN-TCP refused at the UDP listener, measured at both MTUs -- the honest divergence from the plan's assumption that it could stack); marks coordination proven 4/4 by bench/vpn-marks-check.sh; upstream guide superseded with credit retained
+    tool = host-lifecycle@0.63.0
+    recorded = 2026-11-13
