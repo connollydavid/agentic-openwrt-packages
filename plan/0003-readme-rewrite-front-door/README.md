@@ -80,19 +80,19 @@ artifacts.
 ### Inventory the old READMEs against reality {#inventory-the-old-readmes-against-reality}
 
 - verify: every claim in the current READMEs classified as still-true, stale, or fork-unique; the stale list names what the rewrite must replace
-- inputs: README.md, doc/README.zh-cn.md
+- inputs: software/udpspeeder-simd/main/README.md, software/udpspeeder-simd/main/doc/README.zh-cn.md
 
 ### Elaborate the SIMD kernels {#elaborate-the-simd-kernels}
 
 - depends: #inventory-the-old-readmes-against-reality
 - verify: the section names each kernel family, its vector width, the dispatch tier that selects it, and the measured gain, every number traceable to OPTIMIZATION.md or the bench lane
-- inputs: OPTIMIZATION.md, bench/test_dispatch.cpp, bench/arch-matrix.awk
+- inputs: software/udpspeeder-simd/main/OPTIMIZATION.md, software/udpspeeder-simd/main/bench/test_dispatch.cpp, software/udpspeeder-simd/main/bench/arch-matrix.awk
 
 ### Write the VPN-over-tunnel family {#write-the-vpn-over-tunnel-family}
 
 - depends: #inventory-the-old-readmes-against-reality
 - verify: the MTU ledger's every cell verified by capturing real stacked packets (WG, OpenVPN UDP, OpenVPN TCP at 1500 and 1492 paths); the WireGuard recipe runs as written with both marks rules non-conflicting; the OpenVPN TCP section states the double-spend tension without resolving it; doc/vpn-over-the-tunnel.md supersedes the upstream openvpn guide with credit retained
-- inputs: doc/udpspeeder_openvpn.md, bench/throughput.sh
+- inputs: software/udpspeeder-simd/main/doc/udpspeeder_openvpn.md, software/udpspeeder-simd/main/bench/throughput.sh
 
 ### Write the applied sections {#write-the-applied-sections}
 

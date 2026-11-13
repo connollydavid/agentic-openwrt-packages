@@ -193,3 +193,12 @@
     evidence = attested operator (session 2026-11-12): issue 1 closed with credit, AGENTS lanes paragraph corrected, MEMORY current through the v1.2.1 release and the mac-pool ruling; the operator's 29901 reply remains theirs
     tool = host-lifecycle@0.63.0
     recorded = 2026-11-12
+
+[receipt "plan/0003#inventory-the-old-readmes-against-reality"]
+    disposition = done
+    verify = every claim in the current READMEs classified as still-true, stale, or fork-unique; the stale list names what the rewrite must replace
+    inputs = software/udpspeeder-simd/main/README.md, software/udpspeeder-simd/main/doc/README.zh-cn.md
+    digest = 1588b7cce18394070a30904681171e8b3aaf59bf,a839c1d68df5d5a861d571433f32b7c5778bd6e0
+    evidence = plan/0003-readme-rewrite-front-door/inventory.md: every claim in README.md and doc/README.zh-cn.md classified still-true/stale/fork-unique; the stale digest names the eight replacements
+    tool = host-lifecycle@0.63.0
+    recorded = 2026-11-13
