@@ -91,7 +91,7 @@ artifacts.
 ### Write the VPN-over-tunnel family {#write-the-vpn-over-tunnel-family}
 
 - depends: #inventory-the-old-readmes-against-reality
-- verify: the MTU ledger's every cell verified by capturing real stacked packets (WG, OpenVPN UDP, OpenVPN TCP at 1500 and 1492 paths); the WireGuard recipe runs as written with both marks rules non-conflicting; the OpenVPN TCP section states the double-spend tension without resolving it; doc/vpn-over-the-tunnel.md supersedes the upstream openvpn guide with credit retained
+- verify: the MTU ledger's every cell verified by capturing real stacked packets (WireGuard and OpenVPN UDP at 1500 and 1492 paths); the WireGuard recipe runs as written with both marks rules non-conflicting; the OpenVPN TCP transport's refusal is recorded as measured (clarified 2026-11-13: the intended family was OpenVPN over UDP; the plan's original wording asked for a TCP stacking, which the tunnel's nature refuses); the UDP section states the double-spend tension for inner TCP flows without resolving it; doc/vpn-over-the-tunnel.md supersedes the upstream openvpn guide with credit retained
 - inputs: software/udpspeeder-simd/main/doc/udpspeeder_openvpn.md, software/udpspeeder-simd/main/bench/throughput.sh
 
 ### Write the applied sections {#write-the-applied-sections}
