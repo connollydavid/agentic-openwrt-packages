@@ -1494,3 +1494,15 @@ satisfies both: the real index at the root, and plan/PLAN.md a symlink
 to ../PLAN.md. This sharpens the upstream plan-row convention bug
 already on the follow-up list: the gate should read plan/PLAN.md
 natively, and until it does the root-file shape is the local reconcile.
+
+## 2026-11-13 — correction: no symlink satisfies the book walk; one index, at the root
+
+The entry above this one proposed root-file-plus-symlink; that shape
+fails too, because the book walk counts a tracked symlink to markdown
+as a tracked document no page publishes. No symlink placement passes
+(book red either way), so the settled shape is one real index at the
+root with root-relative row URLs, and no plan/PLAN.md at all. The
+goal gate, the book walk, validate plan/, and the verify recheck are
+all green on it. The upstream issue stands sharpened: the gate should
+read the plan-room index natively instead of forcing the index to the
+root.
