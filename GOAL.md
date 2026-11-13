@@ -1,3 +1,5 @@
 # The active goal
 
-No goal is set. Cut a milestone, then propose it.
+plan/0003-readme-rewrite-front-door: The READMEs are still upstream's: their structure, their diagrams, their story.
+
+Orient with: host-lifecycle goal show .
