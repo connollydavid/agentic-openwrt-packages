@@ -1,0 +1,441 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>The applied sections - agentic-openwrt-packages</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../../favicon.svg">
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../../index.html">agentic-openwrt-packages</a></li><li class="chapter-item expanded affix "><li class="part-title">Cast: who</li><li class="chapter-item expanded "><a href="../../cast/index.html"><strong aria-hidden="true">1.</strong> Cast: the project's Who</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../cast/applying-personas.html"><strong aria-hidden="true">1.1.</strong> Applying personas during planning</a></li><li class="chapter-item expanded "><a href="../../cast/diego.html"><strong aria-hidden="true">1.2.</strong> Diego (router administrator)</a></li><li class="chapter-item expanded "><a href="../../cast/ingrid.html"><strong aria-hidden="true">1.3.</strong> Ingrid (OpenWrt feed maintainer)</a></li><li class="chapter-item expanded "><a href="../../cast/samira.html"><strong aria-hidden="true">1.4.</strong> Samira (security engineer)</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Plan: what & when</li><li class="chapter-item expanded "><a href="../../PLAN.html"><strong aria-hidden="true">2.</strong> PLAN: milestone index</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../plan/0000-openwrt-udpspeeder-simd-package/index.html"><strong aria-hidden="true">2.1.</strong> Add an OpenWrt package for udpspeeder-simd</a></li><li class="chapter-item expanded "><a href="../../plan/0001-dns-lease-manager/index.html"><strong aria-hidden="true">2.2.</strong> DNS lease manager for udpspeeder-simd (v1.1.0)</a></li><li class="chapter-item expanded "><a href="../../plan/0002-udpspeeder-simd-socket-marks/index.html"><strong aria-hidden="true">2.3.</strong> Socket marks for udpspeeder-simd (fwmark, cookie, dscp)</a></li><li class="chapter-item expanded "><a href="../../plan/0003-readme-rewrite-front-door/index.html"><strong aria-hidden="true">2.4.</strong> README rewrite: the front door for our own software</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../plan/0003-readme-rewrite-front-door/applied-sections.html" class="active"><strong aria-hidden="true">2.4.1.</strong> The applied sections</a></li><li class="chapter-item expanded "><a href="../../plan/0003-readme-rewrite-front-door/diagrams.html"><strong aria-hidden="true">2.4.2.</strong> The three mermaid blocks</a></li><li class="chapter-item expanded "><a href="../../plan/0003-readme-rewrite-front-door/inventory.html"><strong aria-hidden="true">2.4.3.</strong> The old READMEs, classified against reality</a></li><li class="chapter-item expanded "><a href="../../plan/0003-readme-rewrite-front-door/simd-kernels.html"><strong aria-hidden="true">2.4.4.</strong> The SIMD kernels, elaborated</a></li></ol></li></ol></li><li class="chapter-item expanded "><li class="part-title">Software: where</li><li class="chapter-item expanded "><a href="../../where.html"><strong aria-hidden="true">3.</strong> Software</a></li><li class="chapter-item expanded affix "><li class="part-title">Call: why</li><li class="chapter-item expanded "><a href="../../call/0000-adopt-agentic-host-methodology.html"><strong aria-hidden="true">4.</strong> Govern UDPspeeder-simd under the agentic-host methodology</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../call/0001-pin-tools-to-current-releases.html"><strong aria-hidden="true">4.1.</strong> Pin the verification tools to current releases, not the template gitlinks</a></li><li class="chapter-item expanded "><a href="../../call/0002-host-lint-consumed-not-reproduced.html"><strong aria-hidden="true">4.2.</strong> host-lint is a consumed tool, not reproduced by this host</a></li><li class="chapter-item expanded "><a href="../../call/0003-no-claude-co-author-trailers-on-packages.html"><strong aria-hidden="true">4.3.</strong> No Claude co-author trailers on packages commits</a></li><li class="chapter-item expanded "><a href="../../call/0004-udpspeeder-simd-package-coexists-and-links-dynamically.html"><strong aria-hidden="true">4.4.</strong> The udpspeeder-simd package coexists with udpspeeder and links dynamically</a></li><li class="chapter-item expanded "><a href="../../call/0005-cross-build-adjustments-live-in-the-fork.html"><strong aria-hidden="true">4.5.</strong> Cross-build adjustments for udpspeeder-simd live in the fork</a></li><li class="chapter-item expanded "><a href="../../call/0006-udpspeeder-simd-release-binaries-are-not-yet-reproducible.html"><strong aria-hidden="true">4.6.</strong> udpspeeder-simd release binaries are not yet reproducible</a></li><li class="chapter-item expanded "><a href="../../call/0007-host-tools-are-pinned-and-hash-verified.html"><strong aria-hidden="true">4.7.</strong> The tools this host runs are pinned and hash-verified</a></li><li class="chapter-item expanded "><a href="../../call/0008-udpspeeder-simd-versioning-and-releases.html"><strong aria-hidden="true">4.8.</strong> udpspeeder-simd versioning and releases</a></li><li class="chapter-item expanded "><a href="../../call/0009-dns-lease-manager-cxx-single-header.html"><strong aria-hidden="true">4.9.</strong> The DNS lease manager ships as a C++-compatible single header</a></li><li class="chapter-item expanded "><a href="../../call/0010-exec-bit-audit-over-fires-on-the-openwrt-install-idiom.html"><strong aria-hidden="true">4.10.</strong> The exec-bit audit over-fires on the OpenWrt install idiom</a></li><li class="chapter-item expanded "><a href="../../call/0011-template-span-v063-agents-manual-lem-and-ci-receipts.html"><strong aria-hidden="true">4.11.</strong> The template span through the v0.63.0 pins: the AGENTS.md manual, the lem system, and the CI-receipt lane</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Reference: how</li><li class="chapter-item expanded "><a href="../../AGENTS.html"><strong aria-hidden="true">5.</strong> AGENTS.md: operating manual for an agentic project</a></li><li class="chapter-item expanded "><a href="../../CLAUDE.html"><strong aria-hidden="true">6.</strong> CLAUDE</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../reference/udpspeeder-simd-on-openwrt-releases.html"><strong aria-hidden="true">6.1.</strong> Using udpspeeder-simd on an OpenWrt release</a></li><li class="chapter-item expanded "><a href="../../GOAL.html"><strong aria-hidden="true">6.2.</strong> The active goal</a></li><li class="chapter-item expanded "><a href="../../MIGRATION.html"><strong aria-hidden="true">6.3.</strong> MIGRATION.md: the process moved to the host repo</a></li><li class="chapter-item expanded "><a href="../../STRUCTURE.html"><strong aria-hidden="true">6.4.</strong> Structure</a></li><li class="chapter-item expanded "><a href="../../UPGRADING.html"><strong aria-hidden="true">6.5.</strong> UPGRADING.md: the version-to-version upgrade ledger</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Memory</li><li class="chapter-item expanded "><a href="../../MEMORY.html"><strong aria-hidden="true">7.</strong> Memory</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">agentic-openwrt-packages</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="the-applied-sections"><a class="header" href="#the-applied-sections">The applied sections</a></h1>
+<p>Working material for <code>#write-the-applied-sections</code>: four sections, each in
+English and Chinese in 1:1 alignment, each configuration-bearing section
+ending in the two-door pattern (the command line beside the OpenWrt UCI
+stanza, citing the package's real option names). Recipes are verified live by
+<code>bench/recipes-check.sh</code> (five claims, five passes); numbers carry their
+origins.</p>
+<hr />
+<h2 id="tuning-a-lossy-link-en"><a class="header" href="#tuning-a-lossy-link-en">Tuning a lossy link (EN)</a></h2>
+<p>Start from measurement, not folklore: run the tunnel with <code>--report 10</code> and
+read the loss it reports before choosing a ratio. The FEC arithmetic then
+tells you what a ratio buys: with <code>x:y</code>, any <code>y</code> of the <code>x+y</code> packets in a
+group can be lost and the group still decodes, at a bandwidth cost of
+<code>(x+y)/x</code>.</p>
+<div class="table-wrapper"><table><thead><tr><th>ratio</th><th>bandwidth</th><th>survives per-group loss</th><th>shape</th></tr></thead><tbody>
+<tr><td><code>-f4:2</code></td><td>1.5x</td><td>up to 1/3</td><td>small groups, quick flush</td></tr>
+<tr><td><code>-f20:10</code></td><td>1.5x</td><td>up to 1/3</td><td>the shipped default, smoother under load</td></tr>
+<tr><td><code>-f1:1</code></td><td>2x</td><td>up to 1/2</td><td>per-packet doubling, best for games</td></tr>
+<tr><td><code>-f1:3</code></td><td>4x</td><td>up to 3/4</td><td>rescue mode for very bad links</td></tr>
+</tbody></table>
+</div>
+<p>(Survivable fractions are Reed-Solomon arithmetic: y erasures of x+y are
+always recoverable. Group shape effects are the options document's: group
+size x, queue flush at <code>--timeout</code>, default 8 ms.)</p>
+<p>Burst loss wants <code>-i</code> (spread each group over an interval), steady loss wants
+a higher ratio, and latency-sensitive traffic wants small groups. The
+tunnel's compute cost is not the constraint: with fec 20:10 the optimized
+build runs 657-1082 Mbps end to end (OPTIMIZATION.md), so the link, not the
+program, gives out first.</p>
+<p>Everything above is live-tunable: the fifo takes <code>fec</code>, <code>timeout</code> and
+<code>queue-len</code> from a running instance (verified: <code>bench/recipes-check.sh</code>,
+section A), so tuning is a matter of watching <code>--report</code> and echoing a new
+ratio.</p>
+<p>The two doors:</p>
+<pre><code class="language-bash"># command line: watch, then change under load
+udpspeeder-simd -c -l127.0.0.1:3333 -r&lt;server&gt;:4096 -f20:10 -k "passwd" \
+  --fifo /tmp/fifo --report 10
+echo "fec 4:2" &gt; /tmp/fifo      # retune without restarting
+</code></pre>
+<pre><code># OpenWrt UCI (/etc/config/udpspeeder-simd)
+config udpspeeder-simd 'tunnel1'
+	option enabled '1'
+	option server '0'
+	option local '127.0.0.1:3333'
+	option remote '&lt;server&gt;:4096'
+	option fec '4:2'
+	option timeout '8'
+	option report '10'
+	option fifo '/tmp/udpspeeder-fifo'
+	option key 'passwd'
+</code></pre>
+<h2 id="调优一条高丢包链路-zh"><a class="header" href="#调优一条高丢包链路-zh">调优一条高丢包链路 (zh)</a></h2>
+<p>从测量出发，而不是从传闻出发：先带 <code>--report 10</code> 跑起来，读它报告的丢包率，再选冗余比。FEC 的算术告诉你每个比值换来什么：以 <code>x:y</code> 为例，一组 <code>x+y</code> 个包里任意丢 <code>y</code> 个都能恢复，代价是带宽变为 <code>(x+y)/x</code> 倍。</p>
+<div class="table-wrapper"><table><thead><tr><th>冗余比</th><th>带宽</th><th>组内可承受丢包</th><th>形态</th></tr></thead><tbody>
+<tr><td><code>-f4:2</code></td><td>1.5 倍</td><td>至多 1/3</td><td>小组，快速成组</td></tr>
+<tr><td><code>-f20:10</code></td><td>1.5 倍</td><td>至多 1/3</td><td>默认值，负载下更平滑</td></tr>
+<tr><td><code>-f1:1</code></td><td>2 倍</td><td>至多 1/2</td><td>逐包加倍，适合游戏</td></tr>
+<tr><td><code>-f1:3</code></td><td>4 倍</td><td>至多 3/4</td><td>极差链路的抢救模式</td></tr>
+</tbody></table>
+</div>
+<p>（可承受比例是 Reed-Solomon 的算术性质：x+y 中丢 y 个必可恢复。组形态的影响见选项说明：组大小 x，队列到 <code>--timeout</code> 便发送，默认 8 毫秒。）</p>
+<p>突发丢包加 <code>-i</code>（把每组在一个时间窗内摊开发送）；持续丢包提高冗余比；延迟敏感的流量用小组。计算力不是瓶颈：fec 20:10 下优化构建的端到端吞吐为 657-1082 Mbps（见 OPTIMIZATION.md），先到极限的是链路，不是程序。</p>
+<p>以上参数全部可以在线调整：运行中的实例通过 fifo 接受 <code>fec</code>、<code>timeout</code>、<code>queue-len</code>（已验证：<code>bench/recipes-check.sh</code> A 节），调优就是看着 <code>--report</code> 再回显一个新比值。</p>
+<p>两扇门：</p>
+<pre><code class="language-bash"># 命令行：先观察，再在运行中调整
+udpspeeder-simd -c -l127.0.0.1:3333 -r&lt;server&gt;:4096 -f20:10 -k "passwd" \
+  --fifo /tmp/fifo --report 10
+echo "fec 4:2" &gt; /tmp/fifo      # 不重启换参
+</code></pre>
+<pre><code># OpenWrt UCI（/etc/config/udpspeeder-simd）
+config udpspeeder-simd 'tunnel1'
+	option enabled '1'
+	option server '0'
+	option local '127.0.0.1:3333'
+	option remote '&lt;server&gt;:4096'
+	option fec '4:2'
+	option timeout '8'
+	option report '10'
+	option fifo '/tmp/udpspeeder-fifo'
+	option key 'passwd'
+</code></pre>
+<hr />
+<h2 id="the-moving-endpoint-en"><a class="header" href="#the-moving-endpoint-en">The moving endpoint (EN)</a></h2>
+<p>Give the client a hostname and it follows the address: the lease manager
+resolves <code>-r</code> names, refreshes before the record's TTL expires, and re-points
+the tunnel when the answer changes, without a restart. A moving endpoint (a
+residential IP that changes, a failover between two servers) stops reading as
+an outage.</p>
+<p>The verification is deliberately brutal (<code>bench/recipes-check.sh</code>, section
+B): two servers on two addresses, traffic through the first, then the DNS
+answer flips and the first server dies; the same client process re-points and
+passes traffic again. The refresh discipline is the DNS lease manager's
+specification (<code>dns_lease_mgr.allium</code>, held by the component's CI).</p>
+<p>The two doors:</p>
+<pre><code class="language-bash"># command line: the hostname is the whole change
+udpspeeder-simd -c -l127.0.0.1:3333 -rmytunnel.example.net:4096 \
+  -f20:10 -k "passwd"
+</code></pre>
+<pre><code># OpenWrt UCI: the remote takes the hostname the same way
+config udpspeeder-simd 'tunnel1'
+	option enabled '1'
+	option server '0'
+	option local '127.0.0.1:3333'
+	option remote 'mytunnel.example.net:4096'
+	option fec '20:10'
+	option key 'passwd'
+</code></pre>
+<h2 id="移动的对端-zh"><a class="header" href="#移动的对端-zh">移动的对端 (zh)</a></h2>
+<p>给客户端一个主机名，它就会跟着地址走：租约管理器解析 <code>-r</code> 里的名字，在 TTL 到期前刷新，应答变化时把隧道指向新地址，全程无需重启。会动的对端（会变的家宽地址、两台服务器间的切换）从此不再表现为断线。</p>
+<p>验证刻意做到苛刻（<code>bench/recipes-check.sh</code> B 节）：两台服务器两个地址，流量先走第一台，然后 DNS 应答翻转、第一台被杀；同一个客户端进程重新指向并通过了流量。刷新纪律由 DNS 租约管理器的规格约束（<code>dns_lease_mgr.allium</code>，组件 CI 持有）。</p>
+<p>两扇门：</p>
+<pre><code class="language-bash"># 命令行：改的就是一个主机名
+udpspeeder-simd -c -l127.0.0.1:3333 -rmytunnel.example.net:4096 \
+  -f20:10 -k "passwd"
+</code></pre>
+<pre><code># OpenWrt UCI：remote 同样接受主机名
+config udpspeeder-simd 'tunnel1'
+	option enabled '1'
+	option server '0'
+	option local '127.0.0.1:3333'
+	option remote 'mytunnel.example.net:4096'
+	option fec '20:10'
+	option key 'passwd'
+</code></pre>
+<hr />
+<h2 id="what-this-is-not-en"><a class="header" href="#what-this-is-not-en">What this is not (EN)</a></h2>
+<p>Five honest lines, so nobody arrives by mistake:</p>
+<ol>
+<li>Not a TCP tunnel: it carries UDP datagrams; TCP traffic rides a VPN
+stacked on top (the VPN-over-the-tunnel guide).</li>
+<li>Not magic against congestion: FEC repairs loss; it cannot create
+bandwidth, and congestion loss is better left to TCP's own backoff.</li>
+<li>Not strong encryption: <code>-k</code> is an XOR obfuscation with random padding,
+not a cipher; confidentiality is the stacked VPN's job.</li>
+<li>Not a VPN by itself: it forwards one UDP service; the VPN guide is where
+whole-network access comes from.</li>
+<li>Not a WAN optimizer: it is a lossy-link tool; on a clean link it only
+adds redundancy.</li>
+</ol>
+<p>The two doors are the manual itself:</p>
+<pre><code class="language-bash">udpspeeder-simd -h        # every option, from the binary
+</code></pre>
+<pre><code># OpenWrt: the package's config is the documented surface
+# /etc/config/udpspeeder-simd (uci show udpspeeder-simd)
+</code></pre>
+<h2 id="它不是什么-zh"><a class="header" href="#它不是什么-zh">它不是什么 (zh)</a></h2>
+<p>五行实话，免得有人误入：</p>
+<ol>
+<li>不是 TCP 隧道：它搬运 UDP 数据报；TCP 流量要靠叠在上面的 VPN（见 VPN over the tunnel 指南）。</li>
+<li>不是拥塞的解药：FEC 修复丢包，不能凭空造带宽；拥塞丢包交给 TCP 自己的退避更合适。</li>
+<li>不是强加密：<code>-k</code> 是带随机填充的异或混淆，不是密码学加密；保密性由叠加的 VPN 负责。</li>
+<li>本身不是 VPN：它转发一个 UDP 服务；整网接入请看 VPN 指南。</li>
+<li>不是广域网优化器：它是丢包链路的工具；干净的链路上它只增加冗余。</li>
+</ol>
+<p>两扇门就是手册本身：</p>
+<pre><code class="language-bash">udpspeeder-simd -h        # 每个选项，来自二进制本身
+</code></pre>
+<pre><code># OpenWrt：软件包的配置文件即文档化的接口
+# /etc/config/udpspeeder-simd（uci show udpspeeder-simd）
+</code></pre>
+<hr />
+<h2 id="which-binary-for-which-machine-en"><a class="header" href="#which-binary-for-which-machine-en">Which binary for which machine (EN)</a></h2>
+<p>The release ships ten assets; the build matrix behind them is
+<code>bench/arch-map.tsv</code>, the same table CI holds as a check. Pick by the target
+CPU:</p>
+<div class="table-wrapper"><table><thead><tr><th>asset</th><th>machine</th><th>example</th></tr></thead><tbody>
+<tr><td><code>udpspeeder-simd.x86_64</code></td><td>any x86_64 Linux, old or new</td><td>servers, desktops, Atom</td></tr>
+<tr><td><code>udpspeeder-simd.aarch64</code></td><td>64-bit ARM</td><td>most modern routers, SBCs</td></tr>
+<tr><td><code>udpspeeder-simd.armv7-neon</code></td><td>32-bit ARM with NEON</td><td>cortex-a15-class targets</td></tr>
+<tr><td><code>udpspeeder-simd.armv7-scalar</code></td><td>32-bit ARM without NEON</td><td>mvebu cortex-a9 targets</td></tr>
+<tr><td><code>udpspeeder-simd.mips</code></td><td>big-endian MIPS</td><td>ath79-class routers</td></tr>
+<tr><td><code>udpspeeder-simd.powerpc</code></td><td>PowerPC e500v2</td><td>TL-WDR4900 class</td></tr>
+<tr><td><code>udpspeeder-simd.riscv64</code></td><td>64-bit RISC-V</td><td>sifiveu targets</td></tr>
+<tr><td><code>udpspeeder-simd.x86_64.exe</code></td><td>Windows x86_64</td><td></td></tr>
+<tr><td><code>udpspeeder-simd.aarch64.exe</code></td><td>Windows on ARM</td><td></td></tr>
+<tr><td><code>udpspeeder-simd</code></td><td>macOS, both Intel and Apple silicon</td><td>one universal binary</td></tr>
+</tbody></table>
+</div>
+<p>The x86_64 binary runs on CPUs as old as the first K8: the dispatcher probes
+before it uses SSSE3 and falls back to SSE2 and scalar (the SIMD section
+tells the SIGILL story behind that). On OpenWrt, the package resolves the
+right build through the feed.</p>
+<p>The two doors:</p>
+<pre><code class="language-bash"># command line: download from the release, chmod, run
+curl -LO https://github.com/connollydavid/UDPspeeder-simd/releases/download/v1.2.2/udpspeeder-simd.x86_64
+chmod +x udpspeeder-simd.x86_64 &amp;&amp; ./udpspeeder-simd.x86_64 -h
+</code></pre>
+<pre><code># OpenWrt: the feed package picks the arch itself
+opkg update &amp;&amp; opkg install udpspeeder-simd
+</code></pre>
+<h2 id="哪台机器用哪个二进制-zh"><a class="header" href="#哪台机器用哪个二进制-zh">哪台机器用哪个二进制 (zh)</a></h2>
+<p>发布共十件资产；它们背后的构建矩阵是 <code>bench/arch-map.tsv</code>，与 CI 检查用的是同一张表。按目标 CPU 选择：</p>
+<div class="table-wrapper"><table><thead><tr><th>资产</th><th>机器</th><th>例子</th></tr></thead><tbody>
+<tr><td><code>udpspeeder-simd.x86_64</code></td><td>任意 x86_64 Linux，新旧皆宜</td><td>服务器、桌面、Atom</td></tr>
+<tr><td><code>udpspeeder-simd.aarch64</code></td><td>64 位 ARM</td><td>多数现代路由器、开发板</td></tr>
+<tr><td><code>udpspeeder-simd.armv7-neon</code></td><td>带 NEON 的 32 位 ARM</td><td>cortex-a15 级</td></tr>
+<tr><td><code>udpspeeder-simd.armv7-scalar</code></td><td>无 NEON 的 32 位 ARM</td><td>mvebu cortex-a9 级</td></tr>
+<tr><td><code>udpspeeder-simd.mips</code></td><td>大端 MIPS</td><td>ath79 级路由器</td></tr>
+<tr><td><code>udpspeeder-simd.powerpc</code></td><td>PowerPC e500v2</td><td>TL-WDR4900 一类</td></tr>
+<tr><td><code>udpspeeder-simd.riscv64</code></td><td>64 位 RISC-V</td><td>sifiveu 目标</td></tr>
+<tr><td><code>udpspeeder-simd.x86_64.exe</code></td><td>Windows x86_64</td><td></td></tr>
+<tr><td><code>udpspeeder-simd.aarch64.exe</code></td><td>Windows on ARM</td><td></td></tr>
+<tr><td><code>udpspeeder-simd</code></td><td>macOS，Intel 与 Apple 芯片同件</td><td>单一通用二进制</td></tr>
+</tbody></table>
+</div>
+<p>x86_64 二进制在最早的 K8 上也能跑：调度器先探测再使用 SSSE3，不满足时退到 SSE2 与标量路径（SIMD 一节讲了这背后的 SIGILL 故事）。在 OpenWrt 上，软件包会通过 feed 自动解析正确的构建。</p>
+<p>两扇门：</p>
+<pre><code class="language-bash"># 命令行：从发布页下载、赋权、运行
+curl -LO https://github.com/connollydavid/UDPspeeder-simd/releases/download/v1.2.2/udpspeeder-simd.x86_64
+chmod +x udpspeeder-simd.x86_64 &amp;&amp; ./udpspeeder-simd.x86_64 -h
+</code></pre>
+<pre><code># OpenWrt：feed 软件包自己选架构
+opkg update &amp;&amp; opkg install udpspeeder-simd
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../plan/0003-readme-rewrite-front-door/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../../plan/0003-readme-rewrite-front-door/diagrams.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../plan/0003-readme-rewrite-front-door/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../../plan/0003-readme-rewrite-front-door/diagrams.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../../elasticlunr.min.js"></script>
+        <script src="../../mark.min.js"></script>
+        <script src="../../searcher.js"></script>
+
+        <script src="../../clipboard.min.js"></script>
+        <script src="../../highlight.js"></script>
+        <script src="../../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>
