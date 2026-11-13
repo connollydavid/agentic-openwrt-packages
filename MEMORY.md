@@ -1471,3 +1471,16 @@ v1.2.1 is complete as published, nine assets; the universal2 mac exec
 waits for the macOS pool to feed the lane and rides the next release
 through the publisher's if-present step, which the merge-back to main
 keeps wired. No workaround, no self-hosted runner for it: we wait.
+
+## 2026-11-13 — v1.2.2: ten assets, the mac exec ships itself
+
+The merge-back landed and v1.2.2 cut from main through the wired
+pipeline with no hand on it: seven linux arches, both windows arm
+worlds, and the macos-15 lane feeding the tag run so the unannotated
+universal2 exec joined as the tenth asset, exactly as the naming
+scheme ruled. Two overnight lessons rode along: ubuntu-latest rolled
+to a toolchain whose static runtime emits vector code the ISA screen's
+allowlist predates (lanes pinned to ubuntu-24.04; the allowlist for
+static runtime code is the named follow-up), and the screen itself
+did its job against the new toolchain -- it failed loudly rather than
+pass vacuously.
