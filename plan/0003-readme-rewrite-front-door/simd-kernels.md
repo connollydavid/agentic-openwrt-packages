@@ -141,8 +141,9 @@ unit, both built with the toolchains the feed actually uses.
 
 All of it composes into the tunnel numbers, measured end to end on CI
 runners (1400 B UDP, loopback). The ranges are CI host variance; each
-current-to-baseline pair is measured on the same host within one run, and FEC
-overhead dropped from about 41% of throughput to about 30%:
+current-to-baseline pair is measured on the same host within one run. FEC
+overhead now costs about 30% of throughput, where the baseline paid about
+41%:
 
 | Config | Baseline | Current | Improvement |
 |---|---|---|---|
