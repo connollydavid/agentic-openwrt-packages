@@ -1530,6 +1530,35 @@ so the next release cuts from there and the pin follows.</p>
 waits for the macOS pool to feed the lane and rides the next release
 through the publisher's if-present step, which the merge-back to main
 keeps wired. No workaround, no self-hosted runner for it: we wait.</p>
+<h2 id="2026-11-13--v122-ten-assets-the-mac-exec-ships-itself"><a class="header" href="#2026-11-13--v122-ten-assets-the-mac-exec-ships-itself">2026-11-13 — v1.2.2: ten assets, the mac exec ships itself</a></h2>
+<p>The merge-back landed and v1.2.2 cut from main through the wired
+pipeline with no hand on it: seven linux arches, both windows arm
+worlds, and the macos-15 lane feeding the tag run so the unannotated
+universal2 exec joined as the tenth asset, exactly as the naming
+scheme ruled. Two overnight lessons rode along: ubuntu-latest rolled
+to a toolchain whose static runtime emits vector code the ISA screen's
+allowlist predates (lanes pinned to ubuntu-24.04; the allowlist for
+static runtime code is the named follow-up), and the screen itself
+did its job against the new toolchain -- it failed loudly rather than
+pass vacuously.</p>
+<h2 id="2026-11-13--the-index-shape-both-gates-accept"><a class="header" href="#2026-11-13--the-index-shape-both-gates-accept">2026-11-13 — the index shape both gates accept</a></h2>
+<p>The goal gate reads a root PLAN.md; the book generator walks tracked
+markdown and will not resolve a root symlink to markdown (it reported
+plan/PLAN.md unrendered while the symlink stood). The shape that
+satisfies both: the real index at the root, and plan/PLAN.md a symlink
+to ../PLAN.md. This sharpens the upstream plan-row convention bug
+already on the follow-up list: the gate should read plan/PLAN.md
+natively, and until it does the root-file shape is the local reconcile.</p>
+<h2 id="2026-11-13--correction-no-symlink-satisfies-the-book-walk-one-index-at-the-root"><a class="header" href="#2026-11-13--correction-no-symlink-satisfies-the-book-walk-one-index-at-the-root">2026-11-13 — correction: no symlink satisfies the book walk; one index, at the root</a></h2>
+<p>The entry above this one proposed root-file-plus-symlink; that shape
+fails too, because the book walk counts a tracked symlink to markdown
+as a tracked document no page publishes. No symlink placement passes
+(book red either way), so the settled shape is one real index at the
+root with root-relative row URLs, and no plan/PLAN.md at all. The
+goal gate, the book walk, validate plan/, and the verify recheck are
+all green on it. The upstream issue stands sharpened: the gate should
+read the plan-room index natively instead of forcing the index to the
+root.</p>
 
                     </main>
 

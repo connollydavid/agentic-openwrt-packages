@@ -396,19 +396,19 @@ their folders are named <code>NNNN-slug</code> (zero-padded, and the number is i
 sort key; see <code>call/0000</code>). A milestone is a thin, persona-serving increment.</p>
 <p>Worked in this order:</p>
 <ul>
-<li><a href="0000-openwrt-udpspeeder-simd-package/README.html">0000-openwrt-udpspeeder-simd-package</a>.
+<li><a href="plan/0000-openwrt-udpspeeder-simd-package/README.html">plan/0000-openwrt-udpspeeder-simd-package</a>.
 Adds an OpenWrt feed package for udpspeeder-simd that answers the request at
 https://github.com/openwrt/packages/issues/28562 (Ingrid's story).</li>
-<li><a href="0001-dns-lease-manager/README.html">0001-dns-lease-manager</a>.
+<li><a href="plan/0001-dns-lease-manager/README.html">plan/0001-dns-lease-manager</a>.
 Adds a DNS lease manager to udpspeeder-simd so the client's <code>-r</code> takes a hostname,
 resolving it to candidate IPs, refreshing before TTL expiry, and re-pointing the
 tunnel across IP changes and collapse; ships as v1.1.0, the first minor bump
 (Diego's story, Samira's spec-lane obligations).</li>
-<li><a href="0002-udpspeeder-simd-socket-marks/README.html">plan/0002-udpspeeder-simd-socket-marks</a>.
+<li><a href="plan/0002-udpspeeder-simd-socket-marks/README.html">plan/0002-udpspeeder-simd-socket-marks</a>.
 Adds <code>--fwmark</code>, <code>--cookie</code> and <code>--dscp</code> socket marks with an honor-or-refuse
 contract, a Windows qWAVE tier, FreeBSD and Windows CI lanes, and the UCI
 wiring for the marks Linux honors (Diego's shaping story, sdanfa's request).</li>
-<li><a href="0003-readme-rewrite-front-door/README.html">0003-readme-rewrite-front-door</a>.
+<li><a href="plan/0003-readme-rewrite-front-door/README.html">plan/0003-readme-rewrite-front-door</a>.
 Rewrites both READMEs as the front door to the fork as its own software --
 new diagrams, full credit to upstream UDPspeeder, English and Chinese kept
 one-to-one -- with every claim held to evidence.</li>
@@ -618,7 +618,7 @@ Versioning policy is recorded in <code>call/0008</code>.</li>
 <li>verify: attested operator</li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="socket-marks-for-udpspeeder-simd-fwmark-cookie-dscp"><a class="header" href="#socket-marks-for-udpspeeder-simd-fwmark-cookie-dscp">Socket marks for udpspeeder-simd (fwmark, cookie, dscp)</a></h1>
-<p><strong>Status:</strong>; parked (work complete and attested (11/11 receipts, v1.2.0+v1.2.1 shipped); the composed completion gate is blocked by two tool debts: the ci-judge has no absence disposition for the two fork master lanes whose registration was lost in the Actions-disabled era (the upstream proposal owed twice), and a plan-row match quirk in v0.63.0 to reproduce against its own source) since 2026-11-12</p>
+<p><strong>Status:</strong>; complete 2026-11-12</p>
 <ul>
 <li>Status: planned</li>
 <li>Persona: Diego (router administrator, policy routing and shaping); Samira
@@ -898,14 +898,14 @@ artifacts.</p>
 <h2 id="udpspeeder-simd"><a class="header" href="#udpspeeder-simd">udpspeeder-simd</a></h2>
 <ul>
 <li>url: https://github.com/connollydavid/UDPspeeder-simd.git</li>
-<li>pin: <code>66fbb4dba53b614b5749b5ef55d419d8c63cef76</code></li>
+<li>pin: <code>d1e1ee96a16b3d2103905a5fd73e8a6efadc51c4</code></li>
 <li>worktrees: none (single canonical line)</li>
 </ul>
 <h2 id="packages"><a class="header" href="#packages">packages</a></h2>
 <ul>
 <li>url: https://github.com/connollydavid/packages.git</li>
-<li>pin: <code>1d40ad929ad45cfbdf547996d0ba2379d9765172</code></li>
-<li>worktrees: udpspeeder-update-20260731 @ d9ef24250436, feed-25.12 @ 387ae05fc4da, feed-24.10 @ 387ae05fc4da, feed-main @ 387ae05fc4da, flashprog @ 9f49c8217164, ci-flashprog @ d79c08094dfa</li>
+<li>pin: <code>c7ffd9a4a121e407a01450d83c16ae3571a17f21</code></li>
+<li>worktrees: udpspeeder-update-20260731 @ d9ef24250436, feed-25.12 @ 387ae05fc4da, feed-24.10 @ 387ae05fc4da, feed-main @ 7790692dabf7, flashprog @ 9f49c8217164, ci-flashprog @ d79c08094dfa</li>
 </ul>
 <h2 id="openwrt"><a class="header" href="#openwrt">openwrt</a></h2>
 <ul>
@@ -2612,8 +2612,7 @@ directly, and this custom-feed step is only needed for a release that predates
 the merge.</li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="the-active-goal"><a class="header" href="#the-active-goal">The active goal</a></h1>
-<p>plan/0002-udpspeeder-simd-socket-marks is parked: work complete and attested (11/11 receipts, v1.2.0+v1.2.1 shipped); the composed completion gate is blocked by two tool debts: the ci-judge has no absence disposition for the two fork master lanes whose registration was lost in the Actions-disabled era (the upstream proposal owed twice), and a plan-row match quirk in v0.63.0 to reproduce against its own source.</p>
-<p>Resume with: host-lifecycle goal unpark .</p>
+<p>No goal is set. Cut a milestone, then propose it.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="migrationmd-the-process-moved-to-the-host-repo"><a class="header" href="#migrationmd-the-process-moved-to-the-host-repo">MIGRATION.md: the process moved to the <code>host</code> repo</a></h1>
 <p>How to bring an existing repo under this methodology, and how to upgrade one that
 adopted an earlier revision, now lives as a single instruction file in its own
@@ -4465,6 +4464,35 @@ so the next release cuts from there and the pin follows.</p>
 waits for the macOS pool to feed the lane and rides the next release
 through the publisher's if-present step, which the merge-back to main
 keeps wired. No workaround, no self-hosted runner for it: we wait.</p>
+<h2 id="2026-11-13--v122-ten-assets-the-mac-exec-ships-itself"><a class="header" href="#2026-11-13--v122-ten-assets-the-mac-exec-ships-itself">2026-11-13 — v1.2.2: ten assets, the mac exec ships itself</a></h2>
+<p>The merge-back landed and v1.2.2 cut from main through the wired
+pipeline with no hand on it: seven linux arches, both windows arm
+worlds, and the macos-15 lane feeding the tag run so the unannotated
+universal2 exec joined as the tenth asset, exactly as the naming
+scheme ruled. Two overnight lessons rode along: ubuntu-latest rolled
+to a toolchain whose static runtime emits vector code the ISA screen's
+allowlist predates (lanes pinned to ubuntu-24.04; the allowlist for
+static runtime code is the named follow-up), and the screen itself
+did its job against the new toolchain -- it failed loudly rather than
+pass vacuously.</p>
+<h2 id="2026-11-13--the-index-shape-both-gates-accept"><a class="header" href="#2026-11-13--the-index-shape-both-gates-accept">2026-11-13 — the index shape both gates accept</a></h2>
+<p>The goal gate reads a root PLAN.md; the book generator walks tracked
+markdown and will not resolve a root symlink to markdown (it reported
+plan/PLAN.md unrendered while the symlink stood). The shape that
+satisfies both: the real index at the root, and plan/PLAN.md a symlink
+to ../PLAN.md. This sharpens the upstream plan-row convention bug
+already on the follow-up list: the gate should read plan/PLAN.md
+natively, and until it does the root-file shape is the local reconcile.</p>
+<h2 id="2026-11-13--correction-no-symlink-satisfies-the-book-walk-one-index-at-the-root"><a class="header" href="#2026-11-13--correction-no-symlink-satisfies-the-book-walk-one-index-at-the-root">2026-11-13 — correction: no symlink satisfies the book walk; one index, at the root</a></h2>
+<p>The entry above this one proposed root-file-plus-symlink; that shape
+fails too, because the book walk counts a tracked symlink to markdown
+as a tracked document no page publishes. No symlink placement passes
+(book red either way), so the settled shape is one real index at the
+root with root-relative row URLs, and no plan/PLAN.md at all. The
+goal gate, the book walk, validate plan/, and the verify recheck are
+all green on it. The upstream issue stands sharpened: the gate should
+read the plan-room index natively instead of forcing the index to the
+root.</p>
 
                     </main>
 
