@@ -1559,6 +1559,26 @@ goal gate, the book walk, validate plan/, and the verify recheck are
 all green on it. The upstream issue stands sharpened: the gate should
 read the plan-room index natively instead of forcing the index to the
 root.</p>
+<h2 id="2026-11-13--the-vpn-ledger-harness-five-traps-in-one-namespace"><a class="header" href="#2026-11-13--the-vpn-ledger-harness-five-traps-in-one-namespace">2026-11-13 — the VPN ledger harness: five traps in one namespace</a></h2>
+<p>Stacking VPNs over the tunnel inside one user+net namespace taught five
+lessons the hard way, all now load-bearing in bench/vpn-ledger.sh. Both
+tunnel ends' addresses are local, so (1) every packet between them
+short-circuits through the local route table unless the socket binds the
+device (SO_BINDTODEVICE, option 25); a source bind is not enough. (2) An
+inner packet arriving at the far end carries a source the kernel calls
+local: a martian, dropped silently before ICMP, admitted by
+accept_local=1. (3) Two wg interfaces sharing a subnet race the connected
+route; /32 addresses plus explicit host routes give both directions an
+unambiguous path. (4) tcpdump's loopback tap observes nothing in these
+namespaces while a raw AF_PACKET python socket sees every frame; the
+capture evidence rides the kernel tap, not libpcap. (5) Mode 0 is a blob
+encoder: a group's packets are packed into one Reed-Solomon blob and
+emitted as x+y shards each at most --mtu, so a lone datagram crosses as
+many small shards and there is no per-packet split line; the inner MTU
+is bounded only by the VPN interface, and the wire ceiling (1313 WG,
+1254 OVPN, measured under filled groups) never approaches 1492. OpenVPN's
+TCP transport is refused at the UDP listener -- the tunnel's nature,
+measured, and the guide now says so.</p>
 
                     </main>
 
