@@ -1484,3 +1484,13 @@ allowlist predates (lanes pinned to ubuntu-24.04; the allowlist for
 static runtime code is the named follow-up), and the screen itself
 did its job against the new toolchain -- it failed loudly rather than
 pass vacuously.
+
+## 2026-11-13 — the index shape both gates accept
+
+The goal gate reads a root PLAN.md; the book generator walks tracked
+markdown and will not resolve a root symlink to markdown (it reported
+plan/PLAN.md unrendered while the symlink stood). The shape that
+satisfies both: the real index at the root, and plan/PLAN.md a symlink
+to ../PLAN.md. This sharpens the upstream plan-row convention bug
+already on the follow-up list: the gate should read plan/PLAN.md
+natively, and until it does the root-file shape is the local reconcile.
