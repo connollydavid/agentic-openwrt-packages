@@ -47,7 +47,7 @@
     # https://connollydavid.github.io/UDPspeeder-simd/feed and rebuilt weekly.
     worktree = feed-25.12 387ae05fc4da3f532c17a2f7a70b92878b95959c
     worktree = feed-24.10 387ae05fc4da3f532c17a2f7a70b92878b95959c
-    worktree = feed-main 387ae05fc4da3f532c17a2f7a70b92878b95959c
+    worktree = feed-main 7790692dabf79ab87788353585a1fad269b92f04
     # The flashprog package offered to openwrt/packages in issue 29591, and the
     # branch carrying the matrix that verifies it. The latter is ours alone and
     # is never offered upstream.
