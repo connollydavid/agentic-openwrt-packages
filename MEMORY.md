@@ -1616,3 +1616,32 @@ The entry above names run 43627423988 as a v1.3.1 component run; that id is
 the openwrt/packages PR matrix. The component's own green pair for v1.3.1
 is 43626361198 (branch CI at 166aada) and 43626965621 (the tag run that
 published the ten assets).
+
+## 2026-11-14 — v1.3.2: the hardening cascade, and the rules it produced
+
+The feed's install check ("The installed binaries must be hardened") failed
+1.3.1 on both release lines with "udpspeeder-simd has an executable stack".
+Three distinct mechanisms, each proven, not assumed:
+
+- xor_spe.S declared .note.GNU-stack *inside* its HAVE_PPC_SPE guard, so on
+  every other target the file assembled to an empty, note-less object; the
+  older SDK linkers (pre-2.41 binutils behavior, 24.10/25.12) then mark the
+  stack executable. The note now lives outside the guard.
+- Moving it out exposed it to the PE and Mach-O assemblers, which reject the
+  ELF directive outright: the note is now behind __ELF__.
+- The mips cross lane failed even with the note, because an exec-marked
+  *dependency* object decides too: every ELF cross link now passes
+  -Wl,-z,noexecstack, and CI asserts the GNU_STACK flags of all three
+  binaries per arch, so this class cannot regress silently again.
+
+v1.3.2 ships from dd6ae0f (branch CI 43638474736, tag run 43639053731, ten
+assets). This is also a real hardening fix for the binaries the feed already
+published, not only a documentation event.
+
+Two process rules the day earned. The upstream package offer must arrive as
+one commit: PR 29901 was squashed and force-pushed twice, and the final
+1e4ccb1c4 carries 1.3.2 plus the fwmark/dscp UCI wiring ported byte-identical
+from the snapshot package (the MR's init/config had lagged the feature set).
+And a version bump must grep the package trees for the *old artifact name*:
+both the MR and the snapshot Makefiles installed speederv2_cross, a name the
+fork renamed away after 1.1.0; the version string alone never shows that.
