@@ -1519,7 +1519,7 @@ and v1.3.2 carries the fix with the man regeneration it obliges.</p>
 <h3 id="advance-the-feed-branches"><a class="header" href="#advance-the-feed-branches">Advance the feed branches</a></h3>
 <ul>
 <li>depends: #carry-the-feed-mr</li>
-<li>verify: <code>grep -qx 'PKG_VERSION:=1.3.1' software/packages/feed-main/net/udpspeeder-simd-snapshot/Makefile software/packages/feed-24.10/net/udpspeeder-simd-snapshot/Makefile software/packages/feed-25.12/net/udpspeeder-simd-snapshot/Makefile &amp;&amp; grep -qx 'PKG_MIRROR_HASH:=a8284ef9436663a82805051ca0bf2ab5fb09bd95cebc59b4877555c860ea65ab' software/packages/feed-main/net/udpspeeder-simd-snapshot/Makefile software/packages/feed-24.10/net/udpspeeder-simd-snapshot/Makefile software/packages/feed-25.12/net/udpspeeder-simd-snapshot/Makefile</code></li>
+<li>verify: <code>grep -qx 'PKG_VERSION:=1.3.2' software/packages/feed-main/net/udpspeeder-simd-snapshot/Makefile software/packages/feed-24.10/net/udpspeeder-simd-snapshot/Makefile software/packages/feed-25.12/net/udpspeeder-simd-snapshot/Makefile &amp;&amp; grep -qx 'PKG_MIRROR_HASH:=ff5524856dea96261cb6f4e6542dfde0bed82feca95ffb21067264f897d72560' software/packages/feed-main/net/udpspeeder-simd-snapshot/Makefile software/packages/feed-24.10/net/udpspeeder-simd-snapshot/Makefile software/packages/feed-25.12/net/udpspeeder-simd-snapshot/Makefile</code></li>
 <li>inputs: software/packages/feed-main/net/udpspeeder-simd-snapshot/Makefile, software/packages/feed-24.10/net/udpspeeder-simd-snapshot/Makefile, software/packages/feed-25.12/net/udpspeeder-simd-snapshot/Makefile</li>
 </ul>
 <p>The published feed is the delivery channel until the MR merges; its three
@@ -1549,14 +1549,14 @@ operator's ruling.</p>
 <h2 id="udpspeeder-simd"><a class="header" href="#udpspeeder-simd">udpspeeder-simd</a></h2>
 <ul>
 <li>url: https://github.com/connollydavid/UDPspeeder-simd.git</li>
-<li>pin: <code>166aada2c69a83428cd020b8eb400e704e40ab08</code></li>
+<li>pin: <code>dd6ae0f95b28c4804f0c68f1fc169d819a79dd39</code></li>
 <li>worktrees: none (single canonical line)</li>
 </ul>
 <h2 id="packages"><a class="header" href="#packages">packages</a></h2>
 <ul>
 <li>url: https://github.com/connollydavid/packages.git</li>
 <li>pin: <code>c7ffd9a4a121e407a01450d83c16ae3571a17f21</code></li>
-<li>worktrees: udpspeeder-update-20260731 @ d9ef24250436, feed-25.12 @ 7a68cc34a3b8, feed-24.10 @ b9cbb52af83a, feed-main @ 5531f09bb806, flashprog @ 9f49c8217164, udpspeeder-simd @ a6f064d8e5e1, ci-flashprog @ d79c08094dfa</li>
+<li>worktrees: udpspeeder-update-20260731 @ d9ef24250436, feed-25.12 @ 1f5c743e881c, feed-24.10 @ 206509b75611, feed-main @ 5122fb211faf, flashprog @ 9f49c8217164, udpspeeder-simd @ 1e4ccb1c4f9a, ci-flashprog @ d79c08094dfa</li>
 </ul>
 <h2 id="openwrt"><a class="header" href="#openwrt">openwrt</a></h2>
 <ul>
