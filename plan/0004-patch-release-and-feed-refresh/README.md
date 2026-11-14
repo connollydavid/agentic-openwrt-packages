@@ -75,6 +75,18 @@ method (git archive, sorted tar with uid/gid/mode normalization and the
 commit-time mtime, zstd ultra-20) behind a small `tools/mirror-hash.sh` so
 the check re-runs, push the branch, and let the PR update itself.
 
+### Harden the stack {#harden-the-stack}
+
+- depends: #tag-and-publish
+- verify: `gh release view v1.3.2 --repo connollydavid/UDPspeeder-simd --json assets --jq '.assets | length' | grep -qx 10 && gh run view "$(gh run list --repo connollydavid/UDPspeeder-simd --event push --branch main --workflow ci.yml --limit 1 --json databaseId --jq '.[0].databaseId')" --repo connollydavid/UDPspeeder-simd --json conclusion --jq .conclusion | grep -qx success`
+
+The feed's hardening check failed the 1.3.1 install on both release lines:
+xor_spe.S declared .note.GNU-stack inside its guard, so on every other target
+the file assembled to an empty object and the older SDK linkers
+marked the stack executable for it. The note moves outside
+the guard, every statically built release binary is asserted non-exec in CI,
+and v1.3.2 carries the fix with the man regeneration it obliges.
+
 ### Advance the feed branches {#advance-the-feed-branches}
 
 - depends: #carry-the-feed-mr
