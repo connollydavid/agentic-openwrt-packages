@@ -37,7 +37,7 @@ reply in that thread waits until that update lands, per the ruling.
 
 ### Bump and regen {#bump-and-regen}
 
-- verify: `make -C software/udpspeeder-simd/main -s man >/dev/null 2>&1 && ./software/udpspeeder-simd/main/udpspeeder-simd -h 2>&1 | grep -q 'v1\.3\.1' && grep -q 'v1\.3\.1' software/udpspeeder-simd/main/doc/udpspeeder-simd.1`
+- verify: `make -C software/udpspeeder-simd/main -s man >/dev/null 2>&1 && ./software/udpspeeder-simd/main/udpspeeder-simd -h 2>&1 | grep -q 'v1\.3\.2' && grep -q 'v1\.3\.2' software/udpspeeder-simd/main/doc/udpspeeder-simd.1`
 - inputs: software/udpspeeder-simd/main/main.cpp, software/udpspeeder-simd/main/doc/udpspeeder-simd.1, software/udpspeeder-simd/main/README.md, software/udpspeeder-simd/main/doc/README.zh-cn.md
 
 Bump `PROGRAM_VERSION` to `v1.3.1`, regenerate the man page through the
@@ -66,7 +66,7 @@ ledger carry the migrated skip already cited to call/0006.
 ### Carry the feed MR {#carry-the-feed-mr}
 
 - depends: #tag-and-publish
-- verify: `bash tools/mirror-hash.sh https://github.com/connollydavid/UDPspeeder-simd.git v1.3.1 | grep -qx "$(sed -n 's/^PKG_MIRROR_HASH:=\([0-9a-f]*\)$/\1/p' software/packages/udpspeeder-simd/net/udpspeeder-simd/Makefile)"`
+- verify: `bash tools/mirror-hash.sh https://github.com/connollydavid/UDPspeeder-simd.git v1.3.2 | grep -qx "$(sed -n 's/^PKG_MIRROR_HASH:=\([0-9a-f]*\)$/\1/p' software/packages/udpspeeder-simd/net/udpspeeder-simd/Makefile)"`
 - inputs: software/packages/udpspeeder-simd/net/udpspeeder-simd/Makefile
 
 Materialize the `udpspeeder-simd` branch as a recorded worktree line, bump
