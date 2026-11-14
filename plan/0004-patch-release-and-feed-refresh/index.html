@@ -208,7 +208,7 @@ reply in that thread waits until that update lands, per the ruling.</p>
 <h2 id="build-sequence"><a class="header" href="#build-sequence">Build sequence</a></h2>
 <h3 id="bump-and-regen"><a class="header" href="#bump-and-regen">Bump and regen</a></h3>
 <ul>
-<li>verify: <code>make -C software/udpspeeder-simd/main -s man &gt;/dev/null 2&gt;&amp;1 &amp;&amp; ./software/udpspeeder-simd/main/udpspeeder-simd -h 2&gt;&amp;1 | grep -q 'v1\.3\.1' &amp;&amp; grep -q 'v1\.3\.1' software/udpspeeder-simd/main/doc/udpspeeder-simd.1</code></li>
+<li>verify: <code>make -C software/udpspeeder-simd/main -s man &gt;/dev/null 2&gt;&amp;1 &amp;&amp; ./software/udpspeeder-simd/main/udpspeeder-simd -h 2&gt;&amp;1 | grep -q 'v1\.3\.2' &amp;&amp; grep -q 'v1\.3\.2' software/udpspeeder-simd/main/doc/udpspeeder-simd.1</code></li>
 <li>inputs: software/udpspeeder-simd/main/main.cpp, software/udpspeeder-simd/main/doc/udpspeeder-simd.1, software/udpspeeder-simd/main/README.md, software/udpspeeder-simd/main/doc/README.zh-cn.md</li>
 </ul>
 <p>Bump <code>PROGRAM_VERSION</code> to <code>v1.3.1</code>, regenerate the man page through the
@@ -234,7 +234,7 @@ ledger carry the migrated skip already cited to call/0006.</p>
 <h3 id="carry-the-feed-mr"><a class="header" href="#carry-the-feed-mr">Carry the feed MR</a></h3>
 <ul>
 <li>depends: #tag-and-publish</li>
-<li>verify: <code>bash tools/mirror-hash.sh https://github.com/connollydavid/UDPspeeder-simd.git v1.3.1 | grep -qx "$(sed -n 's/^PKG_MIRROR_HASH:=\([0-9a-f]*\)$/\1/p' software/packages/udpspeeder-simd/net/udpspeeder-simd/Makefile)"</code></li>
+<li>verify: <code>bash tools/mirror-hash.sh https://github.com/connollydavid/UDPspeeder-simd.git v1.3.2 | grep -qx "$(sed -n 's/^PKG_MIRROR_HASH:=\([0-9a-f]*\)$/\1/p' software/packages/udpspeeder-simd/net/udpspeeder-simd/Makefile)"</code></li>
 <li>inputs: software/packages/udpspeeder-simd/net/udpspeeder-simd/Makefile</li>
 </ul>
 <p>Materialize the <code>udpspeeder-simd</code> branch as a recorded worktree line, bump
