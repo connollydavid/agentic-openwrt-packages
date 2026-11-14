@@ -1603,6 +1603,32 @@ inside the same command as any owner-only mutation. A probe run under the wrong
 account proves nothing: an early read-only test returned 404 (no write permission)
 where the true archived answer is 403.</li>
 </ul>
+<h2 id="2026-11-14--the-routers-model-names-are-aliases-the-catalog-is-not-at-v1models"><a class="header" href="#2026-11-14--the-routers-model-names-are-aliases-the-catalog-is-not-at-v1models">2026-11-14 — the router's model names are aliases; the catalog is not at /v1/models</a></h2>
+<ul>
+<li>The <code>api.d07yx58.net</code> router (LiteLLM 1.106.2 behind nginx) answers <code>/v1/models</code>
+with an empty list, so the standard discovery surface shows nothing. The real
+catalog is <code>GET /v1/model/info</code>, and any single request reveals its actual backend
+in the <code>x-litellm-model-name</code> response header. Ask the header, not the name.</li>
+<li>Several of the catalog's aliases are spellings of one backend, so a name is not the
+thing a request selects. Unknown names are not refused either: a <code>*</code> entry routes
+them to <code>openai/qwen3.8-flash-next</code>, which is why L measured <code>__probe__</code> completing
+with HTTP 200 and echoing the nonsense name back. A 200 therefore does not prove a
+model exists.</li>
+<li>The correction worth keeping: "same backend, different name" holds within each
+alias family, not across all of them. Measured, there are two healthy backends, not
+one: <code>openai/qwen3.8-27b</code> at 192.168.21.44 (262144 in / 32768 out, reached by
+<code>qwen3.8-27b</code>, <code>qwen3.6-27b</code>, <code>qwen-3.8-27b</code>, <code>qwen3.827b</code>, <code>qwen-3.827b</code>) and
+<code>openai/qwen3.8-flash-next</code> (500000 in / 524288 out, reached by <code>qwen-healed</code> and by
+the <code>qwen*</code> and <code>*</code> wildcards). Declaring only the flash-next family therefore drops
+reachability of the 27b backend, which is a real choice and not a renaming.</li>
+<li>Also measured, all on the operator's account: the <code>qwen3.5-4b</code> and <code>qwen3.5-4b-vl</code>
+upstream at 192.168.21.57 returns HTTP 500, <code>deepseek-v4-flash</code> returns 410 retired,
+and <code>glm-5.2</code>, <code>glm-5.3</code>, <code>glm-5.3-flash</code>, <code>deepseek-v4.1-flash</code> return 429, which
+proves presence only, never health.</li>
+<li>Catalog hygiene: roughly 270 aliases of the form <code>openai/qwen3.5-4b&lt;gpt-name&gt;</code> look
+like a generation bug that concatenated the 4b alias onto a list of OpenAI model
+names. Excluded from every conclusion above.</li>
+</ul>
 
                     </main>
 
