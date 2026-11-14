@@ -269,3 +269,10 @@
     evidence = doc/socket-marks.zh-cn.md at HEAD: the guide in Chinese with the quick-reference table intact (four columns, same rows) and the promise paragraph carrying the same force (refused at startup, never silent); zero prose warnings
     tool = host-lifecycle@0.63.0
     recorded = 2026-11-14
+
+[receipt "plan/0003#hold-every-claim-to-evidence"]
+    disposition = done
+    verify = each performance, platform and feature statement in every shipped document traces to a lane, a spec, or a document; the untraceable are removed rather than softened; no persona names or methodology vocabulary appear in any artifact; the EN-zh terminology table covers every term the two READMEs share
+    evidence = sweep at e12d17b: persona names absent from every shipped document (the marks guide dedication removed, the translation never carried it); methodology vocabulary reduced to the checking artifacts' own file names; each performance, platform and feature statement traces to OPTIMIZATION.md, the arch map, the measured ledger, the recipes check, or the CI-run specifications; the marks guide's thirteen em-dash decorations reworded, every shipped page at zero prose warnings; doc/terminology.md binds the two READMEs as a translation of record, linked from both
+    tool = host-lifecycle@0.63.0
+    recorded = 2026-11-14
