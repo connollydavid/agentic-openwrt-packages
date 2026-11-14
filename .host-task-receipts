@@ -351,3 +351,12 @@
     evidence = 815c3c433 re-pins PR 29901 at 1.3.1; tools/mirror-hash.sh recomputes the recorded PKG_MIRROR_HASH, method regression-verified byte-exact on the shipped v1.0.0 and v1.1.0 hashes
     tool = host-lifecycle@0.63.0
     recorded = 2026-11-14
+
+[receipt "plan/0004#carry-the-feed-mr"]
+    disposition = done
+    verify = `bash tools/mirror-hash.sh https://github.com/connollydavid/UDPspeeder-simd.git v1.3.1 | grep -qx "$(sed -n 's/^PKG_MIRROR_HASH:=\([0-9a-f]*\)$/\1/p' software/packages/udpspeeder-simd/net/udpspeeder-simd/Makefile)"`
+    inputs = software/packages/udpspeeder-simd/net/udpspeeder-simd/Makefile
+    digest = 539f2710480e2fe65a27cd4889a0deff3ea7bdc3
+    evidence = a6f064d8e re-offers PR 29901 as one commit at 1.3.1; the matrix at 815c3c433 caught the stale install name (speederv2_cross predates the rename), fixed to udpspeeder-simd_cross; mirror hash unchanged, method regression-verified on v1.0.0 and v1.1.0
+    tool = host-lifecycle@0.63.0
+    recorded = 2026-11-14
