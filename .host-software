@@ -59,7 +59,7 @@
     # The udpspeeder-simd package offered to openwrt/packages in PR 29901, as
     # its own worktree: the offer advances to each release while master stays
     # at its pin.
-    worktree = udpspeeder-simd 1e4ccb1c4f9ace48a75d2d4f9c8f73e1b95fb440
+    worktree = udpspeeder-simd efa2f853b4145471b58ab940475dc2e1e49bd057
     worktree = ci-flashprog d79c08094dfae19abfd44afb5157b95d8d4f6042
 
 # OpenWrt upstream (the buildroot). Embedded as a source pin on its canonical branch
