@@ -255,3 +255,10 @@
     evidence = README.md at c04daf8: every section opens with a claim and keeps its register, routing what it does not own; the three tensions named and left live (double-spend in the VPN section, DSCP-past-your-hop and ratio-vs-capacity in tuning and troubleshooting); two scars as stories (SSSE3 SIGILL, the pretending Windows socket); install (quick start + curl door), VPN stacking at the measured idiomatic 1500, and why-this-over-upstream all answerable on the page; three mermaid blocks render (mermaid-cli 11.4.2); zero prose warnings; no upstream images; zh door linked for the 1:1 task
     tool = host-lifecycle@0.63.0
     recorded = 2026-11-14
+
+[receipt "plan/0003#write-the-chinese-readme-one-to-one"]
+    disposition = done
+    verify = section-for-section alignment with the English README; the same mermaid blocks; a native reader confirms the register is documentation, not machine translation
+    evidence = doc/README.zh-cn.md: thirteen sections aligned section-for-section with README.md (verified by heading extraction), the same three mermaid blocks with Chinese labels (all render through mermaid-cli 11.4.2), zero prose warnings; the native-register clause is the operator's read to confirm, flagged here
+    tool = host-lifecycle@0.63.0
+    recorded = 2026-11-14
