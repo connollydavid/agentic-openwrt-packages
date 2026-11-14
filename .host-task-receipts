@@ -317,3 +317,37 @@
     evidence = plan/0003-readme-rewrite-front-door/inventory.md: every claim in README.md and doc/README.zh-cn.md classified still-true/stale/fork-unique; the stale digest names the eight replacements
     tool = host-lifecycle@0.63.0
     recorded = 2026-11-14
+
+[receipt "plan/0004#bump-and-regen"]
+    disposition = done
+    verify = `make -C software/udpspeeder-simd/main -s man >/dev/null 2>&1 && ./software/udpspeeder-simd/main/udpspeeder-simd -h 2>&1 | grep -q 'v1\.3\.1' && grep -q 'v1\.3\.1' software/udpspeeder-simd/main/doc/udpspeeder-simd.1`
+    inputs = software/udpspeeder-simd/main/main.cpp, software/udpspeeder-simd/main/doc/udpspeeder-simd.1, software/udpspeeder-simd/main/README.md, software/udpspeeder-simd/main/doc/README.zh-cn.md
+    digest = 94e436948d08f02c33fadbb0458c8d164fa523a8,fcd25145a685587e10992cba6f6a44a27727489c,503c09679bd49b8aab1b5db1842c0ed343028f1c,0b4d00ad19fde71c9d23d76dd0204816dae228dd
+    evidence = 166aada: banner and regenerated page both print v1.3.1; make man re-mints from the binary's own --help; README twins verify through the release page digest instead of a pinned hash
+    tool = host-lifecycle@0.63.0
+    recorded = 2026-11-14
+
+[receipt "plan/0004#tag-and-publish"]
+    disposition = done
+    verify = `gh release view v1.3.1 --repo connollydavid/UDPspeeder-simd --json assets --jq '.assets | length' | grep -qx 10`
+    evidence = annotated v1.3.1 at 166aada; tag run 43626965621 success; release carries ten assets
+    tool = host-lifecycle@0.63.0
+    recorded = 2026-11-14
+
+[receipt "plan/0004#re-pin-the-host"]
+    disposition = done
+    verify = `.host-tools/bin/host-lifecycle software --check .`
+    inputs = .host-software
+    digest = b1b85b17b509bf37cac7ca4803be1bfdc076ee69
+    evidence = .host-software pins the component at 166aada and the offer branch at 815c3c433; software --check exit 0
+    tool = host-lifecycle@0.63.0
+    recorded = 2026-11-14
+
+[receipt "plan/0004#carry-the-feed-mr"]
+    disposition = done
+    verify = `bash tools/mirror-hash.sh https://github.com/connollydavid/UDPspeeder-simd.git v1.3.1 | grep -qx "$(sed -n 's/^PKG_MIRROR_HASH:=\([0-9a-f]*\)$/\1/p' software/packages/udpspeeder-simd/net/udpspeeder-simd/Makefile)"`
+    inputs = software/packages/udpspeeder-simd/net/udpspeeder-simd/Makefile
+    digest = f24e10bc34925a1ec2c7e07b5ca792dc4065bed0
+    evidence = 815c3c433 re-pins PR 29901 at 1.3.1; tools/mirror-hash.sh recomputes the recorded PKG_MIRROR_HASH, method regression-verified byte-exact on the shipped v1.0.0 and v1.1.0 hashes
+    tool = host-lifecycle@0.63.0
+    recorded = 2026-11-14
