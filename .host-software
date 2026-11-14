@@ -56,6 +56,10 @@
     # branch carrying the matrix that verifies it. The latter is ours alone and
     # is never offered upstream.
     worktree = flashprog 9f49c8217164a41bdd96db40ec386f30e9c7fbbe
+    # The udpspeeder-simd package offered to openwrt/packages in PR 29901, as
+    # its own worktree: the offer advances to each release while master stays
+    # at its pin.
+    worktree = udpspeeder-simd e75936484a2865e840cf376c3137907ab8ebbaf0
     worktree = ci-flashprog d79c08094dfae19abfd44afb5157b95d8d4f6042
 
 # OpenWrt upstream (the buildroot). Embedded as a source pin on its canonical branch
