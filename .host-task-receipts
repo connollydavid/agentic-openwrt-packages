@@ -276,3 +276,10 @@
     evidence = sweep at e12d17b: persona names absent from every shipped document (the marks guide dedication removed, the translation never carried it); methodology vocabulary reduced to the checking artifacts' own file names; each performance, platform and feature statement traces to OPTIMIZATION.md, the arch map, the measured ledger, the recipes check, or the CI-run specifications; the marks guide's thirteen em-dash decorations reworded, every shipped page at zero prose warnings; doc/terminology.md binds the two READMEs as a translation of record, linked from both
     tool = host-lifecycle@0.63.0
     recorded = 2026-11-14
+
+[receipt "plan/0003#ship-the-man-page"]
+    disposition = done
+    verify = the man page is generated from the binary's own --help by a make target (so it cannot drift), renders under mdoc, installs with make install, the version bump to v1.3.0 and the regenerated page share one commit under a matching tag, and the release publishes from the tag
+    evidence = 3aee5a9 tagged v1.3.0: doc/udpspeeder-simd.1 generated from the built binary's --help by gen_man.sh via make man (renders clean under groff -mdoc, marks options present, no leaked markup), make install places binary and page, the bump to v1.3.0 and the regenerated page share one commit, the tag names the same version, and the regen stanza in .host-software records the command for every future bump; release publishes from the tag
+    tool = host-lifecycle@0.63.0
+    recorded = 2026-11-14

@@ -133,3 +133,8 @@ artifacts.
 
 - depends: #write-the-english-readme, #write-the-chinese-readme-one-to-one, #translate-the-socket-marks-guide, #write-the-troubleshooting-guide
 - verify: each performance, platform and feature statement in every shipped document traces to a lane, a spec, or a document; the untraceable are removed rather than softened; no persona names or methodology vocabulary appear in any artifact; the EN-zh terminology table covers every term the two READMEs share
+
+### Ship the man page {#ship-the-man-page}
+
+- depends: #hold-every-claim-to-evidence
+- verify: the man page is generated from the binary's own --help by a make target (so it cannot drift), renders under mdoc, installs with make install, the version bump to v1.3.0 and the regenerated page share one commit under a matching tag, and the release publishes from the tag

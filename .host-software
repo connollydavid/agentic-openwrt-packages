@@ -20,6 +20,10 @@
     url    = https://github.com/connollydavid/UDPspeeder-simd.git
     pin    = e12d17b6ea82f899a4977987ca279712a517064b
     branch = main
+    # Version-derived artifact: the man page embeds the banner of the binary
+    # it documents, so every version bump regenerates it (make man) in the
+    # same commit, and the tag names the same version its page prints.
+    regen  = make man
     # This component publishes release binaries but records no build recipe or
     # artifact hash, because the build is not yet deterministic: the native line
     # uses whatever g++ the runner image carried. Recording a hash for a build
