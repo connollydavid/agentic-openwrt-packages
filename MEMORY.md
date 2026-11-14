@@ -1578,3 +1578,34 @@ measured, and the guide now says so.
 - Catalog hygiene: roughly 270 aliases of the form `openai/qwen3.5-4b<gpt-name>` look
   like a generation bug that concatenated the 4b alias onto a list of OpenAI model
   names. Excluded from every conclusion above.
+
+## 2026-11-14 — v1.3.1 ships the reviewed door; the mirror-hash replay is now a tool
+
+v1.3.0's tag minted its release page before the whip pass and the six-
+persona readthrough landed, so the published door was the reviewed one only
+at the repository tip. v1.3.1 (tag at 166aada, ten assets, run 43627423988's
+predecessor for the branch and 43626965621 for the tag, both green) closes
+that; assets from here are immutable as always. The READMEs' download
+example no longer pins a literal sha256: a per-release hash under a
+`latest` URL contradicts itself at the next release, so the example
+compares `sha256sum` output with the digest the release page shows.
+
+`tools/mirror-hash.sh` replays include/download.mk's git-method packing
+verbatim (formal git archive with core.abbrev 8, extract, repack with
+--numeric-owner --owner=0 --group=0 --mode=a-s --sort=name at the commit-time
+mtime, zstd -T0 --ultra -20). Two lessons from wiring it. First, the short
+memory-note version of the method ("git archive | tar -rf - | zstd") does
+not run: GNU tar cannot append to a stream, so the pipeline needs the
+extract-to-directory step the makefile actually takes. Second, two shipped
+hashes (v1.0.0, v1.1.0) reproduce byte-exact, which is the validation a
+hash-recomputation tool needs before a PR trusts it. PR 29901 (the
+udpspeeder-simd offer) now carries 1.3.1 (branch commit 815c3c433, hash
+a8284ef...); the package-test matrix on that push is the real-SDK
+verification. The operator's reply in the thread waits for that green.
+
+Two gate lessons the same day. A task whose `verify` is prose (a judgment,
+not a command) re-records with `tasks --record --record-digests`;
+`tasks --rederive` tries to execute the prose and its apostrophes break
+the shell. And the prose audit reads "from 1.0.0 to 1.3.1" as a
+false-range trope even between version numbers: name the two facts without
+the range shape.
