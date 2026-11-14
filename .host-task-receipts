@@ -262,3 +262,10 @@
     evidence = doc/README.zh-cn.md: thirteen sections aligned section-for-section with README.md (verified by heading extraction), the same three mermaid blocks with Chinese labels (all render through mermaid-cli 11.4.2), zero prose warnings; the native-register clause is the operator's read to confirm, flagged here
     tool = host-lifecycle@0.63.0
     recorded = 2026-11-14
+
+[receipt "plan/0003#translate-the-socket-marks-guide"]
+    disposition = done
+    verify = the guide exists in Chinese with the quick-reference table intact and the promise paragraph carrying the same force
+    evidence = doc/socket-marks.zh-cn.md at HEAD: the guide in Chinese with the quick-reference table intact (four columns, same rows) and the promise paragraph carrying the same force (refused at startup, never silent); zero prose warnings
+    tool = host-lifecycle@0.63.0
+    recorded = 2026-11-14
