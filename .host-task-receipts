@@ -241,3 +241,10 @@
     evidence = doc/openwrt.md at a4009ff plus the EN-zh README stub in plan/0003.../openwrt-section.md: deployment from the release assets only (no feed or upstream claims anywhere); asset names match the v1.2.2 release; the procd init script is syntax-checked, mirrors the verified UCI option surface so every documented stanza works on a binary deployment, and follows OpenWrt's documented procd interface; io_uring fallback claim traced to io_uring_recv.cpp
     tool = host-lifecycle@0.63.0
     recorded = 2026-11-13
+
+[receipt "plan/0003#write-the-troubleshooting-guide"]
+    disposition = done
+    verify = every symptom traced to a real incident on record (ratio, MTU blackhole, dscp remarking downstream, admission-refused fatal); symptom-cause-fix form; routed to doc/ and linked from both READMEs
+    evidence = doc/troubleshooting.md at edae3cb: four symptoms in symptom-cause-fix form, each traced -- admission-refused to socket_marks.allium and the marks guide's promise; MTU blackhole to mode 1's documented no-split behavior plus the measured ledger ceilings; dscp remarking to the CI wire-capture proof and the stated first-hop reality; ratio backfiring to the tuning arithmetic and double-spend tension; routed to doc/ and prose-clean
+    tool = host-lifecycle@0.63.0
+    recorded = 2026-11-14
