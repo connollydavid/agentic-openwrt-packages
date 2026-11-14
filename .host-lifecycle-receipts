@@ -403,3 +403,11 @@
     tool = host-lifecycle@0.63.0
     recorded = 2026-11-13
     target = plan/0003-readme-rewrite-front-door
+
+[receipt "ci" "software/udpspeeder-simd/main/ci"]
+    disposition = done
+    evidence = https://github.com/connollydavid/UDPspeeder-simd/actions/runs/43536828766
+    tool = host-lifecycle@0.63.0
+    recorded = 2026-11-14
+    revision = c222d4fd11a3aad9ff4c264fbd0fba0b5b3f9e18
+    conclusion = success
