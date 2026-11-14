@@ -112,7 +112,7 @@ artifacts.
 ### Write the English README {#write-the-english-readme}
 
 - depends: #elaborate-the-simd-kernels, #write-the-applied-sections, #write-the-openwrt-section
-- verify: sections open with claims, each declares one quadrant and keeps its register, the three tensions named and left live, two scars told as stories, a reader can install, stack a VPN at correct MTU, and answer why-this-over-upstream without leaving the page
+- verify: sections open with claims, each declares one quadrant and keeps its register, the three tensions named and left live, a reader can install, stack a VPN at correct MTU, and answer why-this-over-upstream without leaving the page; the two scars as stories were cut by operator ruling 2026-11-14 ("is crap. drop it") after being read on the page, and both READMEs carry no scars section
 
 ### Author the mermaid diagrams {#author-the-mermaid-diagrams}
 
