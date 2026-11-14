@@ -360,3 +360,21 @@
     evidence = a6f064d8e re-offers PR 29901 as one commit at 1.3.1; the matrix at 815c3c433 caught the stale install name (speederv2_cross predates the rename), fixed to udpspeeder-simd_cross; mirror hash unchanged, method regression-verified on v1.0.0 and v1.1.0
     tool = host-lifecycle@0.63.0
     recorded = 2026-11-14
+
+[receipt "plan/0004#advance-the-feed-branches"]
+    disposition = done
+    verify = `grep -qx 'PKG_VERSION:=1.3.1' software/packages/feed-main/net/udpspeeder-simd-snapshot/Makefile software/packages/feed-24.10/net/udpspeeder-simd-snapshot/Makefile software/packages/feed-25.12/net/udpspeeder-simd-snapshot/Makefile && grep -qx 'PKG_MIRROR_HASH:=a8284ef9436663a82805051ca0bf2ab5fb09bd95cebc59b4877555c860ea65ab' software/packages/feed-main/net/udpspeeder-simd-snapshot/Makefile software/packages/feed-24.10/net/udpspeeder-simd-snapshot/Makefile software/packages/feed-25.12/net/udpspeeder-simd-snapshot/Makefile`
+    inputs = software/packages/feed-main/net/udpspeeder-simd-snapshot/Makefile, software/packages/feed-24.10/net/udpspeeder-simd-snapshot/Makefile, software/packages/feed-25.12/net/udpspeeder-simd-snapshot/Makefile
+    digest = a6fe9487cfb14c86bf42fd4a52f949345681a8c1,a6fe9487cfb14c86bf42fd4a52f949345681a8c1,a6fe9487cfb14c86bf42fd4a52f949345681a8c1
+    evidence = three separate branch advances: feed-main 9c038f6c1, feed-24.10 2bb2e946d, feed-25.12 85e608cd3; release lines carry the fwmark/dscp wiring cherry-picked from 7790692da; snapshot mirror hash a8284ef is the same archive as the MR's (PKG_NAME unchanged)
+    tool = host-lifecycle@0.63.0
+    recorded = 2026-11-14
+
+[receipt "plan/0004#re-pin-the-host"]
+    disposition = done
+    verify = `.host-tools/bin/host-lifecycle software --check .`
+    inputs = .host-software
+    digest = bcd4a1b1b6eba27bbe7b6a1980bca4285e5ffe7c
+    evidence = .host-software pins the component at 166aada (tag v1.3.1) and every worktree line at its pushed head, including the three feed branches; software --check green after this re-record
+    tool = host-lifecycle@0.63.0
+    recorded = 2026-11-14
