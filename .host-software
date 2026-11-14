@@ -18,7 +18,7 @@
 # claimed yet (add a recipe + repro-exempt, or a real artifact, before shipping).
 [software "udpspeeder-simd"]
     url    = https://github.com/connollydavid/UDPspeeder-simd.git
-    pin    = 1ef50b2867d09c191ead30b90ad89994db8d42aa
+    pin    = 166aada2c69a83428cd020b8eb400e704e40ab08
     branch = main
     # Version-derived artifact: the man page embeds the banner of the binary
     # it documents, so every version bump regenerates it (make man) in the
@@ -59,7 +59,7 @@
     # The udpspeeder-simd package offered to openwrt/packages in PR 29901, as
     # its own worktree: the offer advances to each release while master stays
     # at its pin.
-    worktree = udpspeeder-simd e75936484a2865e840cf376c3137907ab8ebbaf0
+    worktree = udpspeeder-simd 815c3c4333867e0878d0d3798902746517eb028c
     worktree = ci-flashprog d79c08094dfae19abfd44afb5157b95d8d4f6042
 
 # OpenWrt upstream (the buildroot). Embedded as a source pin on its canonical branch
