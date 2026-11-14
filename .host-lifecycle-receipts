@@ -424,3 +424,9 @@
     tool = host-lifecycle@0.63.0
     recorded = 2026-11-14
     target = plan/0003-readme-rewrite-front-door
+
+[receipt "release" "udpspeeder-simd"]
+    disposition = skip
+    reason = call/0006
+    tool = host-lifecycle@0.63.0
+    recorded = 2026-11-14
