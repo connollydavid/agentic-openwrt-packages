@@ -5059,6 +5059,30 @@ is bounded only by the VPN interface, and the wire ceiling (1313 WG,
 1254 OVPN, measured under filled groups) never approaches 1492. OpenVPN's
 TCP transport is refused at the UDP listener -- the tunnel's nature,
 measured, and the guide now says so.</p>
+<h2 id="2026-11-14--the-old-udpspeeder-fork-is-archived-fronted-by-a-pointer-branch"><a class="header" href="#2026-11-14--the-old-udpspeeder-fork-is-archived-fronted-by-a-pointer-branch">2026-11-14 — the old UDPspeeder fork is archived, fronted by a pointer branch</a></h2>
+<ul>
+<li><code>slartibardfast/UDPspeeder</code> (the fork <code>connollydavid/UDPspeeder-simd</code> was itself
+forked from) is archived: <code>archived=true</code>, and read-only is enforced rather than
+assumed — an owner-credential contents write returns 403 "Repository was archived
+so is read-only."</li>
+<li>The fork had no <code>main</code>: its default was <code>branch_libev</code>. So <code>main</code> was created as a
+fresh root commit (<code>1524f57</code>, zero parents) holding only a README pointing at the
+successor repo and the published feed, then set as default. History is untouched
+and all seven branches stay browsable, including the unmerged experiment lines.</li>
+<li>The ordering is the whole trick: push the pointer first, archive second. An
+archived repo refuses every write, so a pointer left until after the archive
+cannot be added without unarchiving.</li>
+<li>Archiving a fork does not unpublish its GitHub Pages site. The optimization
+results page stays live (HTTP 200, build status <code>built</code>), and its moved banner
+predates this change, so it was left as authored; editing it now would take an
+unarchive.</li>
+<li>Constraint found: <code>gh auth switch -u slartibardfast</code> did not hold. An hour later
+the active account was <code>connollydavid</code> again and the archive mutation failed with a
+permissions error naming that account. Check the actor with <code>gh api user -q .login</code>
+inside the same command as any owner-only mutation. A probe run under the wrong
+account proves nothing: an early read-only test returned 404 (no write permission)
+where the true archived answer is 403.</li>
+</ul>
 
                     </main>
 
