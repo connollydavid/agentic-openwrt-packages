@@ -248,3 +248,10 @@
     evidence = doc/troubleshooting.md at edae3cb: four symptoms in symptom-cause-fix form, each traced -- admission-refused to socket_marks.allium and the marks guide's promise; MTU blackhole to mode 1's documented no-split behavior plus the measured ledger ceilings; dscp remarking to the CI wire-capture proof and the stated first-hop reality; ratio backfiring to the tuning arithmetic and double-spend tension; routed to doc/ and prose-clean
     tool = host-lifecycle@0.63.0
     recorded = 2026-11-14
+
+[receipt "plan/0003#write-the-english-readme"]
+    disposition = done
+    verify = sections open with claims, each declares one quadrant and keeps its register, the three tensions named and left live, two scars told as stories, a reader can install, stack a VPN at correct MTU, and answer why-this-over-upstream without leaving the page
+    evidence = README.md at c04daf8: every section opens with a claim and keeps its register, routing what it does not own; the three tensions named and left live (double-spend in the VPN section, DSCP-past-your-hop and ratio-vs-capacity in tuning and troubleshooting); two scars as stories (SSSE3 SIGILL, the pretending Windows socket); install (quick start + curl door), VPN stacking at the measured idiomatic 1500, and why-this-over-upstream all answerable on the page; three mermaid blocks render (mermaid-cli 11.4.2); zero prose warnings; no upstream images; zh door linked for the 1:1 task
+    tool = host-lifecycle@0.63.0
+    recorded = 2026-11-14
