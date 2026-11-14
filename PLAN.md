@@ -22,3 +22,8 @@ Worked in this order:
   Rewrites both READMEs as the front door to the fork as its own software --
   new diagrams, full credit to upstream UDPspeeder, English and Chinese kept
   one-to-one -- with every claim held to evidence.
+- [plan/0004-patch-release-and-feed-refresh](plan/0004-patch-release-and-feed-refresh/README.md).
+  Ships v1.3.1 so the release page carries the persona-reviewed front door,
+  steadies the READMEs' checksum example against drift, and moves the
+  openwrt/packages udpspeeder-simd MR from 1.0.0 to 1.3.1 with a recomputed
+  mirror hash; the operator's reply in that thread follows the update.
