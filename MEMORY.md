@@ -1528,3 +1528,27 @@ is bounded only by the VPN interface, and the wire ceiling (1313 WG,
 1254 OVPN, measured under filled groups) never approaches 1492. OpenVPN's
 TCP transport is refused at the UDP listener -- the tunnel's nature,
 measured, and the guide now says so.
+
+## 2026-11-14 — the old UDPspeeder fork is archived, fronted by a pointer branch
+
+- `slartibardfast/UDPspeeder` (the fork `connollydavid/UDPspeeder-simd` was itself
+  forked from) is archived: `archived=true`, and read-only is enforced rather than
+  assumed — an owner-credential contents write returns 403 "Repository was archived
+  so is read-only."
+- The fork had no `main`: its default was `branch_libev`. So `main` was created as a
+  fresh root commit (`1524f57`, zero parents) holding only a README pointing at the
+  successor repo and the published feed, then set as default. History is untouched
+  and all seven branches stay browsable, including the unmerged experiment lines.
+- The ordering is the whole trick: push the pointer first, archive second. An
+  archived repo refuses every write, so a pointer left until after the archive
+  cannot be added without unarchiving.
+- Archiving a fork does not unpublish its GitHub Pages site. The optimization
+  results page stays live (HTTP 200, build status `built`), and its moved banner
+  predates this change, so it was left as authored; editing it now would take an
+  unarchive.
+- Constraint found: `gh auth switch -u slartibardfast` did not hold. An hour later
+  the active account was `connollydavid` again and the archive mutation failed with a
+  permissions error naming that account. Check the actor with `gh api user -q .login`
+  inside the same command as any owner-only mutation. A probe run under the wrong
+  account proves nothing: an early read-only test returned 404 (no write permission)
+  where the true archived answer is 403.
