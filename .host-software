@@ -18,7 +18,7 @@
 # claimed yet (add a recipe + repro-exempt, or a real artifact, before shipping).
 [software "udpspeeder-simd"]
     url    = https://github.com/connollydavid/UDPspeeder-simd.git
-    pin    = 166aada2c69a83428cd020b8eb400e704e40ab08
+    pin    = dd6ae0f95b28c4804f0c68f1fc169d819a79dd39
     branch = main
     # Version-derived artifact: the man page embeds the banner of the binary
     # it documents, so every version bump regenerates it (make man) in the
@@ -49,9 +49,9 @@
     # utils/flashprog-snapshot, which take names of their own rather than the
     # ones OpenWrt ships or is being asked to ship. It is published at
     # https://connollydavid.github.io/UDPspeeder-simd/feed and rebuilt weekly.
-    worktree = feed-25.12 7a68cc34a3b86dce30f145f9d8a902f659c1044a
-    worktree = feed-24.10 b9cbb52af83a70c1a7463c4bf18010dbdc824f4d
-    worktree = feed-main 5531f09bb8060e0b7bb53cdf36653d7f68823f92
+    worktree = feed-25.12 1f5c743e881c5ead1927c016e540dcb845ec21dc
+    worktree = feed-24.10 206509b75611386711191f730715658c3f17f63b
+    worktree = feed-main 5122fb211fafcd431cea71331783fd65dbff7ecb
     # The flashprog package offered to openwrt/packages in issue 29591, and the
     # branch carrying the matrix that verifies it. The latter is ours alone and
     # is never offered upstream.
@@ -59,7 +59,7 @@
     # The udpspeeder-simd package offered to openwrt/packages in PR 29901, as
     # its own worktree: the offer advances to each release while master stays
     # at its pin.
-    worktree = udpspeeder-simd a6f064d8e5e12d0c40e9be19ee17d501734900c7
+    worktree = udpspeeder-simd 1e4ccb1c4f9ace48a75d2d4f9c8f73e1b95fb440
     worktree = ci-flashprog d79c08094dfae19abfd44afb5157b95d8d4f6042
 
 # OpenWrt upstream (the buildroot). Embedded as a source pin on its canonical branch

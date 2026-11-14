@@ -387,3 +387,37 @@
     evidence = feed rebuild 43631796284 failed every arch on the same stale install name (speederv2_cross predates the rename); each branch carries its own fix commit (feed-main 5531f09bb, feed-24.10 b9cbb52af, feed-25.12 7a68cc34a) and the rebuild was re-dispatched
     tool = host-lifecycle@0.63.0
     recorded = 2026-11-14
+
+[receipt "plan/0004#harden-the-stack"]
+    disposition = done
+    verify = `gh release view v1.3.2 --repo connollydavid/UDPspeeder-simd --json assets --jq '.assets | length' | grep -qx 10 && gh run view "$(gh run list --repo connollydavid/UDPspeeder-simd --event push --branch main --workflow ci.yml --limit 1 --json databaseId --jq '.[0].databaseId')" --repo connollydavid/UDPspeeder-simd --json conclusion --jq .conclusion | grep -qx success`
+    evidence = v1.3.2 at dd6ae0f; CI 43638474736 green with the new GNU_STACK assertion on every arch; tag run 43639053731 published ten assets
+    tool = host-lifecycle@0.63.0
+    recorded = 2026-11-14
+
+[receipt "plan/0004#carry-the-feed-mr"]
+    disposition = done
+    verify = `bash tools/mirror-hash.sh https://github.com/connollydavid/UDPspeeder-simd.git v1.3.1 | grep -qx "$(sed -n 's/^PKG_MIRROR_HASH:=\([0-9a-f]*\)$/\1/p' software/packages/udpspeeder-simd/net/udpspeeder-simd/Makefile)"`
+    inputs = software/packages/udpspeeder-simd/net/udpspeeder-simd/Makefile
+    digest = e2e15dd262ea2b23174d3c8393e2b9dab52c22e2
+    evidence = 1e4ccb1c4 re-offers PR 29901 as one commit at 1.3.2, with the fwmark/dscp UCI wiring byte-identical to the snapshot's; mirror hash ff552485 recomputed by tools/mirror-hash.sh
+    tool = host-lifecycle@0.63.0
+    recorded = 2026-11-14
+
+[receipt "plan/0004#advance-the-feed-branches"]
+    disposition = done
+    verify = `grep -qx 'PKG_VERSION:=1.3.2' software/packages/feed-main/net/udpspeeder-simd-snapshot/Makefile software/packages/feed-24.10/net/udpspeeder-simd-snapshot/Makefile software/packages/feed-25.12/net/udpspeeder-simd-snapshot/Makefile && grep -qx 'PKG_MIRROR_HASH:=ff5524856dea96261cb6f4e6542dfde0bed82feca95ffb21067264f897d72560' software/packages/feed-main/net/udpspeeder-simd-snapshot/Makefile software/packages/feed-24.10/net/udpspeeder-simd-snapshot/Makefile software/packages/feed-25.12/net/udpspeeder-simd-snapshot/Makefile`
+    inputs = software/packages/feed-main/net/udpspeeder-simd-snapshot/Makefile, software/packages/feed-24.10/net/udpspeeder-simd-snapshot/Makefile, software/packages/feed-25.12/net/udpspeeder-simd-snapshot/Makefile
+    digest = 28acd8eb51a6cd66bb9c3429965b474aaa876c38,28acd8eb51a6cd66bb9c3429965b474aaa876c38,28acd8eb51a6cd66bb9c3429965b474aaa876c38
+    evidence = feed-main 5122fb211, feed-24.10 206509b75, feed-25.12 1f5c743e8, each its own 1.3.2 commit with the recomputed hash
+    tool = host-lifecycle@0.63.0
+    recorded = 2026-11-14
+
+[receipt "plan/0004#re-pin-the-host"]
+    disposition = done
+    verify = `.host-tools/bin/host-lifecycle software --check .`
+    inputs = .host-software
+    digest = 7a71de41a5d90f6914afbe85e7448e8bb7ffe549
+    evidence = .host-software pins component dd6ae0f and every worktree line at its pushed head (offer 1e4ccb1c4, three feed branches at 1.3.2)
+    tool = host-lifecycle@0.63.0
+    recorded = 2026-11-14

@@ -90,7 +90,7 @@ and v1.3.2 carries the fix with the man regeneration it obliges.
 ### Advance the feed branches {#advance-the-feed-branches}
 
 - depends: #carry-the-feed-mr
-- verify: `grep -qx 'PKG_VERSION:=1.3.1' software/packages/feed-main/net/udpspeeder-simd-snapshot/Makefile software/packages/feed-24.10/net/udpspeeder-simd-snapshot/Makefile software/packages/feed-25.12/net/udpspeeder-simd-snapshot/Makefile && grep -qx 'PKG_MIRROR_HASH:=a8284ef9436663a82805051ca0bf2ab5fb09bd95cebc59b4877555c860ea65ab' software/packages/feed-main/net/udpspeeder-simd-snapshot/Makefile software/packages/feed-24.10/net/udpspeeder-simd-snapshot/Makefile software/packages/feed-25.12/net/udpspeeder-simd-snapshot/Makefile`
+- verify: `grep -qx 'PKG_VERSION:=1.3.2' software/packages/feed-main/net/udpspeeder-simd-snapshot/Makefile software/packages/feed-24.10/net/udpspeeder-simd-snapshot/Makefile software/packages/feed-25.12/net/udpspeeder-simd-snapshot/Makefile && grep -qx 'PKG_MIRROR_HASH:=ff5524856dea96261cb6f4e6542dfde0bed82feca95ffb21067264f897d72560' software/packages/feed-main/net/udpspeeder-simd-snapshot/Makefile software/packages/feed-24.10/net/udpspeeder-simd-snapshot/Makefile software/packages/feed-25.12/net/udpspeeder-simd-snapshot/Makefile`
 - inputs: software/packages/feed-main/net/udpspeeder-simd-snapshot/Makefile, software/packages/feed-24.10/net/udpspeeder-simd-snapshot/Makefile, software/packages/feed-25.12/net/udpspeeder-simd-snapshot/Makefile
 
 The published feed is the delivery channel until the MR merges; its three
