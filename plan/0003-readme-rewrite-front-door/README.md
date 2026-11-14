@@ -1,5 +1,5 @@
 # README rewrite: the front door for our own software
-**Status:**; active goal since 2026-11-13
+**Status:**; complete 2026-11-14, acceptance owed
 
 - Status: planned
 - Persona: Diego (primary reader -- installs, configures, watches it run);

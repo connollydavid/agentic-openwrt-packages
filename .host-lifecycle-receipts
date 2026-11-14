@@ -411,3 +411,10 @@
     recorded = 2026-11-14
     revision = c222d4fd11a3aad9ff4c264fbd0fba0b5b3f9e18
     conclusion = success
+
+[receipt "goal" "complete"]
+    disposition = done
+    tool = host-lifecycle@0.63.0
+    recorded = 2026-11-14
+    conclusion = closed by the composed gates: plan-row, tasks, software --check, ci, tree
+    target = plan/0003-readme-rewrite-front-door
