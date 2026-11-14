@@ -308,3 +308,12 @@
     evidence = README.md at c222d4f: sections open with claims, registers kept, the tensions live, install and VPN-stacking and why-this-fork answerable on the page; the scars passage cut by operator ruling 2026-11-14 and the page whipped to zero warnings with all measured numbers, tables and diagrams intact; zh twin 1:1 at thirteen headings
     tool = host-lifecycle@0.63.0
     recorded = 2026-11-14
+
+[receipt "plan/0003#inventory-the-old-readmes-against-reality"]
+    disposition = done
+    verify = every claim in the current READMEs classified as still-true, stale, or fork-unique; the stale list names what the rewrite must replace
+    inputs = software/udpspeeder-simd/main/README.md, software/udpspeeder-simd/main/doc/README.zh-cn.md
+    digest = 503c09679bd49b8aab1b5db1842c0ed343028f1c,0b4d00ad19fde71c9d23d76dd0204816dae228dd
+    evidence = plan/0003-readme-rewrite-front-door/inventory.md: every claim in README.md and doc/README.zh-cn.md classified still-true/stale/fork-unique; the stale digest names the eight replacements
+    tool = host-lifecycle@0.63.0
+    recorded = 2026-11-14
