@@ -75,6 +75,20 @@ method (git archive, sorted tar with uid/gid/mode normalization and the
 commit-time mtime, zstd ultra-20) behind a small `tools/mirror-hash.sh` so
 the check re-runs, push the branch, and let the PR update itself.
 
+### Advance the feed branches {#advance-the-feed-branches}
+
+- depends: #carry-the-feed-mr
+- verify: `grep -qx 'PKG_VERSION:=1.3.1' software/packages/feed-main/net/udpspeeder-simd-snapshot/Makefile software/packages/feed-24.10/net/udpspeeder-simd-snapshot/Makefile software/packages/feed-25.12/net/udpspeeder-simd-snapshot/Makefile && grep -qx 'PKG_MIRROR_HASH:=a8284ef9436663a82805051ca0bf2ab5fb09bd95cebc59b4877555c860ea65ab' software/packages/feed-main/net/udpspeeder-simd-snapshot/Makefile software/packages/feed-24.10/net/udpspeeder-simd-snapshot/Makefile software/packages/feed-25.12/net/udpspeeder-simd-snapshot/Makefile`
+- inputs: software/packages/feed-main/net/udpspeeder-simd-snapshot/Makefile, software/packages/feed-24.10/net/udpspeeder-simd-snapshot/Makefile, software/packages/feed-25.12/net/udpspeeder-simd-snapshot/Makefile
+
+The published feed is the delivery channel until the MR merges; its three
+release-line branches each carry the snapshot package at 1.1.0. Each branch
+takes its own version-bump commit with the recomputed mirror hash -- separate
+branches, separate commits -- and feed-main's fwmark-and-dscp UCI wiring is
+carried to the two release lines so 1.3.1 ships there with the options its
+init script already maps. The recipe pins follow, then a dispatch rebuilds
+the published feed.
+
 ### The operator reply in the 29901 thread {#the-operator-reply-in-the-29901-thread}
 
 - depends: #carry-the-feed-mr
