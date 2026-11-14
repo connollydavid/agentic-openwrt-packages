@@ -1552,3 +1552,29 @@ measured, and the guide now says so.
   inside the same command as any owner-only mutation. A probe run under the wrong
   account proves nothing: an early read-only test returned 404 (no write permission)
   where the true archived answer is 403.
+
+## 2026-11-14 — the router's model names are aliases; the catalog is not at /v1/models
+
+- The `api.d07yx58.net` router (LiteLLM 1.106.2 behind nginx) answers `/v1/models`
+  with an empty list, so the standard discovery surface shows nothing. The real
+  catalog is `GET /v1/model/info`, and any single request reveals its actual backend
+  in the `x-litellm-model-name` response header. Ask the header, not the name.
+- Several of the catalog's aliases are spellings of one backend, so a name is not the
+  thing a request selects. Unknown names are not refused either: a `*` entry routes
+  them to `openai/qwen3.8-flash-next`, which is why L measured `__probe__` completing
+  with HTTP 200 and echoing the nonsense name back. A 200 therefore does not prove a
+  model exists.
+- The correction worth keeping: "same backend, different name" holds within each
+  alias family, not across all of them. Measured, there are two healthy backends, not
+  one: `openai/qwen3.8-27b` at 192.168.21.44 (262144 in / 32768 out, reached by
+  `qwen3.8-27b`, `qwen3.6-27b`, `qwen-3.8-27b`, `qwen3.827b`, `qwen-3.827b`) and
+  `openai/qwen3.8-flash-next` (500000 in / 524288 out, reached by `qwen-healed` and by
+  the `qwen*` and `*` wildcards). Declaring only the flash-next family therefore drops
+  reachability of the 27b backend, which is a real choice and not a renaming.
+- Also measured, all on the operator's account: the `qwen3.5-4b` and `qwen3.5-4b-vl`
+  upstream at 192.168.21.57 returns HTTP 500, `deepseek-v4-flash` returns 410 retired,
+  and `glm-5.2`, `glm-5.3`, `glm-5.3-flash`, `deepseek-v4.1-flash` return 429, which
+  proves presence only, never health.
+- Catalog hygiene: roughly 270 aliases of the form `openai/qwen3.5-4b<gpt-name>` look
+  like a generation bug that concatenated the 4b alias onto a list of OpenAI model
+  names. Excluded from every conclusion above.
