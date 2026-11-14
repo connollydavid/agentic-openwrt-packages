@@ -18,7 +18,7 @@
 # claimed yet (add a recipe + repro-exempt, or a real artifact, before shipping).
 [software "udpspeeder-simd"]
     url    = https://github.com/connollydavid/UDPspeeder-simd.git
-    pin    = e12d17b6ea82f899a4977987ca279712a517064b
+    pin    = 3aee5a97a49f467e83e7bb98214109594efdee75
     branch = main
     # Version-derived artifact: the man page embeds the banner of the binary
     # it documents, so every version bump regenerates it (make man) in the
